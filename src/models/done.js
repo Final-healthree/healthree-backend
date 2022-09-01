@@ -1,25 +1,29 @@
 import Sequelize from "sequelize";
 
-export default class User extends Sequelize.Model {
+export default class Done extends Sequelize.Model {
     static init(sequelize) {
         return super.init(
             {
-                user_id: {
+                done_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
                     allowNull: false,
                 },
-                kakao_id: {
+                video: {
+                    type: Sequelize.STRING(300),
+                    allowNull: false,
+                },
+                goal: {
                     type: Sequelize.STRING(100),
                     allowNull: false,
                 },
-                nickname: {
-                    type: Sequelize.STRING(100),
+                date_one: {
+                    type: Sequelize.DATE(),
                     allowNull: false,
                 },
-                profile_image: {
-                    type: Sequelize.STRING(100),
-                    allowNull: true,
+                is_social: {
+                    type: Sequelize.BOOLEAN(),
+                    allowNull: false,
                 },
             },
             {
@@ -27,8 +31,8 @@ export default class User extends Sequelize.Model {
                 timestamps: true,
                 paranoid: false,
                 underscored: false,
-                modelName: "User",
-                tableName: "user",
+                modelName: "Done",
+                tableName: "done",
                 charset: "utf8",
                 collate: "utf8_general_ci",
             },
@@ -36,9 +40,10 @@ export default class User extends Sequelize.Model {
     }
     // Post와 Comment 외래키로 넘겨주기 때문에 hasMany설정
     static associate(db) {
-        db.User.hasOne(db.Ing, { foreignKey: "user_id", sourceKey: "user_id" });
-        db.User.hasOne(db.Lose, { foreignKey: "user_id", sourceKey: "user_id" });
-        db.User.hasOne(db.Done, { foreignKey: "user_id", sourceKey: "user_id" });
-        db.User.belongsToMany(db.Post, { through: "Like" });
+        db.Done.belongsTo(db.User, {
+            foreignKey: "user_id",
+            targetKey: "user_id",
+        });
+        db.Done.hasOne(db.Post, { foreignKey: "done_id", sourceKey: "done_id" });
     }
 }

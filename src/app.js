@@ -9,12 +9,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("port", process.env.PORT || 3000);
 
-import { sequelize } from "./models/index.js";
-sequelize
-    .sync({ force: false })
-    .then(() => console.log("db connect"))
-    .catch((err) => console.error(err));
-
 // cors는 나중에 프론트엔드 서버 배포 되면 white list 설정
 app.use(
     cors({
