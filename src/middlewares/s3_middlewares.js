@@ -29,3 +29,28 @@ export const video_upload = multer({
     },
     storage: s3_videoUploader,
 });
+
+export const merge_videos = (video_one, video_two, video_three, kakao_id) => {
+    try {
+        const concatMP4FileTmpPath = "./tmp";
+        const concatMP4FilePath = `./combine/${kakao_id}.mp4`; //합쳐질 파일 위치,이름
+        const targetFiles = [video_one, video_two, video_three];
+        let mergedVideo = fluent_ffmpeg();
+
+        targetFiles.forEach((element) => {
+            //목록 추가하기
+            mergedVideo = mergedVideo.addInput(element);
+        });
+
+        mergedVideo
+            .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath) //파일 1개로 만들기
+            .on("error", function (error) {
+                console.log(error);
+            })
+            .on("end", function () {
+                console.log("finished");
+            });
+    } catch (error) {
+        return { error };
+    }
+};

@@ -46,9 +46,6 @@ export const video_register = async (user_id, day, video) => {
             );
             return true;
         }
-        if (Number(day) === 3) {
-            return;
-        }
     } catch (error) {
         return { error };
     }

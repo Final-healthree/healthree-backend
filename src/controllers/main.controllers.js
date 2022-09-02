@@ -1,11 +1,10 @@
 import * as main_services from "../services/main.service.js";
-import * as main_validation from "../validation/main.validation.js";
 
 export const main_register = async (req, res) => {
     // 이미 ing가 등록되어 있을 시 에러 처리 해줄 것
     try {
         // const { user_id } = res.locals;
-        const user_id = 1;
+        const user_id = 3;
         const { date_one, date_two, date_three, goal } = req.body;
 
         await main_services.main_register(user_id, date_one, date_two, date_three, goal);
@@ -34,15 +33,24 @@ export const find_goal_day = async (req, res) => {
 
 export const video_register = async (req, res) => {
     try {
+        // const { user_id } = res.locals;
         const user_id = 1;
         const { day } = req.params;
         const video = req.file.location;
 
-        const result = main_validation(user_id);
-        if (!result) {
-            return res
-                .status(400)
-                .json({ success: false, message: `이미 동영상이 등록되어 있습니다.` });
+        if (Number(day) === 3) {
+            const merged_video = await main_services.video_register(user_id, day, video);
+
+            if (merged_video !== true) {
+                return res.status(200).json({
+                    success: true,
+                    message: "동영상 합치기 완료",
+                });
+            } else {
+                return res
+                    .status(400)
+                    .json({ success: false, message: `catch::: ${merged_video.error}` });
+            }
         }
 
         await main_services.video_register(user_id, day, video);
