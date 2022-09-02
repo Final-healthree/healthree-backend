@@ -4,7 +4,7 @@ export const main_register = async (req, res) => {
     // 이미 ing가 등록되어 있을 시 에러 처리 해줄 것
     try {
         // const { user_id } = res.locals;
-        const user_id = 3;
+        const user_id = 1;
         const { date_one, date_two, date_three, goal } = req.body;
 
         await main_services.main_register(user_id, date_one, date_two, date_three, goal);

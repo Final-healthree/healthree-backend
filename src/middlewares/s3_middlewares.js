@@ -3,6 +3,7 @@ import multerS3 from "multer-s3";
 import aws from "aws-sdk";
 import dotenv from "dotenv";
 import fluent_ffmpeg from "fluent-ffmpeg";
+import path from "path";
 
 dotenv.config();
 
@@ -33,8 +34,10 @@ export const video_upload = multer({
 export const merge_videos = (video_one, video_two, video_three, kakao_id) => {
     try {
         const concatMP4FileTmpPath = "./tmp";
-        const concatMP4FilePath = `./combine/${kakao_id}.mp4`; //합쳐질 파일 위치,이름
+        const concatMP4FilePath = "../combine/output.mp4"; //합쳐질 파일 위치,이름
         const targetFiles = [video_one, video_two, video_three];
+        console.log(typeof video_one, typeof video_two, typeof video_three);
+
         let mergedVideo = fluent_ffmpeg();
 
         targetFiles.forEach((element) => {
