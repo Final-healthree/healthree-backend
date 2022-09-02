@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
 import router from "./routes/index.js";
+import morgan from "morgan";
 
 import { sequelize } from "./models/index.js";
 const app = express();
 
+app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
