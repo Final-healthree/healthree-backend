@@ -2,9 +2,12 @@ import express from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 import morgan from "morgan";
-import { sequelize } from "./models/index.js";
 import dotenv from "dotenv";
 import passport from "passport";
+import session from "express-session";
+// import passportConfig from "./passport/index.js";
+
+import { sequelize } from "./models/index.js";
 
 const app = express();
 
@@ -13,6 +16,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.set("port", process.env.PORT || 3000);
+
+dotenv.config();
+// passportConfig();
 
 sequelize;
 console.log("db 연결", sequelize.config.port);
