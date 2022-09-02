@@ -4,6 +4,16 @@ export const main_register = async (user_id, date_one, date_two, date_three, goa
     try {
         await main_repositories.main_register(user_id, date_one, date_two, date_three, goal);
     } catch (error) {
-        console.log(error);
+        return { error };
     }
 };
+
+export const find_goal_day = async (user_id, day) => {
+    try {
+        return await main_repositories.find_goal_day(user_id, day);
+    } catch (error) {
+        return { error };
+    }
+};
+
+export const video_register = async (req, res) => {};
