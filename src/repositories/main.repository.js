@@ -26,4 +26,30 @@ export const find_goal_day = async (user_id, day) => {
     }
 };
 
-export const video_register = async (req, res) => {};
+export const video_register = async (user_id, day, video) => {
+    try {
+        if (Number(day) === 1) {
+            await Ing.update(
+                {
+                    video_one: video,
+                },
+                { where: { user_id } },
+            );
+            return true;
+        }
+        if (Number(day) === 2) {
+            await Ing.update(
+                {
+                    video_two: video,
+                },
+                { where: { user_id } },
+            );
+            return true;
+        }
+        if (Number(day) === 3) {
+            return;
+        }
+    } catch (error) {
+        return { error };
+    }
+};

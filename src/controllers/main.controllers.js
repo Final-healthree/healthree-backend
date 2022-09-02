@@ -1,4 +1,5 @@
 import * as main_services from "../services/main.service.js";
+import * as main_validation from "../validation/main.validation.js";
 
 export const main_register = async (req, res) => {
     // 이미 ing가 등록되어 있을 시 에러 처리 해줄 것
@@ -31,4 +32,26 @@ export const find_goal_day = async (req, res) => {
     }
 };
 
-export const video_register = async (req, res) => {};
+export const video_register = async (req, res) => {
+    try {
+        const user_id = 1;
+        const { day } = req.params;
+        const video = req.file.location;
+
+        const result = main_validation(user_id);
+        if (!result) {
+            return res
+                .status(400)
+                .json({ success: false, message: `이미 동영상이 등록되어 있습니다.` });
+        }
+
+        await main_services.video_register(user_id, day, video);
+
+        res.status(200).json({
+            success: true,
+            message: "동영상 업로드 완료",
+        });
+    } catch (error) {
+        return res.status(400).json({ success: false, message: `catch::: ${error}` });
+    }
+};
