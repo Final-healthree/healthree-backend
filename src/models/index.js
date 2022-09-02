@@ -3,10 +3,9 @@ export * from "./sequelize.js";
 import sequelize from "./sequelize.js";
 
 // 유저, 포스트, 댓글, 좋아요 임포트
-
 import User from "./user.js";
-import Ing from "./Ing.js";
-import Lose from "./Lose.js";
+import Ing from "./ing.js";
+import Lose from "./lose.js";
 import Done from "./done.js";
 import Post from "./post.js";
 import Comment from "./comment.js";
@@ -21,7 +20,6 @@ db.Lose = Lose;
 db.Done = Done;
 db.Post = Post;
 db.Comment = Comment;
-// db.Like = Like;
 
 // init한 부분 설정
 User.init(sequelize);
@@ -30,7 +28,6 @@ Lose.init(sequelize);
 Done.init(sequelize);
 Post.init(sequelize);
 Comment.init(sequelize);
-// Like.init(sequelize);
 
 // 외래키 관계부분
 User.associate(db);
@@ -39,6 +36,5 @@ Lose.associate(db);
 Done.associate(db);
 Post.associate(db);
 Comment.associate(db);
-// Like.associate(db);
 
 export { db };

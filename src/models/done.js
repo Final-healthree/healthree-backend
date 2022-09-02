@@ -8,6 +8,7 @@ export default class Done extends Sequelize.Model {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
                     allowNull: false,
+                    autoIncrement: true,
                 },
                 video: {
                     type: Sequelize.STRING(300),

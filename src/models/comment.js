@@ -8,6 +8,7 @@ export default class Comment extends Sequelize.Model {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
                     allowNull: false,
+                    autoIncrement: true,
                 },
                 comment: {
                     type: Sequelize.STRING(100),

@@ -8,6 +8,7 @@ export default class User extends Sequelize.Model {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
                     allowNull: false,
+                    autoIncrement: true,
                 },
                 kakao_id: {
                     type: Sequelize.STRING(100),

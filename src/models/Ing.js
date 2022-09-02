@@ -8,6 +8,7 @@ export default class Ing extends Sequelize.Model {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
                     allowNull: false,
+                    autoIncrement: true,
                 },
                 goal: {
                     type: Sequelize.STRING(100),

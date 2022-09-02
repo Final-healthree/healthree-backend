@@ -8,6 +8,7 @@ export default class Lose extends Sequelize.Model {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
                     allowNull: false,
+                    autoIncrement: true,
                 },
                 data_one: {
                     type: Sequelize.DATE(),
