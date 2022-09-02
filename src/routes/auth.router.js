@@ -8,10 +8,11 @@ router.get("/kakao", passport.authenticate("kakao"));
 router.get(
     "/kakao/callback",
     passport.authenticate("kakao", {
-        failureRedirect: "/", // "/main" 프론트와 연결
+        failureRedirect: "/",
     }),
     (req, res) => {
-        res.redirect("/");
+        console.log("유저 나와", req.user);
+        res.redirect("/api"); // "/main(프론트 서버)" 프론트와 연결
     },
 );
 
