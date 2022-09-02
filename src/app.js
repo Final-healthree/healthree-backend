@@ -2,8 +2,10 @@ import express from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 import morgan from "morgan";
-
 import { sequelize } from "./models/index.js";
+import dotenv from "dotenv";
+import passport from "passport";
+
 const app = express();
 
 app.use(morgan("dev"));
