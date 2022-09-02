@@ -7,6 +7,7 @@ export default class User extends Sequelize.Model {
                 user_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
+                    unique: true /* unique 설정하지 않을 시 "unique violation" 에러 발생 */,
                     allowNull: false,
                     autoIncrement: true,
                 },

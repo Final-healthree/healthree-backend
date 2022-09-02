@@ -7,6 +7,7 @@ export default class Post extends Sequelize.Model {
                 post_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
+                    unique: true,
                     allowNull: false,
                     autoIncrement: true,
                 },
