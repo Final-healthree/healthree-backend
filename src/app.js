@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import router from "./routes/index.js";
 
+import { sequelize } from "./models/index.js";
 const app = express();
 
 app.use(express.json());
@@ -9,13 +10,16 @@ app.use(express.urlencoded({ extended: true }));
 
 app.set("port", process.env.PORT || 3000);
 
-// cors는 나중에 프론트엔드 서버 배포 되면 white list 설정
+sequelize;
+console.log("db 연결", sequelize.config.port);
+
 app.use(
     cors({
         origin: true,
         credentials: true,
     }),
 );
+// cors는 나중에 프론트엔드 서버 배포 되면 white list 설정
 
 app.use("/api", router);
 

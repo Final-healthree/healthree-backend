@@ -3,6 +3,6 @@ import * as main_controllers from "../controllers/main.controllers.js";
 
 const router = express.Router();
 
-router.get("/goal_day/:day", main_controllers.get_goal_day);
+router.post("/register", main_controllers.main_register);
 
 export default router;
