@@ -5,7 +5,7 @@ import morgan from "morgan";
 import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
-// import passportConfig from "./passport/index.js";
+import passport_config from "./passport/index.js";
 
 import { sequelize } from "./models/index.js";
 
@@ -18,7 +18,22 @@ app.use(express.urlencoded({ extended: true }));
 app.set("port", process.env.PORT || 3000);
 
 dotenv.config();
-// passportConfig();
+passport_config();
+
+app.use(
+    session({
+        resave: false,
+        saveUninitialized: false,
+        secret: process.env.SESSION_SECRET,
+        cookie: {
+            httpOnly: true,
+            secure: false,
+        },
+    }),
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 sequelize;
 console.log("db 연결", sequelize.config.port);

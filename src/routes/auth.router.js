@@ -4,6 +4,7 @@ const router = express.Router();
 
 router.get("/kakao", passport.authenticate("kakao"));
 
+// Error: KOE006 https://kakao-tam.tistory.com/35
 router.get(
     "/kakao/callback",
     passport.authenticate("kakao", {
