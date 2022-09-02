@@ -1,6 +1,7 @@
 import * as main_services from "../services/main.service.js";
 
 export const main_register = async (req, res) => {
+    // 이미 ing가 등록되어 있을 시 에러 처리 해줄 것
     try {
         // const { user_id } = res.locals;
         const user_id = 1;
@@ -10,6 +11,24 @@ export const main_register = async (req, res) => {
 
         res.status(200).json({ success: true, messgae: "작심삼일 등록 완료" });
     } catch (error) {
-        console.log(error);
+        return res.status(400).json({ success: false, message: `catch::: ${error}` });
     }
 };
+
+export const find_goal_day = async (req, res) => {
+    try {
+        // const { user_id } = res.locals;
+        const user_id = 1;
+        const { day } = req.params;
+        const goal_day_data = await main_services.find_goal_day(user_id, day);
+
+        res.status(200).json({
+            success: true,
+            result: { goal: goal_day_data.goal, date_n: goal_day_data.day },
+        });
+    } catch (error) {
+        return res.status(400).json({ success: false, message: `catch::: ${error}` });
+    }
+};
+
+export const video_register = async (req, res) => {};
