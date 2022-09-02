@@ -16,4 +16,10 @@ export const find_goal_day = async (user_id, day) => {
     }
 };
 
-export const video_register = async (req, res) => {};
+export const video_register = async (user_id, day, video) => {
+    try {
+        return await main_repositories.video_register(user_id, day, video);
+    } catch (error) {
+        return { error };
+    }
+};
