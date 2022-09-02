@@ -7,6 +7,7 @@ export default class Lose extends Sequelize.Model {
                 lose_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
+                    unique: true,
                     allowNull: false,
                     autoIncrement: true,
                 },
