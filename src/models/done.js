@@ -7,6 +7,7 @@ export default class Done extends Sequelize.Model {
                 done_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
+                    unique: true,
                     allowNull: false,
                     autoIncrement: true,
                 },

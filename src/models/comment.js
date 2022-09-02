@@ -7,6 +7,7 @@ export default class Comment extends Sequelize.Model {
                 comment_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
+                    unique: true,
                     allowNull: false,
                     autoIncrement: true,
                 },

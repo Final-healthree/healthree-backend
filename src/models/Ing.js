@@ -7,6 +7,7 @@ export default class Ing extends Sequelize.Model {
                 ing_id: {
                     primaryKey: true,
                     type: Sequelize.INTEGER(),
+                    unique: true,
                     allowNull: false,
                     autoIncrement: true,
                 },
