@@ -15,10 +15,8 @@ const auth = async (req, res, next) => {
     try {
         const user_info = jwt.verify(auth_value, process.env.JWT_SECRET);
         const { user_id } = user_info;
-        // console.log("user_info", user_info);
 
         const find_by_user_id = await User.findOne({ where: { user_id } });
-        // console.log("미들웨어", find_by_user_id.dataValues);
         if (find_by_user_id === null) {
             return res.status(400).json({ success: false, message: "존재하지 않는 유저입니다." });
         }
