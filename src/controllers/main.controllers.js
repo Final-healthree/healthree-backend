@@ -41,7 +41,7 @@ export const video_register = async (req, res) => {
         if (Number(day) === 3) {
             const merged_video = await main_services.video_register(user_id, day, video);
 
-            if (merged_video !== true) {
+            if (merged_video === true) {
                 return res.status(200).json({
                     success: true,
                     message: "동영상 합치기 완료",
