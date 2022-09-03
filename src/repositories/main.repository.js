@@ -1,4 +1,4 @@
-import Ing from "../models/ing.js";
+// import Ing from "../models/ing.js";
 
 export const main_register = async (user_id, date_one, date_two, date_three, goal) => {
     try {
