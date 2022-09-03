@@ -97,15 +97,8 @@ export const s3_upload = async (kakao_id) => {
         Body: file,
         ContentType: "video/mp4",
     };
-    function sleep(ms) {
-        return new Promise((r) => setTimeout(r, ms));
-    }
-    s3.upload(params, async (error, data) => {
-        if (error) {
-            console.log(error);
-        }
-        console.log(data.Location);
-    });
 
-    await sleep(6000);
+    const s3_upload = await s3.upload(params).promise();
+
+    return s3_upload;
 };
