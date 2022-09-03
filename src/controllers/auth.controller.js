@@ -4,8 +4,8 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const kakao_login = async (req, res) => {
-    const user = req.user;
-    const { user_id, nickname, profile_image } = user;
+    const user_info = req.user;
+    const { user_id, nickname, profile_image } = user_info;
 
     const payload = {
         user_id,
@@ -19,8 +19,8 @@ const kakao_login = async (req, res) => {
         },
         process.env.JWT_SECRET,
     );
-    // console.log(token);
-    // return token;
+    console.log(token);
+    // return token; //
 };
 
 export { kakao_login };
