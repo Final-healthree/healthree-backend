@@ -23,18 +23,14 @@ const kakao = () => {
                 console.log(kakao_id, nickname, profile_image);
                 try {
                     const is_exist_user = await User.findOne({ where: { kakao_id } });
-                    console.log("존재하는 유저?", is_exist_user);
-                    console.log("여기 왔니?");
                     if (is_exist_user) {
                         done(null, is_exist_user);
                     } else {
-                        // console.log("여기는?");
                         const create_user = await User.create({
                             kakao_id,
                             nickname,
                             profile_image,
                         });
-                        // console.log("여기는 왔냐구");
                         done(null, create_user);
                     }
                 } catch (err) {

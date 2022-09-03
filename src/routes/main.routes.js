@@ -1,6 +1,6 @@
 import express from "express";
 import * as main_controllers from "../controllers/main.controllers.js";
-import { video_upload } from "../middlewares/s3_middlewares.js";
+import { video_upload } from "../middlewares/s3.middlewares.js";
 
 const router = express.Router();
 

@@ -1,4 +1,4 @@
-import Ing from "../models/ing.js";
+// import Ing from "../models/ing.js";
 
 export const check_video = async (user_id) => {
     try {
