@@ -75,3 +75,19 @@ export const video_register = async (req, res) => {
         });
     }
 };
+
+export const progress_fail = async (req, res) => {
+    try {
+        // const { user_id } = res.locals;
+        const user_id = 1;
+        const { day } = req.params;
+
+        
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            success: false,
+            message: `${error.name}, ${error.message}`,
+        });
+    }
+};
