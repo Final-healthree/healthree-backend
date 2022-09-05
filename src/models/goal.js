@@ -24,15 +24,15 @@ export default class Goal extends Sequelize.Model {
                     allowNull: true,
                 },
                 day1: {
-                    type: Sequelize.STRING(100),
+                    type: Sequelize.DATE(),
                     allowNull: false,
                 },
                 day2: {
-                    type: Sequelize.STRING(100),
+                    type: Sequelize.DATE(),
                     allowNull: false,
                 },
                 day3: {
-                    type: Sequelize.STRING(100),
+                    type: Sequelize.DATE(),
                     allowNull: false,
                 },
                 video1: {
