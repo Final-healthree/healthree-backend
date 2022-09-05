@@ -33,7 +33,7 @@ app.use(
 );
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session(false));
 
 sequelize;
 console.log("db 연결", sequelize.config.port);

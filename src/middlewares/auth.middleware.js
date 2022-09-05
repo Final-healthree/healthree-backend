@@ -6,6 +6,7 @@ dotenv.config();
 
 const auth = async (req, res, next) => {
     const { authorization } = req.headers;
+    console.log(authorization);
     const [auth_type, auth_value] = (authorization || " ").split(" ");
 
     if (!auth_type || auth_type !== "Bearer") {
