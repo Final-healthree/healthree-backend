@@ -11,33 +11,17 @@ import Goal from "../models/goal.js";
 
 export const main_register = async (user_id, day1, day2, day3, goal_name) => {
     try {
-        const main_register = await main_repositories.main_register(
-            user_id,
-            day1,
-            day2,
-            day3,
-            goal_name,
-        );
-        if (main_register === true) {
-            return true;
-        } else {
-            return { error: main_register.error };
-        }
+        await main_repositories.main_register(user_id, day1, day2, day3, goal_name);
     } catch (error) {
-        return { error };
+        throw error;
     }
 };
 
 export const find_goal_day = async (user_id, day) => {
     try {
-        const goal_day_data = await main_repositories.find_goal_day(user_id, day);
-
-        if (goal_day_data.error === undefined) {
-            return goal_day_data;
-        }
-        return { error: goal_day_data.error };
+        return await main_repositories.find_goal_day(user_id, day);
     } catch (error) {
-        return { error };
+        throw error;
     }
 };
 
