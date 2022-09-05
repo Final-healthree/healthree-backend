@@ -11,9 +11,8 @@ export const main_register = async (user_id, day1, day2, day3, goal_name) => {
             goal_name,
             is_social: false,
         });
-        return true;
     } catch (error) {
-        return { error };
+        throw error;
     }
 };
 export const find_goal_day = async (user_id, day) => {
@@ -30,9 +29,8 @@ export const find_goal_day = async (user_id, day) => {
             const day3 = await Goal.findOne({ where: { user_id, status: "progress" } });
             return { day: day3.day3, goal: day3.goal_name };
         }
-        return { error: "날짜를 확인해주세요" };
     } catch (error) {
-        return { error };
+        throw error;
     }
 };
 

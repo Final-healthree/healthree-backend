@@ -1,5 +1,23 @@
 import Goal from "../models/goal.js";
 
+export const check_register = async (req, res, next) => {
+    // const { user_id } = res.locals;
+    const user_id = 1;
+    try {
+        const check_register = await Goal.findOne({ where: { user_id, status: "progress" } });
+        if (check_register) {
+            return res
+                .status(400)
+                .json({ success: false, message: `이미 진행중인 작심삼일이 있습니다.` });
+        }
+        next();
+    } catch (error) {
+        return res
+            .status(400)
+            .json({ success: false, message: `${error.name} , ${error.message}` });
+    }
+};
+
 export const check_video_progress = async (req, res, next) => {
     // const { user_id } = res.locals;
     const user_id = 1;
