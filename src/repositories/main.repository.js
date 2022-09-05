@@ -1,8 +1,17 @@
-import Ing from "../models/ing.js";
+import Goal from "../models/goal.js";
 
-export const main_register = async (user_id, date_one, date_two, date_three, goal) => {
+export const main_register = async (user_id, day1, day2, day3, goal_name) => {
     try {
-        await Ing.create({ user_id, date_one, date_two, date_three, goal });
+        await Goal.create({
+            status: "progress",
+            user_id,
+            day1,
+            day2,
+            day3,
+            goal_name,
+            is_social: false,
+        });
+        return true;
     } catch (error) {
         return { error };
     }
@@ -10,43 +19,54 @@ export const main_register = async (user_id, date_one, date_two, date_three, goa
 export const find_goal_day = async (user_id, day) => {
     try {
         if (Number(day) === 1) {
-            const day_one = await Ing.findOne({ where: { user_id } });
-            return { day: day_one.date_one, goal: day_one.goal };
+            const day1 = await Goal.findOne({ where: { user_id, status: "progress" } });
+            return { day: day1.day1, goal: day1.goal_name };
         }
         if (Number(day) === 2) {
-            const day_two = await Ing.findOne({ where: { user_id } });
-            return { day: day_two.date_two, goal: day_two.goal };
+            const day2 = await Goal.findOne({ where: { user_id, status: "progress" } });
+            return { day: day2.day2, goal: day2.goal_name };
         }
         if (Number(day) === 3) {
-            const day_three = await Ing.findOne({ where: { user_id } });
-            return { day: day_three.date_three, goal: day_three.goal };
+            const day3 = await Goal.findOne({ where: { user_id, status: "progress" } });
+            return { day: day3.day3, goal: day3.goal_name };
         }
+        return { error: "날짜를 확인해주세요" };
     } catch (error) {
         return { error };
     }
 };
 
-export const video_register = async (user_id, day, video) => {
+export const video_register = async (user_id, day, video, final_video) => {
     try {
         if (Number(day) === 1) {
-            await Ing.update(
+            await Goal.update(
                 {
-                    video_one: video,
+                    video1: video,
                 },
                 { where: { user_id } },
             );
             return true;
         }
         if (Number(day) === 2) {
-            await Ing.update(
+            await Goal.update(
                 {
-                    video_two: video,
+                    video2: video,
                 },
                 { where: { user_id } },
             );
             return true;
         }
+        if (Number(day) === 3) {
+            await Goal.update(
+                {
+                    status: "success",
+                    video3: video,
+                    final_video,
+                },
+                { where: { user_id, status: "progress" } },
+            );
+        }
     } catch (error) {
-        return { error };
+        throw error;
     }
 };
