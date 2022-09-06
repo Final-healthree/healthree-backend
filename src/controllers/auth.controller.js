@@ -13,13 +13,14 @@ const kakao_login = async (req, res) => {
         profile_image,
     };
 
-    const token = jwt.sign(
+    const token = await jwt.sign(
         {
             payload,
         },
         process.env.JWT_SECRET,
     );
-    console.log(token);
+    // console.log(token);
+    return token;
     // return token; // 토근 넘겨줄 프론트 서버 연결(redirect)
 };
 

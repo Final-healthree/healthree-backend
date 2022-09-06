@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
 
     try {
         const user_info = jwt.verify(auth_value, process.env.JWT_SECRET);
-        const { user_id } = user_info;
+        const { user_id } = user_info.payload;
 
         const find_by_user_id = await User.findOne({ where: { user_id } });
         if (find_by_user_id === null) {
