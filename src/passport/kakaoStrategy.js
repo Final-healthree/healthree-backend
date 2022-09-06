@@ -13,7 +13,7 @@ const kakao = () => {
         new kakao_strategy(
             {
                 clientID: process.env.KAKAO_ID,
-                callbackURL: "/api/auth/kakao/callback", // 경로 문제 '/'를 붙여줘야 localhost:3000/~진행 가능
+                callbackURL: "/api/users/auth/kakao/callback", // 경로 문제 '/'를 붙여줘야 localhost:3000/~진행 가능
             },
 
             async (accessToken, refreshToken, profile, done) => {
