@@ -21,16 +21,12 @@ export const find_goal_day = async (req, res) => {
         const user_id = 1;
         const { day } = req.params;
 
-        if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
-            const goal_day_data = await main_services.find_goal_day(user_id, day);
+        const goal_day_data = await main_services.find_goal_day(user_id, day);
 
-            return res.status(200).json({
-                success: true,
-                result: { goal: goal_day_data.goal, date_n: goal_day_data.day },
-            });
-        } else {
-            return res.status(400).json({ success: false, message: `날짜를 확인해주세요` });
-        }
+        return res.status(200).json({
+            success: true,
+            result: { goal: goal_day_data.goal, date_n: goal_day_data.day },
+        });
     } catch (error) {
         console.log(error);
         return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
@@ -67,6 +63,23 @@ export const video_register = async (req, res) => {
                 message: `비디오 파일을 올려주세요`,
             });
         }
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({
+            success: false,
+            message: `${error.name}, ${error.message}`,
+        });
+    }
+};
+
+export const progress_fail = async (req, res) => {
+    try {
+        // const { user_id } = res.locals;
+        const user_id = 1;
+
+        await main_services.progress_fail(user_id);
+
+        return res.status(200).json({ success: true, message: "실패요청 완료" });
     } catch (error) {
         console.log(error);
         return res.status(400).json({

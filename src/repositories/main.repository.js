@@ -15,19 +15,19 @@ export const main_register = async (user_id, day1, day2, day3, goal_name) => {
         throw error;
     }
 };
+
 export const find_goal_day = async (user_id, day) => {
     try {
+        const goal_day_data = await Goal.findOne({ where: { user_id, status: "progress" } });
+
         if (Number(day) === 1) {
-            const day1 = await Goal.findOne({ where: { user_id, status: "progress" } });
-            return { day: day1.day1, goal: day1.goal_name };
+            return { day: goal_day_data.day1, goal: goal_day_data.goal_name };
         }
         if (Number(day) === 2) {
-            const day2 = await Goal.findOne({ where: { user_id, status: "progress" } });
-            return { day: day2.day2, goal: day2.goal_name };
+            return { day: goal_day_data.day2, goal: goal_day_data.goal_name };
         }
         if (Number(day) === 3) {
-            const day3 = await Goal.findOne({ where: { user_id, status: "progress" } });
-            return { day: day3.day3, goal: day3.goal_name };
+            return { day: goal_day_data.day3, goal: goal_day_data.goal_name };
         }
     } catch (error) {
         throw error;
@@ -64,6 +64,19 @@ export const video_register = async (user_id, day, video, final_video) => {
                 { where: { user_id, status: "progress" } },
             );
         }
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const progress_fail = async (user_id) => {
+    try {
+        await Goal.update(
+            {
+                status: "fail",
+            },
+            { where: { user_id, status: "progress" } },
+        );
     } catch (error) {
         throw error;
     }

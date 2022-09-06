@@ -49,3 +49,11 @@ export const video_register = async (user_id, day, video) => {
         await main_repositories.video_register(user_id, day, video);
     }
 };
+
+export const progress_fail = async (user_id) => {
+    try {
+        await main_repositories.progress_fail(user_id);
+    } catch (error) {
+        throw error;
+    }
+};
