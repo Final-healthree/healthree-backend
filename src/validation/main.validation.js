@@ -1,8 +1,7 @@
 import Goal from "../models/goal.js";
 
 export const check_registerd = async (req, res, next) => {
-    // const { user_id } = res.locals;
-    const user_id = 1;
+    const { user_id } = res.locals;
     try {
         const check_register = await Goal.findOne({ where: { user_id, status: "progress" } });
         if (check_register) {
@@ -21,8 +20,7 @@ export const check_registerd = async (req, res, next) => {
 };
 
 export const check_progress = async (req, res, next) => {
-    // const { user_id } = res.locals;
-    const user_id = 1;
+    const { user_id } = res.locals;
     const { day } = req.params;
 
     if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
@@ -47,8 +45,7 @@ export const check_progress = async (req, res, next) => {
 };
 
 export const check_progress_video = async (req, res, next) => {
-    // const { user_id } = res.locals;
-    const user_id = 1;
+    const { user_id } = res.locals;
     const { day } = req.params;
 
     const check_progress_video = await Goal.findOne({ where: { user_id, status: "progress" } });
@@ -106,8 +103,7 @@ export const check_progress_video = async (req, res, next) => {
 };
 
 export const check_progress_fail = async (req, res, next) => {
-    // const { user_id } = res.locals;
-    const user_id = 1;
+    const { user_id } = res.locals;
     const { day } = req.params;
 
     const check_progress_video = await Goal.findOne({ where: { user_id, status: "progress" } });

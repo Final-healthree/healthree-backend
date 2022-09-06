@@ -2,8 +2,7 @@ import * as main_services from "../services/main.service.js";
 
 export const main_register = async (req, res) => {
     try {
-        // const { user_id } = res.locals;
-        const user_id = 1;
+        const { user_id } = res.locals;
         const { day1, day2, day3, goal_name } = req.body;
 
         await main_services.main_register(user_id, day1, day2, day3, goal_name);
@@ -17,8 +16,7 @@ export const main_register = async (req, res) => {
 
 export const find_goal_day = async (req, res) => {
     try {
-        // const { user_id } = res.locals;
-        const user_id = 1;
+        const { user_id } = res.locals;
         const { day } = req.params;
 
         const goal_day_data = await main_services.find_goal_day(user_id, day);
@@ -35,8 +33,7 @@ export const find_goal_day = async (req, res) => {
 
 export const video_register = async (req, res) => {
     try {
-        // const { user_id } = res.locals;
-        const user_id = 1;
+        const { user_id } = res.locals;
         const { day } = req.params;
 
         if (req.file) {
@@ -74,8 +71,7 @@ export const video_register = async (req, res) => {
 
 export const progress_fail = async (req, res) => {
     try {
-        // const { user_id } = res.locals;
-        const user_id = 1;
+        const { user_id } = res.locals;
 
         await main_services.progress_fail(user_id);
 
