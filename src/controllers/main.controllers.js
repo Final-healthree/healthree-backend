@@ -76,7 +76,10 @@ export const progress_fail = async (req, res) => {
     try {
         // const { user_id } = res.locals;
         const user_id = 1;
-        const { day } = req.params;
+
+        await main_services.progress_fail(user_id);
+
+        return res.status(200).json({ success: true, message: "실패요청 완료" });
     } catch (error) {
         console.log(error);
         return res.status(400).json({

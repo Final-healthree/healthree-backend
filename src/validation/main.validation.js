@@ -147,6 +147,9 @@ export const check_progress_fail = async (req, res, next) => {
                         .status(400)
                         .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
                 }
+
+                // 셋째날을 이미 성공했으면 status가 success로 바뀌니까
+                //진행중인 작심삼일이 없는 것이므로 if 문에서 거르지 않아도 된다.
             }
             next();
         } catch (error) {

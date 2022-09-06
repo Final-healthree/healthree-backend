@@ -69,4 +69,15 @@ export const video_register = async (user_id, day, video, final_video) => {
     }
 };
 
-export const progress_fail = async (req, res) => {};
+export const progress_fail = async (user_id) => {
+    try {
+        await Goal.update(
+            {
+                status: "fail",
+            },
+            { where: { user_id, status: "progress" } },
+        );
+    } catch (error) {
+        throw error;
+    }
+};
