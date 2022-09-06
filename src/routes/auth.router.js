@@ -13,15 +13,8 @@ router.get("/kakao", passport.authenticate("kakao"));
 router.get(
     "/kakao/callback",
     passport.authenticate("kakao", { /* session: false,  */ failureRedirect: "/" }),
-    async (req, res) => {
-        // jwt 생성 및 쿠키에 넣어서 클라이언트에 전달!
-        const { user_id, nickname, profile_image } = req.user;
-        const payload = { user_id, nickname, profile_image };
-        const token = await jwt.sign({ payload }, process.env.JWT_SECRET, { expiresIn: "2h" });
 
-        res.cookie("token", token);
-        res.redirect("/api"); // "/main(프론트 서버)" 프론트와 연결
-    },
+    auth_controller.kakao_login,
 );
 
 router.get("/test", auth_middleware.auth, (req, res, next) => {
