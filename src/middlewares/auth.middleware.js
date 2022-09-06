@@ -14,17 +14,7 @@ const auth = async (req, res, next) => {
 
     try {
         const user_info = jwt.verify(auth_value, process.env.JWT_SECRET);
-        const { user_id } = user_info.payload;
-
-        const find_by_user_id = await User.findOne({ where: { user_id } });
-        if (find_by_user_id === null) {
-            return res.status(400).json({ success: false, message: "존재하지 않는 유저입니다." });
-        }
-
-        if (user_id !== find_by_user_id.user_id) {
-            return res.status(400).json({ success: false, message: "존재하지 않는 유저입니다." });
-        }
-        res.locals.user_id = user_info.user_id;
+        res.locals.user_id = user_info.payload.user_id;
 
         next();
     } catch (err) {

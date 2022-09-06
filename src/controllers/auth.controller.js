@@ -19,9 +19,10 @@ const kakao_login = async (req, res) => {
         },
         process.env.JWT_SECRET,
     );
-    // console.log(token);
-    return token;
-    // return token; // 토근 넘겨줄 프론트 서버 연결(redirect)
+    console.log(token);
+
+    res.cookie("token", token);
+    res.redirect("/api"); // "/main(프론트 서버)" 프론트와 연결
 };
 
 export { kakao_login };
