@@ -2,7 +2,7 @@ import express from "express";
 import * as main_controllers from "../controllers/main.controllers.js";
 import { video_upload } from "../middlewares/s3.middlewares.js";
 import {
-    check_register,
+    check_registerd,
     check_progress,
     check_progress_video,
     check_progress_fail,
@@ -10,7 +10,7 @@ import {
 
 const router = express.Router();
 
-router.post("/register", check_register, main_controllers.main_register);
+router.post("/register", check_registerd, main_controllers.main_register);
 router.get("/goal_day/:day", check_progress, main_controllers.find_goal_day);
 router.post(
     "/video/:day",
