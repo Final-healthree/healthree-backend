@@ -5,7 +5,7 @@ import {
     s3_upload,
     delete_file,
     read_video,
-} from "../middlewares/s3.middlewares.js";
+} from "../middlewares/s3.middleware.js";
 import User from "../models/user.js";
 import Goal from "../models/goal.js";
 
