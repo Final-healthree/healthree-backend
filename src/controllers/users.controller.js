@@ -32,8 +32,9 @@ const get_my_calendar = async (req, res) => {
         const get_days = await users_service.get_my_calendar(user_id);
 
         return res.status(200).json({
+            status: 200,
             success: true,
-            result: { get_days },
+            date: get_days,
         });
     } catch (err) {
         return res.status(400).json({ success: false, message: err });
