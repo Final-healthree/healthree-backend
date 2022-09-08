@@ -1,6 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1662617557747" clover="3.2.0">
-  <project timestamp="1662617557747" name="All files">
-    <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0" elements="0" coveredelements="0" complexity="0" loc="0" ncloc="0" packages="0" files="0" classes="0"/>
+<coverage generated="1662623840377" clover="3.2.0">
+  <project timestamp="1662623840377" name="All files">
+    <metrics statements="33" coveredstatements="8" conditionals="12" coveredconditionals="0" methods="6" coveredmethods="1" elements="51" coveredelements="9" complexity="0" loc="33" ncloc="33" packages="2" files="2" classes="2"/>
+    <package name="models">
+      <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="goal.js" path="C:\Users\flejd\Documents\실전프로젝트\healthree-backend\src\models\goal.js">
+        <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="repositories">
+      <metrics statements="30" coveredstatements="8" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="1"/>
+      <file name="main.repository.js" path="C:\Users\flejd\Documents\실전프로젝트\healthree-backend\src\repositories\main.repository.js">
+        <metrics statements="30" coveredstatements="8" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="1"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="60" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="74" count="1" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="83" count="0" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>
