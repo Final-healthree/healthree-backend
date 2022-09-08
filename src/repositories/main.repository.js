@@ -41,7 +41,7 @@ export const video_register = async (user_id, day, video, final_video) => {
                 {
                     video1: video,
                 },
-                { where: { user_id } },
+                { where: { user_id, status: "progress" } },
             );
             return true;
         }
@@ -50,7 +50,7 @@ export const video_register = async (user_id, day, video, final_video) => {
                 {
                     video2: video,
                 },
-                { where: { user_id } },
+                { where: { user_id, status: "progress" } },
             );
             return true;
         }
