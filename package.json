@@ -5,7 +5,9 @@
     "main": "index.js",
     "type": "module",
     "scripts": {
-        "test": "jest/main_services.test.js",
+        "test": "jest",
+        "test:service": "jest/main_service.test.js",
+        "test:controller": "jest/main_controller.test.js",
         "start": "nodemon ./src/app.js",
         "db:init": "node ./db_init.js"
     },
