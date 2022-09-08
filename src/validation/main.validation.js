@@ -11,8 +11,6 @@ export const check_registerd = async (req, res, next) => {
         }
         next();
     } catch (error) {
-        console.log(error);
-
         return res
             .status(400)
             .json({ success: false, message: `${error.name} , ${error.message}` });
@@ -22,6 +20,7 @@ export const check_registerd = async (req, res, next) => {
 export const check_progress = async (req, res, next) => {
     const { user_id } = res.locals;
     const { day } = req.params;
+    console.log(user_id, 132);
 
     if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
         try {
@@ -33,8 +32,6 @@ export const check_progress = async (req, res, next) => {
             }
             next();
         } catch (error) {
-            console.log(error);
-
             return res
                 .status(400)
                 .json({ success: false, message: `${error.name} , ${error.message}` });
@@ -91,8 +88,6 @@ export const check_progress_video = async (req, res, next) => {
             }
             next();
         } catch (error) {
-            console.log(error);
-
             return res
                 .status(400)
                 .json({ success: false, message: `${error.name} , ${error.message}` });
@@ -149,8 +144,6 @@ export const check_progress_fail = async (req, res, next) => {
             }
             next();
         } catch (error) {
-            console.log(error);
-
             return res
                 .status(400)
                 .json({ success: false, message: `${error.name} , ${error.message}` });

@@ -48,7 +48,17 @@ describe("main_service , video_register", () => {
 
     const repositories_layer = main_repositories.video_register;
 
-    test("post api/main/video/:day /// 성공시, day가 3일 때 ", async () => {
+    test("post api/main/video/:day /// 성공시, day가 3이 아닐 때 repository 계층 한번 호출", async () => {
+        const day = "1 or 2";
+        const video = "1 or 2";
+
+        await video_register(user_id, day, video);
+
+        expect(repositories_layer).toBeCalledTimes(1);
+        repositories_layer.mockClear();
+    });
+
+    test("post api/main/video/:day /// 성공시, day가 3일 때 repository 계층 한번 호출", async () => {
         const day = "3";
         const video = "3";
 
@@ -62,16 +72,16 @@ describe("main_service , video_register", () => {
         await video_register(user_id, day, video);
 
         expect(repositories_layer).toBeCalledTimes(1);
-        repositories_layer.mockClear();
     });
+});
 
-    test("post api/main/video/:day /// 성공시, day가 3이 아닐 때 ", async () => {
-        const day = "1 or 2";
-        const video = "1 or 2";
+describe("main_service , progress_fail", () => {
+    const user_id = 1;
+    const repositories_layer = main_repositories.progress_fail;
 
-        await video_register(user_id, day, video);
+    test("patch api/main/video/:day/fail /// 성공시 repository 계층 한번 호출", async () => {
+        await progress_fail(user_id);
 
         expect(repositories_layer).toBeCalledTimes(1);
-        repositories_layer.mockClear();
     });
 });

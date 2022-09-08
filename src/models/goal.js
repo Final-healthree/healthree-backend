@@ -21,7 +21,8 @@ export default class Goal extends Sequelize.Model {
                 },
                 is_social: {
                     type: Sequelize.BOOLEAN(),
-                    allowNull: true,
+                    defaultValue: false,
+                    allowNull: false,
                 },
                 day1: {
                     type: Sequelize.DATE(),
