@@ -20,7 +20,6 @@ const kakao = () => {
                 const kakao_id = profile.id;
                 const nickname = profile.displayName;
                 const profile_image = profile._json.properties.profile_image;
-                console.log(kakao_id, nickname, profile_image);
                 try {
                     const is_exist_user = await User.findOne({ where: { kakao_id } });
                     if (is_exist_user) {
