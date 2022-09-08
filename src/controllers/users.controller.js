@@ -21,7 +21,6 @@ const kakao_login = async (req, res) => {
         process.env.JWT_SECRET,
         { expiresIn: "3h" },
     );
-    console.log(token);
 
     res.cookie("token", token);
     res.redirect("/api"); // "/main(프론트 서버)" 프론트와 연결
@@ -43,7 +42,20 @@ const get_my_calendar = async (req, res) => {
 };
 
 const get_my_videos = async (req, res) => {
-    res.send("smile");
+    try {
+        const { user_id } = res.locals;
+        const page_count = req.query.pagecount;
+        const page = req.query.page;
+
+        const video_list = await users_service.get_my_videos(
+            user_id,
+            Number(page_count),
+            Number(page),
+        );
+        return res.status(200).json({ status: 200, success: true, result: video_list });
+    } catch (err) {
+        return res.status(400).json({ success: false, message: err });
+    }
 };
 
 const share_my_video = async (req, res) => {

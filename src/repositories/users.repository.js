@@ -26,8 +26,20 @@ const get_my_calendar = async (user_id) => {
     }
 };
 
-const get_my_video = async (req, res) => {};
+const get_my_videos = async (user_id, page_count, page) => {
+    try {
+        const videos = await Goal.findAll({
+            where: { user_id, status: "success" },
+            offset: page_count * (page - 1),
+            limit: page_count,
+            attributes: ["goal_name", "day1", "day3", "final_video"],
+        });
+        return videos;
+    } catch (err) {
+        throw err;
+    }
+};
 
 const share_my_video = async (req, res) => {};
 
-export { get_my_calendar, get_my_video, share_my_video };
+export { get_my_calendar, get_my_videos, share_my_video };
