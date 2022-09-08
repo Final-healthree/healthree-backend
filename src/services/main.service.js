@@ -10,19 +10,11 @@ import User from "../models/user.js";
 import Goal from "../models/goal.js";
 
 export const main_register = async (user_id, day1, day2, day3, goal_name) => {
-    try {
-        await main_repositories.main_register(user_id, day1, day2, day3, goal_name);
-    } catch (error) {
-        throw error;
-    }
+    await main_repositories.main_register(user_id, day1, day2, day3, goal_name);
 };
 
 export const find_goal_day = async (user_id, day) => {
-    try {
-        return await main_repositories.find_goal_day(user_id, day);
-    } catch (error) {
-        throw error;
-    }
+    return await main_repositories.find_goal_day(user_id, day);
 };
 
 export const video_register = async (user_id, day, video) => {
