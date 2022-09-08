@@ -18,7 +18,7 @@ router.get(
 
 router.get("/my_calendar", auth_middleware.auth, user_controller.get_my_calendar);
 
-router.get("/my_video?=limit=5&&offset=", auth_middleware.auth, user_controller.get_my_videos);
+router.get("/my_video", auth_middleware.auth, user_controller.get_my_videos);
 
 router.get("/my_video/:goal_id", auth_middleware.auth, user_controller.share_my_video);
 
