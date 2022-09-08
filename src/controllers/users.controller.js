@@ -59,7 +59,7 @@ const get_my_videos = async (req, res) => {
 };
 
 const share_my_video = async (req, res) => {
-    res.send("cheese!");
+    res.send("cheese~!");
 };
 
 export { kakao_login, get_my_calendar, get_my_videos, share_my_video };
