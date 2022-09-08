@@ -19,6 +19,7 @@ const kakao_login = async (req, res) => {
             payload,
         },
         process.env.JWT_SECRET,
+        { expiresIn: "3h" },
     );
     console.log(token);
 
@@ -30,13 +31,11 @@ const get_my_calendar = async (req, res) => {
     try {
         const { user_id } = res.locals;
         const get_days = await users_service.get_my_calendar(user_id);
-        const get_user_info = await users_service.get_user_info(user_id);
 
         return res.status(200).json({
             status: 200,
             success: true,
-            result: get_user_info,
-            date: get_days,
+            result: get_days,
         });
     } catch (err) {
         return res.status(400).json({ success: false, message: err });
