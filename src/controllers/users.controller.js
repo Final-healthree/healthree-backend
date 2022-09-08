@@ -19,6 +19,7 @@ const kakao_login = async (req, res) => {
             payload,
         },
         process.env.JWT_SECRET,
+        { expiresIn: "3h" },
     );
     console.log(token);
 
