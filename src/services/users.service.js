@@ -9,15 +9,6 @@ const get_my_calendar = async (user_id) => {
             profile_image: user_info.profile_image,
         };
 
-        // // 배열임을 확인해서 map()으로 처리
-        // // map으로 성공/실패 처리 후 실패 안에서 비디오 유무로 데이 판단
-        // const new_list = user_info.Goals;
-        // console.log("얍", new_list[0].goal_id);
-        // new_list.map((now, index) => {
-        //     now.goal_id,
-        //     now.video2,
-        // });
-
         const success = [];
         const fail = [];
         for (let i = 0; i < user_info.Goals.length; i++) {
