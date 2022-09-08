@@ -9,7 +9,6 @@ export const main_register = async (user_id, day1, day2, day3, goal_name) => {
             day2,
             day3,
             goal_name,
-            is_social: false,
         });
     } catch (error) {
         throw error;
@@ -43,8 +42,9 @@ export const video_register = async (user_id, day, video, final_video) => {
                 },
                 { where: { user_id, status: "progress" } },
             );
-            return true;
+            return;
         }
+
         if (Number(day) === 2) {
             await Goal.update(
                 {
@@ -52,8 +52,9 @@ export const video_register = async (user_id, day, video, final_video) => {
                 },
                 { where: { user_id, status: "progress" } },
             );
-            return true;
+            return;
         }
+
         if (Number(day) === 3) {
             await Goal.update(
                 {

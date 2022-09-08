@@ -50,6 +50,7 @@ export const merge_videos = async (video_one, video_two, video_three, kakao_id) 
             merged_video
                 .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath)
                 .on("error", (error) => {
+                    resolve();
                     throw error;
                 })
                 .on("end", () => {

@@ -11,7 +11,7 @@ import * as main_services from "../src/services/main.service.js";
 describe("main_controller , main_register", () => {
     const res = {
         json: jest.fn(),
-        locals: { user_id: "" },
+        locals: { user_id: 1 },
         status: jest.fn(() => res),
     };
     const req = { body: { day1: "1", day2: "2", day3: "3", goal_name: "목표" } };
@@ -42,7 +42,7 @@ describe("main_controller , main_register", () => {
 describe("main_controller , find_goal_day", () => {
     const res = {
         json: jest.fn(),
-        locals: { user_id: "" },
+        locals: { user_id: 1 },
         status: jest.fn(() => res),
     };
     const req = { params: { day: "" } };
@@ -52,7 +52,7 @@ describe("main_controller , find_goal_day", () => {
         day: "날짜",
     });
 
-    test("get api/main/goal_day/:day // 성공시, 서비스 계층 한번 호출, status 200, json 객체 반환", async () => {
+    test("get api/main/goal_day/:day /// 성공시, 서비스 계층 한번 호출, status 200, json 객체 반환", async () => {
         await find_goal_day(req, res);
 
         expect(service_layer).toBeCalledTimes(1);
@@ -65,7 +65,7 @@ describe("main_controller , find_goal_day", () => {
         service_layer.mockClear();
     });
 
-    test("get api/main/goal_day/:day // 실패시, catch error  => status 400", async () => {
+    test("get api/main/goal_day/:day /// 실패시, catch error  => status 400", async () => {
         req.params = null;
         await find_goal_day(req, res);
 
@@ -77,12 +77,12 @@ describe("main_controller , find_goal_day", () => {
 describe("main_controller , video_register", () => {
     const res = {
         json: jest.fn(),
-        locals: { user_id: "" },
+        locals: { user_id: 1 },
         status: jest.fn(() => res),
     };
     const service_layer = main_services.video_register;
 
-    test("post api/main/video/:day // 성공시, req.file이 있고, day가 3이 아닐때", async () => {
+    test("post api/main/video/:day /// 성공시, req.file이 있고, day가 3이 아닐때", async () => {
         const req = { params: { day: "" }, file: { location: "" } };
 
         await video_register(req, res);
@@ -97,7 +97,7 @@ describe("main_controller , video_register", () => {
         res.status.mockClear();
     });
 
-    test("post api/main/video/:day // 성공시, req.file이 있고, day가 3일 때", async () => {
+    test("post api/main/video/:day /// 성공시, req.file이 있고, day가 3일 때", async () => {
         const req = { params: { day: "3" }, file: { location: "" } };
 
         await video_register(req, res);
@@ -112,7 +112,7 @@ describe("main_controller , video_register", () => {
         res.status.mockClear();
     });
 
-    test("post api/main/video/:day // 실패시, req.file이 없을 때", async () => {
+    test("post api/main/video/:day /// 실패시, req.file이 없을 때", async () => {
         const req = { params: { day: "3" } };
 
         await video_register(req, res);
@@ -127,7 +127,7 @@ describe("main_controller , video_register", () => {
         res.status.mockClear();
     });
 
-    test("post api/main/video/:day // 실패시, catch error  => status 400", async () => {
+    test("post api/main/video/:day /// 실패시, catch error  => status 400", async () => {
         const req = { params: null };
 
         await video_register(req, res);
@@ -140,7 +140,7 @@ describe("main_controller , video_register", () => {
 describe("main_controller , progress_fail", () => {
     const res = {
         json: jest.fn(),
-        locals: { user_id: "" },
+        locals: { user_id: 1 },
         status: jest.fn(() => res),
     };
     const req = "";
