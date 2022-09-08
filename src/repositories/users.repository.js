@@ -1,32 +1,29 @@
 import Goal from "../models/goal.js";
+import User from "../models/user.js";
 
 const get_my_calendar = async (user_id) => {
     try {
-        const is_exist_video = await Goal.findAll({
-            where: { user_id },
-            attributes: ["goal_name", "final_video"],
+        const success_videos = await Goal.findAll({
+            where: { user_id, status: "success" },
+            attributes: ["goal_name", "video1", "video2", "video3"],
         });
-
-        const final_videos = [];
-        const success = [];
-        const fail = [];
-        for (let i = 0; i < is_exist_video.length; i++) {
-            final_videos.push(is_exist_video[i].dataValues.final_video);
-            if (final_videos[i] !== null) {
-                const success_results = await Goal.findAll({
-                    where: { user_id },
-                    attributes: ["goal_id", "day1", "day2", "day3"],
-                });
-                success.push(success_results[i].dataValues);
-            } else {
-                const fail_results = await Goal.findAll({
-                    where: { user_id },
-                    attributes: ["goal_id", "day1", "day2"],
-                });
-                fail.push(fail_results[i].dataValues);
-            }
+        // console.log(success_videos);
+        const success_list = [];
+        for (let i = 0; i < success_videos.length; i++) {
+            success_list.push(success_videos[i].dataValues);
         }
-        return { success: success, fail: fail };
+        console.log("성공!", success_list);
+
+        const fail_videos = await Goal.findAll({
+            where: { user_id, status: "fail" },
+            attributes: ["goal_name", "video1", "video2", "video3"],
+        });
+        // console.log(fail_videos);
+        // if video3 !== null 성공, return day1, day2, day3
+        // if video2 === null && day3 === null 실패, return day1
+        // if video3 === null 실패, return day1, day2
+
+        return { success: success_videos, fail: fail_videos };
     } catch (err) {
         throw err;
     }
