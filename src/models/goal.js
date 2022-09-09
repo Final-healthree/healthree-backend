@@ -17,6 +17,7 @@ export default class Goal extends Sequelize.Model {
                 },
                 status: {
                     type: Sequelize.STRING(100),
+                    defaultValue: "progress",
                     allowNull: false,
                 },
                 is_social: {

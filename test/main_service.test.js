@@ -36,7 +36,7 @@ describe("main_service , find_goal_day", () => {
     const day = "1";
     const repositories_layer = main_repositories.find_goal_day;
 
-    test("post api/main/goal_day/:day /// 성공시 저장소 계층 한번 호출", async () => {
+    test("get api/main/goal_day/:day /// 성공시 저장소 계층 한번 호출", async () => {
         await find_goal_day(user_id, day);
 
         expect(repositories_layer).toBeCalledTimes(1);
