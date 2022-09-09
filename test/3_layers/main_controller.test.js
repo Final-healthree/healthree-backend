@@ -3,10 +3,10 @@ import {
     find_goal_day,
     video_register,
     progress_fail,
-} from "../src/controllers/main.controller.js";
+} from "../../src/controllers/main.controller.js";
 
-jest.mock("../src/services/main.service.js");
-import * as main_services from "../src/services/main.service.js";
+jest.mock("../../src/services/main.service.js");
+import * as main_services from "../../src/services/main.service.js";
 
 describe("main_controller , main_register", () => {
     const res = {
@@ -143,7 +143,7 @@ describe("main_controller , progress_fail", () => {
         locals: { user_id: 1 },
         status: jest.fn(() => res),
     };
-    const req = "";
+    const req = { params: { day: "1 or 2 or 3" } };
     const service_layer = main_services.progress_fail;
 
     test("patch api/main/video/:day/fail /// 성공시, 서비스 계층 한번 호출, status 200, json 객체 반환 ", async () => {
