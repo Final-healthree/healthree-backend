@@ -59,6 +59,12 @@ const get_my_videos = async (user_id, page_count, page) => {
     }
 };
 
-const share_my_video = async () => {};
+const share_my_video = async (user_id, goal_id) => {
+    try {
+        await users_repository.share_my_video(user_id, goal_id);
+    } catch (err) {
+        throw err;
+    }
+};
 
 export { get_my_calendar, get_my_videos, share_my_video };
