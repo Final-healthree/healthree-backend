@@ -3,17 +3,17 @@ import {
     find_goal_day,
     video_register,
     progress_fail,
-} from "../src/services/main.service.js";
+} from "../../src/services/main.service.js";
 
-jest.mock("../src/repositories/main.repository.js");
-jest.mock("../src/middlewares/s3.middleware.js");
-jest.mock("../src/models/user.js");
-jest.mock("../src/models/goal.js");
+jest.mock("../../src/repositories/main.repository.js");
+jest.mock("../../src/middlewares/s3.middleware.js");
+jest.mock("../../src/models/user.js");
+jest.mock("../../src/models/goal.js");
 
-import User from "../src/models/user.js";
-import Goal from "../src/models/goal.js";
-import * as main_repositories from "../src/repositories/main.repository.js";
-import * as s3_middlewares from "../src/middlewares/s3.middleware.js";
+import User from "../../src/models/user.js";
+import Goal from "../../src/models/goal.js";
+import * as main_repositories from "../../src/repositories/main.repository.js";
+import * as s3_middlewares from "../../src/middlewares/s3.middleware.js";
 
 describe("main_service , main_register", () => {
     const user_id = 1;
@@ -64,11 +64,11 @@ describe("main_service , video_register", () => {
 
         Goal.findOne.mockReturnValue(Promise.resolve({ video1: "1", video2: "2" }));
         User.findOne.mockReturnValue(Promise.resolve({ kakao_id: "12345" }));
+        s3_middlewares.create_video_s3_objects.mockReturnValue("s3_objects");
         s3_middlewares.read_video.mockReturnValue(Promise.resolve("video_file.mp4"));
         s3_middlewares.s3_upload.mockReturnValue(
             Promise.resolve({ Location: "업로드된 비디오 주소" }),
         );
-
         await video_register(user_id, day, video);
 
         expect(repositories_layer).toBeCalledTimes(1);
@@ -79,9 +79,30 @@ describe("main_service , progress_fail", () => {
     const user_id = 1;
     const repositories_layer = main_repositories.progress_fail;
 
-    test("patch api/main/video/:day/fail /// 성공시 repository 계층 한번 호출", async () => {
-        await progress_fail(user_id);
+    test("patch api/main/video/:day/fail /// 성공시 day가 1일 때  repository 계층 한번 호출", async () => {
+        const day = "1";
+
+        await progress_fail(user_id, day);
 
         expect(repositories_layer).toBeCalledTimes(1);
+        repositories_layer.mockClear();
+    });
+
+    test("patch api/main/video/:day/fail /// 성공시 day가 2일 때  repository 계층 한번 호출", async () => {
+        const day = "2";
+
+        await progress_fail(user_id, day);
+
+        expect(repositories_layer).toBeCalledTimes(1);
+        repositories_layer.mockClear();
+    });
+
+    test("patch api/main/video/:day/fail /// 성공시 day가 3일 때  repository 계층 한번 호출", async () => {
+        const day = "3";
+
+        await progress_fail(user_id, day);
+
+        expect(repositories_layer).toBeCalledTimes(1);
+        repositories_layer.mockClear();
     });
 });

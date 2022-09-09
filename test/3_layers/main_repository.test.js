@@ -3,10 +3,10 @@ import {
     find_goal_day,
     video_register,
     progress_fail,
-} from "../src/repositories/main.repository.js";
+} from "../../src/repositories/main.repository.js";
 
-jest.mock("../src/models/goal.js");
-import Goal from "../src/models/goal.js";
+jest.mock("../../src/models/goal.js");
+import Goal from "../../src/models/goal.js";
 
 describe("main_repository , main_register", () => {
     const user_id = 1;
