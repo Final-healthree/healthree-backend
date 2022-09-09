@@ -1,6 +1,7 @@
 import Goal from "../models/goal.js";
 import User from "../models/user.js";
 import Post from "../models/post.js";
+import { Op } from "sequelize";
 
 const get_my_calendar = async (user_id) => {
     try {
@@ -30,7 +31,7 @@ const get_my_calendar = async (user_id) => {
 const get_my_videos = async (user_id, page_count, page) => {
     try {
         const videos = await Goal.findAll({
-            where: { user_id, status: "success" },
+            where: { user_id, status: "success", final_video: { [Op.ne]: null } },
             offset: page_count * (page - 1),
             limit: page_count,
             attributes: ["goal_name", "day1", "day3", "final_video"],
