@@ -59,7 +59,16 @@ const get_my_videos = async (req, res) => {
 };
 
 const share_my_video = async (req, res) => {
-    res.send("cheese~!");
+    try {
+        const { user_id } = res.locals;
+        const { goal_id } = req.params;
+        await users_service.share_my_video(user_id, goal_id);
+        return res
+            .status(201)
+            .json({ status: 201, success: true, result: "마이 비디오 공유 성공" });
+    } catch (err) {
+        return res.status(400).json({ success: false, message: err });
+    }
 };
 
 export { kakao_login, get_my_calendar, get_my_videos, share_my_video };

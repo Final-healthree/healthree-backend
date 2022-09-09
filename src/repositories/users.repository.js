@@ -1,5 +1,6 @@
 import Goal from "../models/goal.js";
 import User from "../models/user.js";
+import Post from "../models/post.js";
 
 const get_my_calendar = async (user_id) => {
     try {
@@ -40,6 +41,21 @@ const get_my_videos = async (user_id, page_count, page) => {
     }
 };
 
-const share_my_video = async (req, res) => {};
+const share_my_video = async (user_id, goal_id) => {
+    try {
+        const share_video = await Goal.update(
+            {
+                is_social: true,
+            },
+            { where: { user_id, goal_id } },
+        );
+
+        const create_video_post = await Post.create({
+            goal_id,
+        });
+    } catch (err) {
+        throw err;
+    }
+};
 
 export { get_my_calendar, get_my_videos, share_my_video };
