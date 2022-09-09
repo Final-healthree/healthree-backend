@@ -37,10 +37,17 @@ const get_my_calendar = async (user_id) => {
                     day2: distinguish[i].day2,
                     day3: distinguish[i].day3,
                 });
-            } else if (distinguish[i].status === "fail") {
-                if (distinguish[i].video2 === null && distinguish[i].video3 === null) {
+            }
+
+            if (distinguish[i].status === "fail") {
+                if (
+                    distinguish[i].video1 !== null &&
+                    distinguish[i].video2 === null &&
+                    distinguish[i].video3 === null
+                ) {
                     fail.push({ goal_id: distinguish[i].goal_id, day1: distinguish[i].day1 });
-                } else if (
+                }
+                if (
                     distinguish[i].video1 !== null &&
                     distinguish[i].video2 !== null &&
                     distinguish[i].video3 === null
