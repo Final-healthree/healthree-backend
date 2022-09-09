@@ -62,6 +62,7 @@ const share_my_video = async (req, res) => {
     try {
         const { user_id } = res.locals;
         const { goal_id } = req.params;
+
         await users_service.share_my_video(user_id, goal_id);
         return res
             .status(201)

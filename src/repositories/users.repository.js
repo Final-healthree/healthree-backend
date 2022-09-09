@@ -48,7 +48,16 @@ const share_my_video = async (user_id, goal_id) => {
             {
                 is_social: true,
             },
-            { where: { user_id, goal_id } },
+            {
+                where: {
+                    user_id,
+                    goal_id,
+                    video1: { [Op.ne]: null },
+                    video2: { [Op.ne]: null },
+                    video3: { [Op.ne]: null },
+                    final_video: { [Op.ne]: null },
+                },
+            },
         );
 
         const create_video_post = await Post.create({

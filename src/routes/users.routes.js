@@ -21,14 +21,12 @@ router.get("/my_video", auth_middleware.auth, user_controller.get_my_videos);
 router.post(
     "/my_video/:goal_id",
     auth_middleware.auth,
-    users_validation.is_same_user,
-    users_validation.is_shared_video,
+    users_validation.check_share_video,
     user_controller.share_my_video,
 );
 
 // 미들웨어 테스트
-router.get("/test", auth_middleware.auth, users_validation.is_same_user, (req, res, next) => {
-    // console.log("req.body", req.body);
+router.get("/test", auth_middleware.auth, (req, res, next) => {
     res.send("왔어욤");
 });
 
