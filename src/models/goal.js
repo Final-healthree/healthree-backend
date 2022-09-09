@@ -17,10 +17,11 @@ export default class Goal extends Sequelize.Model {
                 },
                 status: {
                     type: Sequelize.STRING(100),
+                    defaultValue: "progress",
                     allowNull: false,
                 },
                 is_social: {
-                    type: Sequelize.BOOLEAN(),
+                    type: Sequelize.STRING(100),
                     defaultValue: false,
                     allowNull: false,
                 },
