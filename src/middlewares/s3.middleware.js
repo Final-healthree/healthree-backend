@@ -32,7 +32,6 @@ export const video_upload = multer({
 });
 
 export const merge_videos = async (video_one, video_two, video_three, kakao_id) => {
-    // 이 방법이 어떤 것인지 정확하게 알아보기
     return new Promise((resolve, reject) => {
         try {
             const concatMP4FileTmpPath = "./tmp";
@@ -50,6 +49,7 @@ export const merge_videos = async (video_one, video_two, video_three, kakao_id) 
             merged_video
                 .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath)
                 .on("error", (error) => {
+                    resolve();
                     throw error;
                 })
                 .on("end", () => {
@@ -61,8 +61,39 @@ export const merge_videos = async (video_one, video_two, video_three, kakao_id) 
     });
 };
 
-export const delete_videos_s3 = (video_one, video_two, video_three) => {
-    try {
+export const create_video_s3_objects = (video_one, video_two, video_three) => {
+    if (video_one !== undefined && video_two === undefined && video_three === undefined) {
+        const objects = {
+            Bucket: "healthree",
+            Delete: {
+                Objects: [
+                    {
+                        Key: `videos/${video_one}`,
+                    },
+                ],
+            },
+        };
+        return objects;
+    }
+
+    if (video_one !== undefined && video_two !== undefined && video_three === undefined) {
+        const objects = {
+            Bucket: "healthree",
+            Delete: {
+                Objects: [
+                    {
+                        Key: `videos/${video_one}`,
+                    },
+                    {
+                        Key: `videos/${video_two}`,
+                    },
+                ],
+            },
+        };
+        return objects;
+    }
+
+    if (video_one !== undefined && video_two !== undefined && video_three !== undefined) {
         const objects = {
             Bucket: "healthree",
             Delete: {
@@ -79,11 +110,18 @@ export const delete_videos_s3 = (video_one, video_two, video_three) => {
                 ],
             },
         };
-        s3.deleteObjects(objects, (error, data) => {
+        return objects;
+    }
+};
+
+export const delete_video_s3 = (object) => {
+    try {
+        s3.deleteObjects(object, (error, data) => {
             if (error) {
                 throw error;
             }
         });
+        return;
     } catch (error) {
         throw error;
     }
