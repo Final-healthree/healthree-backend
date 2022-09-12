@@ -1,8 +1,8 @@
 import Goal from "../models/goal.js";
 import moment from "moment";
-moment.tz.setDefault("Asia/Seoul");
 
 export const check_registerd = async (req, res, next) => {
+    moment.tz.setDefault("Asia/Seoul");
     const { user_id } = res.locals;
     const now = moment().format("YYYY-MM-DD");
 
@@ -14,6 +14,12 @@ export const check_registerd = async (req, res, next) => {
         order: [["createdAt", "DESC"]],
     });
     try {
+        if (check_register) {
+            return res
+                .status(400)
+                .json({ success: false, message: "이미 진행중인 작심삼일이 있습니다." });
+        }
+
         if (recent_registered) {
             if (recent_registered.createdAt.split(" ")[0] === now) {
                 return res.status(400).json({
@@ -21,11 +27,6 @@ export const check_registerd = async (req, res, next) => {
                     message: "하루에 한번만 작심삼일을 등록할 수 있습니다.",
                 });
             }
-        }
-        if (check_register) {
-            return res
-                .status(400)
-                .json({ success: false, message: "이미 진행중인 작심삼일이 있습니다." });
         }
         next();
     } catch (error) {

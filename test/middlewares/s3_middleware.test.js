@@ -1,28 +1,25 @@
 import {
-    merge_videos,
-    delete_videos_s3,
-    read_video,
-    s3_upload,
-    delete_file,
-} from "../../src/middlewares/s3.middleware.js";
+    check_registerd,
+    check_progress,
+    check_progress_video,
+    check_progress_fail,
+} from "../../src/validation/main.validation.js";
 
-jest.mock("multer");
-jest.mock("multer-s3");
-jest.mock("aws-sdk");
-jest.mock("dotenv");
-jest.mock("fluent-ffmpeg");
-jest.mock("fs");
+jest.mock("../../src/models/goal.js");
+jest.mock("moment");
 
-import multer from "multer";
-import multerS3 from "multer-s3";
-import aws from "aws-sdk";
-import dotenv from "dotenv";
-import fluent_ffmpeg from "fluent-ffmpeg";
-import fs from "fs";
+import Goal from "../../src/models/goal.js";
+import moment from "moment";
 
-describe("s3_middleware merge_videos", () => {
-    const video_one = "";
-    const video_two = "";
-    const video_three = "";
-    const kakao_id = "";
+describe("main.validation, check_registerd 체크", () => {
+    const res = {
+        json: jest.fn(),
+        locals: { user_id: 1 },
+        status: jest.fn(() => res),
+    };
+
+    test("check_registerd /// 예외상황 처리, 하루에 두번이상 작심삼일을 등록하려 했을 때 status 400 return", async () => {
+        moment().format.mockReturnValue("YYYY-MM-DD");
+        Goal.findOne({});
+    });
 });
