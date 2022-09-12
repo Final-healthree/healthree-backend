@@ -1,5 +1,5 @@
 import express from "express";
-import * as main_controllers from "../controllers/main.controller.js";
+import * as main_controllers from "../3_layers/controllers/main.controller.js";
 import { video_upload } from "../middlewares/s3.middleware.js";
 import {
     check_registerd,

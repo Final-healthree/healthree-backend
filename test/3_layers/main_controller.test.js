@@ -3,10 +3,10 @@ import {
     find_goal_day,
     video_register,
     progress_fail,
-} from "../../src/controllers/main.controller.js";
+} from "../../src/3_layers/controllers/main.controller.js";
 
-jest.mock("../../src/services/main.service.js");
-import * as main_services from "../../src/services/main.service.js";
+jest.mock("../../src/3_layers/services/main.service.js");
+import * as main_services from "../../src/3_layers/services/main.service.js";
 
 describe("main_controller , main_register", () => {
     const res = {
