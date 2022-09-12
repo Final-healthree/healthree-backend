@@ -33,31 +33,27 @@ export const video_upload = multer({
 
 export const merge_videos = async (video_one, video_two, video_three, kakao_id) => {
     return new Promise((resolve, reject) => {
-        try {
-            const concatMP4FileTmpPath = "./tmp";
-            const concatMP4FilePath = `./src/combine/${kakao_id}.mp4`; //합쳐질 파일 위치,이름
-            const targetFiles = [video_one, video_two, video_three];
+        const concatMP4FileTmpPath = "./tmp";
+        const concatMP4FilePath = `./src/combine/${kakao_id}.mp4`; //합쳐질 파일 위치,이름
+        const targetFiles = [video_one, video_two, video_three];
 
-            let merged_video = fluent_ffmpeg();
+        let merged_video = fluent_ffmpeg();
 
-            targetFiles.forEach((element) => {
-                //목록 추가하기
-                merged_video = merged_video.addInput(element);
+        targetFiles.forEach((element) => {
+            //목록 추가하기
+            merged_video = merged_video.addInput(element);
+        });
+
+        //파일 1개로 만들기
+        merged_video
+            .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath)
+            .on("error", (error) => {
+                resolve();
+                throw error;
+            })
+            .on("end", () => {
+                resolve();
             });
-
-            //파일 1개로 만들기
-            merged_video
-                .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath)
-                .on("error", (error) => {
-                    resolve();
-                    throw error;
-                })
-                .on("end", () => {
-                    resolve();
-                });
-        } catch (error) {
-            throw error;
-        }
     });
 };
 
@@ -115,53 +111,37 @@ export const create_video_s3_objects = (video_one, video_two, video_three) => {
 };
 
 export const delete_video_s3 = (object) => {
-    try {
-        s3.deleteObjects(object, (error, data) => {
-            if (error) {
-                throw error;
-            }
-        });
-        return;
-    } catch (error) {
-        throw error;
-    }
+    s3.deleteObjects(object, (error, data) => {
+        if (error) {
+            throw error;
+        }
+    });
+    return;
 };
 
 export const read_video = async (kakao_id) => {
-    try {
-        const file = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
+    const file = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
 
-        return file;
-    } catch (error) {
-        throw error;
-    }
+    return file;
 };
 
 export const s3_upload = async (file) => {
-    try {
-        const params = {
-            Bucket: "healthree/videos",
-            Key: String(new Date().getTime() + Math.random()),
-            ACL: "public-read", // 권한: 도메인에 객체경로 URL 을 입력하여 접근 가능하게 설정
-            Body: file,
-            ContentType: "video/mp4",
-        };
-        const s3_upload = await s3.upload(params).promise();
+    const params = {
+        Bucket: "healthree/videos",
+        Key: String(new Date().getTime() + Math.random()),
+        ACL: "public-read", // 권한: 도메인에 객체경로 URL 을 입력하여 접근 가능하게 설정
+        Body: file,
+        ContentType: "video/mp4",
+    };
+    const s3_upload = await s3.upload(params).promise();
 
-        return s3_upload;
-    } catch (error) {
-        throw error;
-    }
+    return s3_upload;
 };
 
 export const delete_file = async (file_name) => {
-    try {
-        fs.unlink(file_name, (error) => {
-            if (error) {
-                throw error;
-            }
-        });
-    } catch (error) {
-        throw error;
-    }
+    fs.unlink(file_name, (error) => {
+        if (error) {
+            throw error;
+        }
+    });
 };
