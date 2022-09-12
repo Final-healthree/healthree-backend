@@ -1,5 +1,4 @@
 import * as users_repository from "../repositories/users.repository.js";
-import Goal from "../models/goal.js";
 
 const get_my_calendar = async (user_id) => {
     const user_info = await users_repository.get_my_calendar(user_id);

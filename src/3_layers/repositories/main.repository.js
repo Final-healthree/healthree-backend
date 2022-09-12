@@ -1,4 +1,4 @@
-import Goal from "../models/goal.js";
+import Goal from "../../models/goal.js";
 
 export const main_register = async (user_id, day1, day2, day3, goal_name) => {
     await Goal.create({

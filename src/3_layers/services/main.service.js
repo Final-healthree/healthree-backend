@@ -6,9 +6,9 @@ import {
     s3_upload,
     delete_file,
     read_video,
-} from "../middlewares/s3.middleware.js";
-import User from "../models/user.js";
-import Goal from "../models/goal.js";
+} from "../../middlewares/s3.middleware.js";
+import User from "../../models/user.js";
+import Goal from "../../models/goal.js";
 
 export const main_register = async (user_id, day1, day2, day3, goal_name) => {
     await main_repositories.main_register(user_id, day1, day2, day3, goal_name);

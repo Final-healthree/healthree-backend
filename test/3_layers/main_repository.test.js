@@ -3,7 +3,7 @@ import {
     find_goal_day,
     video_register,
     progress_fail,
-} from "../../src/repositories/main.repository.js";
+} from "../../src/3_layers/repositories/main.repository.js";
 
 jest.mock("../../src/models/goal.js");
 import Goal from "../../src/models/goal.js";

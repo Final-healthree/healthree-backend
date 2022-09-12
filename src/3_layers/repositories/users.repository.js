@@ -1,6 +1,6 @@
-import Goal from "../models/goal.js";
-import User from "../models/user.js";
-import Post from "../models/post.js";
+import Goal from "../../models/goal.js";
+import User from "../../models/user.js";
+import Post from "../../models/post.js";
 import { Op } from "sequelize";
 
 const get_my_calendar = async (user_id) => {
