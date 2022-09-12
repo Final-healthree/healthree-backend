@@ -1,6 +1,4 @@
 import Goal from "../models/goal.js";
-import { Op } from "sequelize";
-import User from "../models/user.js";
 
 const check_share_video = async (req, res, next) => {
     const { user_id } = res.locals;

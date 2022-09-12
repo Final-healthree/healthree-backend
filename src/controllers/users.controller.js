@@ -36,8 +36,8 @@ const get_my_calendar = async (req, res) => {
             success: true,
             result: get_days,
         });
-    } catch (err) {
-        return res.status(400).json({ success: false, message: err });
+    } catch (error) {
+        return res.status(400).json({ success: false, message: error });
     }
 };
 
@@ -53,8 +53,8 @@ const get_my_videos = async (req, res) => {
             Number(page),
         );
         return res.status(200).json({ status: 200, success: true, result: video_list });
-    } catch (err) {
-        return res.status(400).json({ success: false, message: err });
+    } catch (error) {
+        return res.status(400).json({ success: false, message: error });
     }
 };
 
@@ -67,8 +67,8 @@ const share_my_video = async (req, res) => {
         return res
             .status(201)
             .json({ status: 201, success: true, result: "마이 비디오 공유 성공" });
-    } catch (err) {
-        return res.status(400).json({ success: false, message: err });
+    } catch (error) {
+        return res.status(400).json({ success: false, message: error });
     }
 };
 
