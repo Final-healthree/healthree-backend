@@ -10,3 +10,5 @@ package-lock.json
 ##coverage
 coverage/
 
+##combine
+src/combine/!.gitkeep
