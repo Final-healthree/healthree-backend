@@ -34,6 +34,7 @@ export const video_register = async (req, res) => {
         const { user_id } = res.locals;
         const { day } = req.params;
 
+        console.log(req.file);
         if (req.file) {
             const video = req.file.location;
 

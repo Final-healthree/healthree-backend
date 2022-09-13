@@ -103,6 +103,5 @@ describe("main_service , progress_fail", () => {
         await progress_fail(user_id, day);
 
         expect(repositories_layer).toBeCalledTimes(1);
-        repositories_layer.mockClear();
     });
 });

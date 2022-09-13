@@ -27,6 +27,7 @@ describe("main_controller , main_register", () => {
             messgae: "작심삼일 등록 완료",
         });
         res.status.mockClear();
+        res.json.mockClear();
         service_layer.mockClear();
     });
 
@@ -63,6 +64,7 @@ describe("main_controller , find_goal_day", () => {
         });
         res.status.mockClear();
         service_layer.mockClear();
+        res.json.mockClear();
     });
 
     test("get api/main/goal_day/:day /// 실패시, catch error  => status 400", async () => {
@@ -95,6 +97,7 @@ describe("main_controller , video_register", () => {
         });
         service_layer.mockClear();
         res.status.mockClear();
+        res.json.mockClear();
     });
 
     test("post api/main/video/:day /// 성공시, req.file이 있고, day가 3일 때", async () => {
@@ -110,6 +113,7 @@ describe("main_controller , video_register", () => {
         });
         service_layer.mockClear();
         res.status.mockClear();
+        res.json.mockClear();
     });
 
     test("post api/main/video/:day /// 실패시, req.file이 없을 때", async () => {
@@ -125,6 +129,7 @@ describe("main_controller , video_register", () => {
         });
         service_layer.mockClear();
         res.status.mockClear();
+        res.json.mockClear();
     });
 
     test("post api/main/video/:day /// 실패시, catch error  => status 400", async () => {
