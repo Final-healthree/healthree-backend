@@ -3,16 +3,16 @@ import {
     find_goal_day,
     video_register,
     progress_fail,
-} from "../../src/services/main.service.js";
+} from "../../src/3_layers/services/main.service.js";
 
-jest.mock("../../src/repositories/main.repository.js");
+jest.mock("../../src/3_layers/repositories/main.repository.js");
 jest.mock("../../src/middlewares/s3.middleware.js");
 jest.mock("../../src/models/user.js");
 jest.mock("../../src/models/goal.js");
 
 import User from "../../src/models/user.js";
 import Goal from "../../src/models/goal.js";
-import * as main_repositories from "../../src/repositories/main.repository.js";
+import * as main_repositories from "../../src/3_layers/repositories/main.repository.js";
 import * as s3_middlewares from "../../src/middlewares/s3.middleware.js";
 
 describe("main_service , main_register", () => {
@@ -103,6 +103,5 @@ describe("main_service , progress_fail", () => {
         await progress_fail(user_id, day);
 
         expect(repositories_layer).toBeCalledTimes(1);
-        repositories_layer.mockClear();
     });
 });

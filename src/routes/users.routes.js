@@ -1,6 +1,6 @@
 import express from "express";
 import passport from "passport";
-import * as user_controller from "../controllers/users.controller.js";
+import * as user_controller from "../3_layers/controllers/users.controller.js";
 import * as auth_middleware from "../middlewares/auth.middleware.js";
 import * as users_validation from "../validation/users.validation.js";
 
