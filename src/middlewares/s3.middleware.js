@@ -25,7 +25,7 @@ const s3_videoUploader = multerS3({
 
 export const video_upload = multer({
     limits: {
-        fileSize: 2000000,
+        fileSize: 500000,
         // 1초 : 166666
     },
     storage: s3_videoUploader,
@@ -48,6 +48,7 @@ export const merge_videos = async (video_one, video_two, video_three, kakao_id) 
         merged_video
             .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath)
             .on("error", (error) => {
+                console.log(error);
                 resolve();
                 throw error;
             })
