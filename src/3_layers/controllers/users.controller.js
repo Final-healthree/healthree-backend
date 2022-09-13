@@ -19,9 +19,10 @@ const kakao_login = async (req, res) => {
             payload,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "3h" },
+        { expiresIn: "1d" },
     );
 
+    console.log(token);
     res.cookie("token", token);
     res.redirect("/api"); // "/main(프론트 서버)" 프론트와 연결
 };
