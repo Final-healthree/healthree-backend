@@ -60,6 +60,7 @@ const get_my_videos = async (user_id, page_count, page) => {
     const videos = await users_repository.get_my_videos(user_id, page_count, page);
     const video_list = videos.map((v, index) => {
         return {
+            goal_id: v.goal_id,
             goal_name: v.goal_name,
             day1: v.day1,
             day3: v.day3,

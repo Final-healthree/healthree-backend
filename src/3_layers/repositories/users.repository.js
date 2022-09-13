@@ -19,7 +19,7 @@ const get_my_videos = async (user_id, page_count, page) => {
         where: { user_id, status: "success", final_video: { [Op.ne]: null } },
         offset: page_count * (page - 1),
         limit: page_count,
-        attributes: ["goal_name", "day1", "day3", "final_video"],
+        attributes: ["goal_id", "goal_name", "day1", "day3", "final_video"],
     });
 };
 
