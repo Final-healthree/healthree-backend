@@ -43,6 +43,7 @@ console.log("db 연결", sequelize.config.port);
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
     next();
 }); */
+// app.all("*", () => cors());
 
 app.use(
     cors({
