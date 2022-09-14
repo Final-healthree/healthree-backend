@@ -38,11 +38,7 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-app.all("*", (req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
-    next();
-});
+app.all("*", () => cors());
 
 /* app.use(
     cors({
