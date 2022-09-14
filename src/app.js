@@ -38,18 +38,18 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-app.all("*", (req, res, next) => {
+/* app.all("*", (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE");
     next();
-});
+}); */
 
-/* app.use(
+app.use(
     cors({
-        origin: true,
+        origin: "*",
         credentials: true,
     }),
-); */
+);
 // cors는 나중에 프론트엔드 서버 배포 되면 white list 설정
 
 app.use("/api", router);
