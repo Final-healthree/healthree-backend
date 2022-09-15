@@ -6,10 +6,11 @@
     "type": "module",
     "scripts": {
         "test": "jest",
-        "test:service": "jest/3_layers/main_service.test.js",
-        "test:controller": "jest/3_layers/main_controller.test.js",
-        "test:repository": "jest/3_layers/main_repository.test.js",
-        "test:validation": "jest/validation/main.validation.test.js",
+        "test:main_service": "jest/3_layers/main_service.test.js",
+        "test:main_controller": "jest/3_layers/main_controller.test.js",
+        "test:main_repository": "jest/3_layers/main_repository.test.js",
+        "test:main.validation": "jest/validation/main.validation.test.js",
+        "test:s3.middleware": "jest/middlewares/s3.middleware.test.js",
         "start": "nodemon ./src/app.js",
         "db:init": "node ./db_init.js"
     },

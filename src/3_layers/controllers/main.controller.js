@@ -16,13 +16,17 @@ export const main_register = async (req, res) => {
 export const find_goal_day = async (req, res) => {
     try {
         const { user_id } = res.locals;
-        const { day } = req.params;
 
-        const goal_day_data = await main_services.find_goal_day(user_id, day);
+        const goal_day_data = await main_services.find_goal_day(user_id);
 
         res.status(200).json({
             success: true,
-            result: { goal: goal_day_data.goal, date_n: goal_day_data.day },
+            result: {
+                goal: goal_day_data.goal,
+                day1: goal_day_data.day1,
+                day2: goal_day_data.day2,
+                day3: goal_day_data.day3,
+            },
         });
     } catch (error) {
         res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
@@ -34,7 +38,6 @@ export const video_register = async (req, res) => {
         const { user_id } = res.locals;
         const { day } = req.params;
 
-        console.log(req.file);
         if (req.file) {
             const video = req.file.location;
 

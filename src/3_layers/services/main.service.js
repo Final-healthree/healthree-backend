@@ -14,8 +14,8 @@ export const main_register = async (user_id, day1, day2, day3, goal_name) => {
     await main_repositories.main_register(user_id, day1, day2, day3, goal_name);
 };
 
-export const find_goal_day = async (user_id, day) => {
-    return await main_repositories.find_goal_day(user_id, day);
+export const find_goal_day = async (user_id) => {
+    return await main_repositories.find_goal_day(user_id);
 };
 
 export const video_register = async (user_id, day, video) => {
