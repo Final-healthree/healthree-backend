@@ -12,7 +12,7 @@ import { auth } from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
 router.post("/register", auth, check_registerd, main_controllers.main_register);
-router.get("/goal_day/:day", auth, check_progress, main_controllers.find_goal_day);
+router.get("/goal_day", auth, check_progress, main_controllers.find_goal_day);
 router.post(
     "/video/:day",
     auth,
