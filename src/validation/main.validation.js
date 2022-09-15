@@ -39,19 +39,13 @@ export const check_registerd = async (req, res, next) => {
 export const check_progress = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
-        const { day } = req.params;
-
-        if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
-            const check_progress = await Goal.findOne({ where: { user_id, status: "progress" } });
-            if (!check_progress) {
-                return res
-                    .status(400)
-                    .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
-            }
-            next();
-        } else {
-            return res.status(400).json({ success: false, message: "날짜를 확인해주세요" });
+        const check_progress = await Goal.findOne({ where: { user_id, status: "progress" } });
+        if (!check_progress) {
+            return res
+                .status(400)
+                .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
         }
+        next();
     } catch (error) {
         return res
             .status(400)
