@@ -17,7 +17,6 @@ const auth = async (req, res, next) => {
         res.locals.user_id = user_info.payload.user_id;
         res.locals.nickname = user_info.payload.nickname;
         res.locals.profile_image = user_info.payload.profile_image;
-        console.log(user_id, nickname, profile_image);
         next();
     } catch (err) {
         if (err.name === "TokenExpiredError")

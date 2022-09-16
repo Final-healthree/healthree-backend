@@ -27,8 +27,8 @@ const kakao_login = async (req, res) => {
 
 const get_my_calendar = async (req, res) => {
     try {
-        const { user_id } = res.locals;
-        const get_days = await users_service.get_my_calendar(user_id);
+        const { user_id, nickname, profile_image } = res.locals;
+        const get_days = await users_service.get_my_calendar(user_id, nickname, profile_image);
 
         return res.status(200).json({
             status: 200,
