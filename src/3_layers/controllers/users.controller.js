@@ -22,13 +22,13 @@ const kakao_login = async (req, res) => {
         { expiresIn: "1d" },
     );
 
-    res.redirect(`http://prac-ye.s3-website.ap-northeast-2.amazonaws.com?token=${token}`); // "/main(프론트 서버)" 프론트와 연결
+    res.redirect(`http://prac-ye.s3-website.ap-northeast-2.amazonaws.com/main?token=${token}`); // "/main(프론트 서버)" 프론트와 연결
 };
 
 const get_my_calendar = async (req, res) => {
     try {
-        const { user_id } = res.locals;
-        const get_days = await users_service.get_my_calendar(user_id);
+        const { user_id, nickname, profile_image } = res.locals;
+        const get_days = await users_service.get_my_calendar(user_id, nickname, profile_image);
 
         return res.status(200).json({
             status: 200,
