@@ -22,7 +22,7 @@ const kakao_login = async (req, res) => {
         { expiresIn: "1d" },
     );
 
-    res.redirect(`http://prac-ye.s3-website.ap-northeast-2.amazonaws.com?token=${token}`); // "/main(프론트 서버)" 프론트와 연결
+    res.redirect(`http://prac-ye.s3-website.ap-northeast-2.amazonaws.com/main?token=${token}`); // "/main(프론트 서버)" 프론트와 연결
 };
 
 const get_my_calendar = async (req, res) => {
