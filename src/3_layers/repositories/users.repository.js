@@ -3,10 +3,14 @@ import User from "../../models/user.js";
 import Post from "../../models/post.js";
 import { Op } from "sequelize";
 
-const get_my_calendar = async (user_id, nickname, profile_image) => {
-    return await Goal.findOne({
+const get_my_calendar = async (user_id) => {
+    return await User.findOne({
         where: { user_id },
-        attributes: ["goal_id", "status", "day1", "day2", "day3", "video1", "video2", "video3"],
+        attributes: ["nickname", "profile_image"],
+        include: {
+            model: Goal,
+            attributes: ["goal_id", "status", "day1", "day2", "day3", "video1", "video2", "video3"],
+        },
     });
 };
 

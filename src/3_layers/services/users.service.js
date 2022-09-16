@@ -2,11 +2,6 @@ import * as users_repository from "../repositories/users.repository.js";
 
 const get_my_calendar = async (user_id, nickname, profile_image) => {
     const user_info = await users_repository.get_my_calendar(user_id);
-    console.log(user_info);
-    // const user = {
-    //     nickname: user_info.nickname,
-    //     profile_image: user_info.profile_image,
-    // };
     const distinguish = user_info.Goals.map((d, index) => {
         return {
             goal_id: d.goal_id,
