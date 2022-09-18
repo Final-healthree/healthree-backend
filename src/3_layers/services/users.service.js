@@ -1,52 +1,39 @@
 import * as users_repository from "../repositories/users.repository.js";
 
 const get_my_calendar = async (user_id, nickname, profile_image) => {
-    const user_info = await users_repository.get_my_calendar(user_id);
-    const distinguish = user_info.Goals.map((d, index) => {
-        return {
-            goal_id: d.goal_id,
-            status: d.status,
-            day1: d.day1,
-            day2: d.day2,
-            day3: d.day3,
-            video1: d.video1,
-            video2: d.video2,
-            video3: d.video3,
-        };
-    });
-
+    const get_user_goal = await users_repository.get_my_calendar(user_id);
     const date = [];
-    for (let i = 0; i < distinguish.length; i++) {
+    for (let i = 0; i < get_user_goal.length; i++) {
         if (
-            distinguish[i].status === "success" &&
-            distinguish[i].video1 !== null &&
-            distinguish[i].video2 !== null &&
-            distinguish[i].video3 !== null
+            get_user_goal[i].status === "success" &&
+            get_user_goal[i].video1 !== null &&
+            get_user_goal[i].video2 !== null &&
+            get_user_goal[i].video3 !== null &&
+            get_user_goal[i].final_video !== null
         ) {
             date.push({
-                goal_id: distinguish[i].goal_id,
-                date: [distinguish[i].day1, distinguish[i].day2, distinguish[i].day3],
+                goal_id: get_user_goal[i].goal_id,
+                date: [get_user_goal[i].day1, get_user_goal[i].day2, get_user_goal[i].day3],
             });
         }
 
-        if (distinguish[i].status === "fail") {
+        if (get_user_goal[i].status === "fail")
             if (
-                distinguish[i].video1 !== null &&
-                distinguish[i].video2 === null &&
-                distinguish[i].video3 === null
+                get_user_goal[i].video1 !== null &&
+                get_user_goal[i].video2 === null &&
+                get_user_goal[i].video3 === null
             ) {
-                date.push({ goal_id: distinguish[i].goal_id, date: distinguish[i].day1 });
+                date.push({ goal_id: get_user_goal[i].goal_id, date: get_user_goal[i].day1 });
             }
-            if (
-                distinguish[i].video1 !== null &&
-                distinguish[i].video2 !== null &&
-                distinguish[i].video3 === null
-            ) {
-                date.push({
-                    goal_id: distinguish[i].goal_id,
-                    date: [distinguish[i].day1, distinguish[i].day2],
-                });
-            }
+        if (
+            get_user_goal[i].video1 !== null &&
+            get_user_goal[i].video2 !== null &&
+            get_user_goal[i].video3 === null
+        ) {
+            date.push({
+                goal_id: get_user_goal[i].goal_id,
+                date: [get_user_goal[i].day1, get_user_goal[i].day2],
+            });
         }
     }
     return { nickname, profile_image, date };
