@@ -1,7 +1,24 @@
 import Goal from "../models/goal.js";
 import moment from "moment";
 
-export const check_registerd = async (req, res, next) => {
+export const find_goal_day = async (req, res, next) => {
+    try {
+        const { user_id } = res.locals;
+        const check_progress = await Goal.findOne({ where: { user_id, status: "progress" } });
+        if (!check_progress) {
+            return res
+                .status(400)
+                .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
+        }
+        next();
+    } catch (error) {
+        return res
+            .status(400)
+            .json({ success: false, message: `${error.name} , ${error.message}` });
+    }
+};
+
+export const goal_register = async (req, res, next) => {
     try {
         moment.tz.setDefault("Asia/Seoul");
         const { user_id } = res.locals;
@@ -36,80 +53,7 @@ export const check_registerd = async (req, res, next) => {
     }
 };
 
-export const check_progress = async (req, res, next) => {
-    try {
-        const { user_id } = res.locals;
-        const check_progress = await Goal.findOne({ where: { user_id, status: "progress" } });
-        if (!check_progress) {
-            return res
-                .status(400)
-                .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
-        }
-        next();
-    } catch (error) {
-        return res
-            .status(400)
-            .json({ success: false, message: `${error.name} , ${error.message}` });
-    }
-};
-
-export const check_progress_video = async (req, res, next) => {
-    try {
-        const { user_id } = res.locals;
-        const { day } = req.params;
-
-        const check_progress_video = await Goal.findOne({ where: { user_id, status: "progress" } });
-
-        if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
-            if (!check_progress_video) {
-                return res
-                    .status(400)
-                    .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
-            }
-
-            if (Number(day) === 1) {
-                if (check_progress_video.video1) {
-                    return res
-                        .status(400)
-                        .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
-                }
-            }
-            if (Number(day) === 2) {
-                if (!check_progress_video.video1) {
-                    return res
-                        .status(400)
-                        .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
-                }
-                if (check_progress_video.video2) {
-                    return res
-                        .status(400)
-                        .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
-                }
-            }
-            if (Number(day) === 3) {
-                if (!check_progress_video.video1 || !check_progress_video.video2) {
-                    return res
-                        .status(400)
-                        .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
-                }
-                if (check_progress_video.video3) {
-                    return res
-                        .status(400)
-                        .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
-                }
-            }
-            next();
-        } else {
-            return res.status(400).json({ success: false, message: "날짜를 확인해주세요" });
-        }
-    } catch (error) {
-        return res
-            .status(400)
-            .json({ success: false, message: `${error.name} , ${error.message}` });
-    }
-};
-
-export const check_progress_fail = async (req, res, next) => {
+export const goal_fail = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
         const { day } = req.params;

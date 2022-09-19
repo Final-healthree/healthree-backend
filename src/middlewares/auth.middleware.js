@@ -1,10 +1,9 @@
 import jwt from "jsonwebtoken";
-import User from "../models/user.js";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const auth = async (req, res, next) => {
+export const auth_middleware = async (req, res, next) => {
     const { authorization } = req.headers;
     const [auth_type, auth_value] = (authorization || " ").split(" ");
 
@@ -25,5 +24,3 @@ const auth = async (req, res, next) => {
             return res.status(401).json({ success: false, message: "토큰이 유효하지 않습니다." });
     }
 };
-
-export { auth };

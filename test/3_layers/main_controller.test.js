@@ -46,29 +46,36 @@ describe("main_controller , find_goal_day", () => {
         locals: { user_id: 1 },
         status: jest.fn(() => res),
     };
-    const req = { params: { day: "" } };
+    const req = "";
 
     const service_layer = main_services.find_goal_day.mockReturnValue({
         goal: "목표",
-        day: "날짜",
+        day1: "day1",
+        day2: "day2",
+        day3: "day3",
     });
 
-    test("get api/main/goal_day/:day /// 성공시, 서비스 계층 한번 호출, status 200, json 객체 반환", async () => {
+    test("get api/main/goal_day /// 성공시, 서비스 계층 한번 호출, status 200, json 객체 반환", async () => {
         await find_goal_day(req, res);
 
         expect(service_layer).toBeCalledTimes(1);
         expect(res.status).toBeCalledWith(200);
         expect(res.json).toBeCalledWith({
             success: true,
-            result: { goal: "목표", date_n: "날짜" },
+            result: {
+                goal: "목표",
+                day1: "day1",
+                day2: "day2",
+                day3: "day3",
+            },
         });
         res.status.mockClear();
         service_layer.mockClear();
         res.json.mockClear();
     });
 
-    test("get api/main/goal_day/:day /// 실패시, catch error  => status 400", async () => {
-        req.params = null;
+    test("get api/main/goal_day /// 실패시, catch error  => status 400", async () => {
+        res.locals = null;
         await find_goal_day(req, res);
 
         expect(service_layer).toBeCalledTimes(0);

@@ -36,28 +36,14 @@ describe("main_repository , find_goal_day", () => {
     });
 
     test("get api/main/goal_day/:day /// 성공시, day가 1일 때 day1에 맞는 반환값을 리턴", async () => {
-        const day = "1";
+        const result = await find_goal_day(user_id);
 
-        const result = await find_goal_day(user_id, day);
-
-        expect(result).toEqual({ day: "1", goal: "목표" });
-    });
-
-    test("get api/main/goal_day/:day /// 성공시, day가 2일 때 day2에 맞는 반환값을 리턴", async () => {
-        const day = "2";
-
-        const result = await find_goal_day(user_id, day);
-
-        expect(result).toEqual({ day: "2", goal: "목표" });
-    });
-
-    test("get api/main/goal_day/:day /// 성공시, day가 3일 때 day3에 맞는 반환값을 리턴", async () => {
-        const day = "3";
-
-        const result = await find_goal_day(user_id, day);
-
-        expect(result).toEqual({ day: "3", goal: "목표" });
-        Goal.findOne.mockClear();
+        expect(result).toEqual({
+            goal: "목표",
+            day1: "1",
+            day2: "2",
+            day3: "3",
+        });
     });
 });
 

@@ -13,7 +13,7 @@ jest.mock("../../src/models/goal.js");
 import User from "../../src/models/user.js";
 import Goal from "../../src/models/goal.js";
 import * as main_repositories from "../../src/3_layers/repositories/main.repository.js";
-import * as s3_middlewares from "../../src/middlewares/s3.middleware.js";
+import * as s3_middlewares from "../../src/modules/s3.middleware.js";
 
 describe("main_service , main_register", () => {
     const user_id = 1;
@@ -33,11 +33,10 @@ describe("main_service , main_register", () => {
 
 describe("main_service , find_goal_day", () => {
     const user_id = 1;
-    const day = "1";
     const repositories_layer = main_repositories.find_goal_day;
 
-    test("get api/main/goal_day/:day /// 성공시 저장소 계층 한번 호출", async () => {
-        await find_goal_day(user_id, day);
+    test("get api/main/goal_day /// 성공시 저장소 계층 한번 호출", async () => {
+        await find_goal_day(user_id);
 
         expect(repositories_layer).toBeCalledTimes(1);
     });
