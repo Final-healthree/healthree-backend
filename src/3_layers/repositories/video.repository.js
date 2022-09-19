@@ -1,24 +1,14 @@
 import Goal from "../../models/goal.js";
+import Post from "../../models/post.js";
+import { Op } from "sequelize";
 
-export const main_register = async (user_id, day1, day2, day3, goal_name) => {
-    await Goal.create({
-        user_id,
-        day1,
-        day2,
-        day3,
-        goal_name,
+export const get_my_videos = async (user_id, page_count, page) => {
+    return await Goal.findAll({
+        where: { user_id, status: "success", final_video: { [Op.ne]: null } },
+        offset: page_count * (page - 1),
+        limit: page_count,
+        attributes: ["goal_id", "goal_name", "day1", "day3", "final_video"],
     });
-};
-
-export const find_goal_day = async (user_id) => {
-    const goal_day_data = await Goal.findOne({ where: { user_id, status: "progress" } });
-
-    return {
-        day1: goal_day_data.day1,
-        day2: goal_day_data.day2,
-        day3: goal_day_data.day3,
-        goal: goal_day_data.goal_name,
-    };
 };
 
 export const video_register = async (user_id, day, video, final_video) => {
@@ -54,11 +44,24 @@ export const video_register = async (user_id, day, video, final_video) => {
     }
 };
 
-export const progress_fail = async (user_id) => {
+export const video_share = async (user_id, goal_id) => {
     await Goal.update(
         {
-            status: "fail",
+            is_social: true,
         },
-        { where: { user_id, status: "progress" } },
+        {
+            where: {
+                user_id,
+                goal_id,
+                video1: { [Op.ne]: null },
+                video2: { [Op.ne]: null },
+                video3: { [Op.ne]: null },
+                final_video: { [Op.ne]: null },
+            },
+        },
     );
+
+    await Post.create({
+        goal_id,
+    });
 };

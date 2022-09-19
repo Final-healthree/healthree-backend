@@ -66,6 +66,7 @@ describe("main.validation, check_registerd 체크", () => {
 });
 
 describe("main.validation, check_progress 체크", () => {
+    const req = "";
     const res = {
         json: jest.fn(),
         locals: { user_id: 1 },
@@ -74,23 +75,7 @@ describe("main.validation, check_progress 체크", () => {
     const next = jest.fn();
     const goal_info = Goal.findOne;
 
-    test("check_progress, get api/main/goal_day/:day /// Failed to pass exception, day가 1,2,3이 아닐때", async () => {
-        const req = { params: { day: "" } };
-
-        await check_progress(req, res, next);
-
-        expect(res.status).toBeCalledWith(400);
-        expect(res.json).toBeCalledWith({
-            success: false,
-            message: "날짜를 확인해주세요",
-        });
-        res.status.mockClear();
-        res.json.mockClear();
-    });
-
-    test("check_progress, get api/main/goal_day/:day /// Failed to pass exception, day가 1 or 2 or 3 이고, 등록된 작심삼일이 없을 때", async () => {
-        const req = { params: { day: "1 " } };
-
+    test("check_progress, get api/main/goal_day /// Failed to pass exception, 등록된 작심삼일이 없을 때 status 400 message 리턴", async () => {
         goal_info.mockReturnValue(Promise.resolve(null));
         await check_progress(req, res, next);
 
@@ -101,18 +86,17 @@ describe("main.validation, check_progress 체크", () => {
         });
         res.status.mockClear();
         res.json.mockClear();
+        next.mockClear();
     });
 
-    test("check_progress, get api/main/goal_day/:day /// Exception passed, next 1번 호출", async () => {
-        const req = { params: { day: "1" } };
-
+    test("check_progress, get api/main/goal_day /// Exception passed, next 1번 호출", async () => {
         goal_info.mockReturnValue(Promise.resolve("등록된 작심삼일"));
         await check_progress(req, res, next);
 
         expect(next).toBeCalledTimes(1);
     });
 
-    test("check_progress, get api/main/goal_day/:day /// unknown error 발생시,  catch error => status 400 ", async () => {
+    test("check_progress, get api/main/goal_day /// unknown error 발생시,  catch error => status 400 ", async () => {
         const req = { params: { day: "" } };
         res.locals = null;
 
