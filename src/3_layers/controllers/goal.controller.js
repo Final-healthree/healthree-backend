@@ -57,6 +57,7 @@ export const goal_fail = async (req, res) => {
 
         return res.status(200).json({ success: true, message: "실패요청 완료" });
     } catch (error) {
+        console.log(error);
         return res.status(400).json({
             success: false,
             message: `${error.name}, ${error.message}`,
