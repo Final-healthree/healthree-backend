@@ -17,17 +17,8 @@ export const find_goal_day = async (user_id) => {
 export const get_my_goals = async (user_id) => {
     return await Goal.findAll({
         where: { user_id },
-        attributes: [
-            "goal_id",
-            "status",
-            "day1",
-            "day2",
-            "day3",
-            "video1",
-            "video2",
-            "video3",
-            "final_video",
-        ],
+        attributes: ["goal_id", "status", "day1", "day2", "day3"],
+        include: { model: Video, attributes: ["video1", "video2", "video3", "final_video"] },
     });
 };
 
