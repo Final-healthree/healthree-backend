@@ -1,4 +1,5 @@
 import Goal from "../models/goal.js";
+import Video from "../models/video.js";
 import moment from "moment";
 
 export const find_goal_day = async (req, res, next) => {

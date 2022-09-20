@@ -11,11 +11,12 @@ export const get_my_videos = async (user_id, page_count, page) => {
             goal_name: v.goal_name,
             day1: v.day1,
             day3: v.day3,
-            final_video: v.final_video,
+            final_video: v.Video.final_video,
         };
     });
-
-    return { video_list };
+    return {
+        video_list,
+    };
 };
 
 export const video_register = async (user_id, day, video) => {

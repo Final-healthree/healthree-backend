@@ -12,10 +12,10 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
     for (let i = 0; i < get_user_goal.length; i++) {
         if (
             get_user_goal[i].status === "success" &&
-            get_user_goal[i].video1 !== null &&
-            get_user_goal[i].video2 !== null &&
-            get_user_goal[i].video3 !== null &&
-            get_user_goal[i].final_video !== null
+            get_user_goal[i].Video.video1 !== null &&
+            get_user_goal[i].Video.video2 !== null &&
+            get_user_goal[i].Video.video3 !== null &&
+            get_user_goal[i].Video.final_video !== null
         ) {
             date.push({
                 goal_id: get_user_goal[i].goal_id,
@@ -25,16 +25,16 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
 
         if (get_user_goal[i].status === "fail")
             if (
-                get_user_goal[i].video1 !== null &&
-                get_user_goal[i].video2 === null &&
-                get_user_goal[i].video3 === null
+                get_user_goal[i].Video.video1 !== null &&
+                get_user_goal[i].Video.video2 === null &&
+                get_user_goal[i].Video.video3 === null
             ) {
                 date.push({ goal_id: get_user_goal[i].goal_id, date: get_user_goal[i].day1 });
             }
         if (
-            get_user_goal[i].video1 !== null &&
-            get_user_goal[i].video2 !== null &&
-            get_user_goal[i].video3 === null
+            get_user_goal[i].Video.video1 !== null &&
+            get_user_goal[i].Video.video2 !== null &&
+            get_user_goal[i].Video.video3 === null
         ) {
             date.push({
                 goal_id: get_user_goal[i].goal_id,
