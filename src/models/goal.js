@@ -19,14 +19,8 @@ export default class Goal extends Sequelize.Model {
                     type: Sequelize.STRING(100),
                     defaultValue: "progress",
                     allowNull: false,
-                    primaryKey: true,
-                    onUpdate: "CASCADE",
-                    references: {
-                        model: "video",
-                        key: "status",
-                    },
                 },
-                is_social: {
+                is_share: {
                     type: Sequelize.STRING(100),
                     defaultValue: false,
                     allowNull: false,
@@ -61,10 +55,5 @@ export default class Goal extends Sequelize.Model {
         db.Goal.belongsTo(db.User, { foreignKey: "user_id", targetKey: "user_id" });
         db.Goal.hasOne(db.Post, { foreignKey: "goal_id", sourceKey: "goal_id" });
         db.Goal.hasOne(db.Video, { foreignKey: "goal_id", sourceKey: "goal_id" });
-        db.Goal.hasOne(db.Video, { foreignKey: "user_id", sourceKey: "user_id" });
-        db.Goal.hasOne(db.Video, {
-            foreignKey: "status",
-            sourceKey: "status",
-        });
     }
 }

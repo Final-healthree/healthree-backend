@@ -1,45 +1,63 @@
 import Goal from "../models/goal.js";
+import moment from "moment";
 
 export const video_register = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
         const { day } = req.params;
+        moment.tz.setDefault("Asia/Seoul");
 
-        const check_progress_video = await Goal.findOne({ where: { user_id, status: "progress" } });
+        const now = moment().format("YYYY-MM-DD");
+        const video_progress = await Goal.findOne({ where: { user_id, status: "progress" } });
 
         if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
-            if (!check_progress_video) {
+            if (!video_progress) {
                 return res
                     .status(400)
                     .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
             }
 
             if (Number(day) === 1) {
-                if (check_progress_video.video1) {
+                if (video_progress.day1.split(" ")[0] !== now) {
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
+                }
+                if (video_progress.video1) {
                     return res
                         .status(400)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
                 }
             }
             if (Number(day) === 2) {
-                if (!check_progress_video.video1) {
+                if (video_progress.day2.split(" ")[0] !== now) {
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
+                }
+                if (!video_progress.video1) {
                     return res
                         .status(400)
                         .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
                 }
-                if (check_progress_video.video2) {
+                if (video_progress.video2) {
                     return res
                         .status(400)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
                 }
             }
             if (Number(day) === 3) {
-                if (!check_progress_video.video1 || !check_progress_video.video2) {
+                if (video_progress.day3.split(" ")[0] !== now) {
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
+                }
+                if (!video_progress.video1 || !video_progress.video2) {
                     return res
                         .status(400)
                         .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
                 }
-                if (check_progress_video.video3) {
+                if (video_progress.video3) {
                     return res
                         .status(400)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
