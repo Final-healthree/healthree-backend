@@ -4,11 +4,11 @@ import User from "../models/user.js";
 
 const passport_config = () => {
     passport.serializeUser((user, done) => {
-        done(null, user.kakao_id);
+        done(null, user.social_id);
     });
 
     passport.deserializeUser((id, done) => {
-        User.findOne({ where: { kakao_id: id } })
+        User.findOne({ where: { social_id: id } })
             .then((user) => done(null, user))
             .catch((err) => done(err));
     });

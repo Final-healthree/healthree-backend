@@ -97,7 +97,8 @@ export const video_share = async (req, res, next) => {
 
         const is_success = await Goal.findOne({
             where: { user_id, goal_id },
-            attributes: ["status", "video1", "video2", "video3", "final_video"],
+            include: { model: Video, attributes: ["video1", "video2", "video3", "final_video"] },
+            attributes: ["status"],
         });
         if (is_success.status !== "success") {
             return res
@@ -105,10 +106,10 @@ export const video_share = async (req, res, next) => {
                 .json({ success: false, message: "실패한 작심삼일이라 공유할 수 없습니다." });
         }
         if (
-            is_success.video1 === null ||
-            is_success.video2 === null ||
-            is_success.video3 === null ||
-            is_success.final_video === null
+            is_success.Video.video1 === null ||
+            is_success.Video.video2 === null ||
+            is_success.Video.video3 === null ||
+            is_success.Video.final_video === null
         ) {
             return res
                 .status(400)
@@ -116,7 +117,7 @@ export const video_share = async (req, res, next) => {
         }
 
         const is_shared_video = await Goal.findOne({
-            where: { user_id, goal_id, is_social: true },
+            where: { user_id, goal_id, is_share: true },
         });
 
         if (is_shared_video) {
