@@ -18,7 +18,7 @@ export const merge_videos = async (video_one, video_two, video_three, kakao_id) 
     const edit_spec = {
         width: 760,
         height: 480,
-        fps: 15,
+        fps: 10,
         outPath: `./src/combine/${kakao_id}.mp4`, //합쳐질 파일 위치,이름
         clips: [
             {
