@@ -6,10 +6,6 @@ import dotenv from "dotenv";
 import passport from "passport";
 import session from "express-session";
 import passport_config from "./passport/index.js";
-import * as swagger from "./swagger/swagger.js";
-import swaggerUi from "swagger-ui-express";
-
-console.log("스펙", swagger.specs);
 
 import { sequelize } from "./models/index.js";
 
@@ -49,8 +45,6 @@ app.use(
     }),
 );
 // cors는 나중에 프론트엔드 서버 배포 되면 white list 설정
-
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagger.specs));
 
 app.use("/api", router);
 
