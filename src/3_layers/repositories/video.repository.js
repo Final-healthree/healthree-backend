@@ -1,5 +1,6 @@
 import Goal from "../../models/goal.js";
 import Post from "../../models/post.js";
+import Video from "../../models/video.js";
 import { Op } from "sequelize";
 
 export const get_my_videos = async (user_id, page_count, page) => {
@@ -12,35 +13,37 @@ export const get_my_videos = async (user_id, page_count, page) => {
 };
 
 export const video_register = async (user_id, day, video, final_video) => {
+    const goal = await Goal.findOne({ where: { user_id, status: "progress" } });
+
     if (Number(day) === 1) {
-        await Goal.update(
+        await Video.update(
             {
                 video1: video,
             },
-            { where: { user_id, status: "progress" } },
+            { where: { goal_id: goal.goal_id } },
         );
         return;
     }
 
     if (Number(day) === 2) {
-        await Goal.update(
+        await Video.update(
             {
                 video2: video,
             },
-            { where: { user_id, status: "progress" } },
+            { where: { goal_id: goal.goal_id } },
         );
         return;
     }
 
     if (Number(day) === 3) {
-        await Goal.update(
+        await Video.update(
             {
-                status: "success",
                 video3: video,
                 final_video,
             },
-            { where: { user_id, status: "progress" } },
+            { where: { goal_id: goal.goal_id } },
         );
+        await Goal.update({ status: "success" }, { where: { user_id, status: "progress" } });
     }
 };
 
