@@ -42,12 +42,9 @@ export default class Video extends Sequelize.Model {
     }
     // Post와 Comment 외래키로 넘겨주기 때문에 hasMany설정
     static associate(db) {
-        db.Video.belongsTo(db.Goal, { foreignKey: "goal_id", targetKey: "goal_id" });
-        db.Video.belongsTo(db.Goal, { foreignKey: "user_id", targetKey: "user_id" });
         db.Video.belongsTo(db.Goal, {
-            foreignKey: "status",
-            targetKey: "status",
-            onUpdate: "CASCADE",
+            foreignKey: "goal_id",
+            targetKey: "goal_id",
         });
     }
 }
