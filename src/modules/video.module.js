@@ -16,8 +16,8 @@ const s3 = new aws.S3({
 
 export const merge_videos = async (video_one, video_two, video_three, kakao_id) => {
     const edit_spec = {
-        width: 900,
-        height: 900,
+        width: 720,
+        height: 720,
         fps: 15,
         outPath: `./src/combine/${kakao_id}.mp4`, //합쳐질 파일 위치,이름
         clips: [
