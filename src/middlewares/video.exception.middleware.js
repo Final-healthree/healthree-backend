@@ -1,45 +1,66 @@
 import Goal from "../models/goal.js";
+import Video from "../models/video.js";
+import moment from "moment";
 
 export const video_register = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
         const { day } = req.params;
+        moment.tz.setDefault("Asia/Seoul");
 
-        const check_progress_video = await Goal.findOne({ where: { user_id, status: "progress" } });
-
+        const now = moment().format("YYYY-MM-DD");
+        const goal_info = await Goal.findOne({
+            where: { user_id, status: "progress" },
+            include: { model: Video },
+        });
         if (Number(day) === 1 || Number(day) === 2 || Number(day) === 3) {
-            if (!check_progress_video) {
+            if (!goal_info) {
                 return res
                     .status(400)
                     .json({ success: false, message: "진행중인 작심삼일이 없습니다." });
             }
 
             if (Number(day) === 1) {
-                if (check_progress_video.video1) {
+                /*     if (goal_info.day1.split(" ")[0] !== now) {
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
+                } */
+                if (goal_info.Video.video1) {
                     return res
                         .status(400)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
                 }
             }
             if (Number(day) === 2) {
-                if (!check_progress_video.video1) {
+                /*        if (goal_info.day2.split(" ")[0] !== now) {
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
+                } */
+                if (!goal_info.Video.video1) {
                     return res
                         .status(400)
                         .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
                 }
-                if (check_progress_video.video2) {
+                if (goal_info.Video.video2) {
                     return res
                         .status(400)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
                 }
             }
             if (Number(day) === 3) {
-                if (!check_progress_video.video1 || !check_progress_video.video2) {
+                /*    if (goal_info.day3.split(" ")[0] !== now) {
+                    return res
+                        .status(400)
+                        .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
+                } */
+                if (!goal_info.Video.video1 || !goal_info.Video.video2) {
                     return res
                         .status(400)
                         .json({ success: false, message: "전 동영상을 올리지 않았습니다." });
                 }
-                if (check_progress_video.video3) {
+                if (goal_info.Video.video3) {
                     return res
                         .status(400)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
@@ -76,7 +97,8 @@ export const video_share = async (req, res, next) => {
 
         const is_success = await Goal.findOne({
             where: { user_id, goal_id },
-            attributes: ["status", "video1", "video2", "video3", "final_video"],
+            include: { model: Video, attributes: ["video1", "video2", "video3", "final_video"] },
+            attributes: ["status"],
         });
         if (is_success.status !== "success") {
             return res
@@ -84,10 +106,10 @@ export const video_share = async (req, res, next) => {
                 .json({ success: false, message: "실패한 작심삼일이라 공유할 수 없습니다." });
         }
         if (
-            is_success.video1 === null ||
-            is_success.video2 === null ||
-            is_success.video3 === null ||
-            is_success.final_video === null
+            is_success.Video.video1 === null ||
+            is_success.Video.video2 === null ||
+            is_success.Video.video3 === null ||
+            is_success.Video.final_video === null
         ) {
             return res
                 .status(400)
@@ -95,7 +117,7 @@ export const video_share = async (req, res, next) => {
         }
 
         const is_shared_video = await Goal.findOne({
-            where: { user_id, goal_id, is_social: true },
+            where: { user_id, goal_id, is_share: true },
         });
 
         if (is_shared_video) {

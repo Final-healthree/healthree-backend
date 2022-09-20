@@ -17,16 +17,16 @@ const kakao = () => {
             },
 
             async (accessToken, refreshToken, profile, done) => {
-                const kakao_id = profile.id;
+                const social_id = profile.id;
                 const nickname = profile.displayName;
                 const profile_image = profile._json.properties.profile_image;
                 try {
-                    const is_exist_user = await User.findOne({ where: { kakao_id } });
+                    const is_exist_user = await User.findOne({ where: { social_id } });
                     if (is_exist_user) {
                         done(null, is_exist_user);
                     } else {
                         const create_user = await User.create({
-                            kakao_id,
+                            social_id,
                             nickname,
                             profile_image,
                         });
