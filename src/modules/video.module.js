@@ -2,8 +2,9 @@ import aws from "aws-sdk";
 import dotenv from "dotenv";
 import fs from "fs";
 import editly from "editly";
+import path from "path";
 
-dotenv.config();
+dotenv.config({ path: path.resolve(".env") });
 
 // s3 접근하기 위한 키 설정
 const s3 = new aws.S3({
