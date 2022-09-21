@@ -5,7 +5,7 @@ name: healthree CI
 # Controls when the workflow will run
 on:
     # Triggers the workflow on push or pull request events but only for the "main" branch
-    push:
+    pull_request:
         branches: ["main"]
 
     # Allows you to run this workflow manually from the Actions tab
@@ -20,7 +20,7 @@ jobs:
 
         strategy:
             matrix:
-                node-version: [16.14.2]
+                node-version: [16.x]
 
         # Steps represent a sequence of tasks that will be executed as part of the job
         steps:
@@ -33,3 +33,13 @@ jobs:
                   pwd
                   touch .env
                   echo HEALTHREE_SECRET=${{ secrets.HEALTHREE_SECRET }} >> .env
+
+            - name: zip file
+              run: zip -r healthree.zip .github/workflows ./package.json ./package-lock.json ./src ./node_modules ./appspec.yml ./scripts .env process.json
+
+            - name: AWS configure credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_DEPLOY_ACC }}
+                aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SEC }}
+                aws-region: ap-northeast-2
