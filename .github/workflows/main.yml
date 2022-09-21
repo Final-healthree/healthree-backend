@@ -46,3 +46,10 @@ jobs:
 
             - name: upload to S3
               run: aws s3 cp --region ap-northeast-2 ./healthree.zip s3://healthree-deploy-service/action-test/
+
+            - name: deploy with AWS codeDeploy
+              run: aws deploy create-deployment
+                --application-name codeDeploy_app
+                --deployment-config-name CodeDeployDefault.AllAtOnce
+                --deployment-group-name deploy_group
+                --s3-location bucket=healthree-deploy-service,bundleType=zip,key=action-test/healthree.zip
