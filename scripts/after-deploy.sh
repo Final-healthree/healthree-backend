@@ -7,4 +7,4 @@ sudo npm ci
 
 sudo pm2 kill
 
-pm2 start process.json
+sudo pm2 start process.json
