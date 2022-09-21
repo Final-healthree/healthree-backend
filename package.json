@@ -12,7 +12,6 @@
         "test:main.validation": "jest/validation/main.validation.test.js",
         "test:s3.middleware": "jest/middlewares/s3.middleware.test.js",
         "start": "nodemon ./src/app.js",
-        "build": "nodemon ./src/process.json",
         "db:init": "node ./db_init.js"
     },
     "repository": {

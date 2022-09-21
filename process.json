@@ -2,7 +2,7 @@
     "apps": [
         {
             "name": "healthree",
-            "script": "app.js",
+            "script": "./src/app.js",
             "env": {
                 "DISPLAY": ":99"
             }
