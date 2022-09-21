@@ -3,10 +3,8 @@ REPOSITORY=/home/ubuntu/healthree-backend
 
 cd $REPOSITORY
 
-sudo -s
+sudo npm ci
 
-npm ci
+sudo pm2 kill
 
-pm2 kill
-
-pm2 start process.json
+sudo pm2 start process.json
