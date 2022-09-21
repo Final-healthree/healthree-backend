@@ -3,9 +3,11 @@ import Kakao_passport from "passport-kakao";
 
 import dotenv from "dotenv";
 import User from "../models/user.js";
+import path from "path";
 
 const kakao_strategy = Kakao_passport.Strategy;
-dotenv.config();
+
+dotenv.config({ path: path.resolve(".env") });
 
 const kakao = () => {
     passport.use(

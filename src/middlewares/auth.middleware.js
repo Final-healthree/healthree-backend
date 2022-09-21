@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import path from "path";
 
-dotenv.config();
+dotenv.config({ path: path.resolve(".env") });
 
 export const auth_middleware = async (req, res, next) => {
     const { authorization } = req.headers;
