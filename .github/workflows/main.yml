@@ -27,15 +27,29 @@ jobs:
             # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
             - uses: actions/checkout@v3
 
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                node-version: ${{ matrix.node-version }}
+
+
             # Runs a set of commands using the runners shell
             - name: create env
               run: |
                   pwd
                   touch .env
-                  echo HEALTHREE_SECRET=${{ secrets.HEALTHREE_SECRET }} >> .env
+                  echo AWS_ID=${{ secrets.AWS_ID }} >> .env
+                  echo AWS_SECRET=${{ secrets.AWS_SECRET }} >> .env
+                  echo DB=${{ secrets.DB }} >> .env
+                  echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+                  echo DB_ID=${{ secrets.DB_ID }} >> .env
+                  echo DB_PW=${{ secrets.DB_PW }} >> .env
+                  echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+                  echo KAKAO_ID=${{ secrets.KAKAO_ID }} >> .env
+                  echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
 
             - name: zip file
-              run: zip -r healthree.zip .github/workflows ./package.json ./package-lock.json ./src ./node_modules ./appspec.yml ./scripts .env process.json
+              run: zip -r healthree.zip .github/workflows ./package.json ./package-lock.json ./src ./node_modules ./appspec.yml ./scripts process.json .env
 
             - name: AWS configure credentials
               uses: aws-actions/configure-aws-credentials@v1
@@ -43,3 +57,13 @@ jobs:
                 aws-access-key-id: ${{ secrets.AWS_DEPLOY_ACC }}
                 aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SEC }}
                 aws-region: ap-northeast-2
+
+            - name: upload to S3
+              run: aws s3 cp --region ap-northeast-2 ./healthree.zip s3://healthree-deploy-service/action-test/
+
+            - name: deploy with AWS codeDeploy
+              run: aws deploy create-deployment
+                --application-name codeDeploy_app
+                --deployment-config-name CodeDeployDefault.AllAtOnce
+                --deployment-group-name deploy_group
+                --s3-location bucket=healthree-deploy-service,bundleType=zip,key=action-test/healthree.zip
