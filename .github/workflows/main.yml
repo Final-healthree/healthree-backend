@@ -38,7 +38,7 @@ jobs:
               run: |
                   pwd
                   touch .env
-                  echo HEALTHREE_SECRET=${{ secrets.HEALTHREE_SECRET }} >> .env
+                  echo KAKAO_ID=${{ secrets.KAKAO_ID }} >> .env
 
             - name: zip file
               run: zip -r healthree.zip .github/workflows ./package.json ./package-lock.json ./src ./node_modules ./appspec.yml ./scripts process.json .env
