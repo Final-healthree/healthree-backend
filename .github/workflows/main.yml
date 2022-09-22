@@ -4,35 +4,66 @@ name: healthree CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
-  push:
-    branches: [ "main" ]
+    # Triggers the workflow on push or pull request events but only for the "main" branch
+    pull_request:
+      branches: ["main"]
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+    # Allows you to run this workflow manually from the Actions tab
+    workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    
-    strategy:
-      matrix:
-        node-version: [16.14.2]
+    # This workflow contains a single job called "build"
+    build:
+        # The type of runner that the job will run on
+        runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+        strategy:
+            matrix:
+                node-version: [16.x]
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+        # Steps represent a sequence of tasks that will be executed as part of the job
+        steps:
+            # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+            - uses: actions/checkout@v3
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+            - name: Use Node.js ${{ matrix.node-version }}
+              uses: actions/setup-node@v2
+              with:
+                node-version: ${{ matrix.node-version }}
+
+
+            # Runs a set of commands using the runners shell
+            - name: create env
+              run: |
+                  pwd
+                  touch .env
+                  echo AWS_ID=${{ secrets.AWS_ID }} >> .env
+                  echo AWS_SECRET=${{ secrets.AWS_SECRET }} >> .env
+                  echo DB=${{ secrets.DB }} >> .env
+                  echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+                  echo DB_ID=${{ secrets.DB_ID }} >> .env
+                  echo DB_PW=${{ secrets.DB_PW }} >> .env
+                  echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
+                  echo KAKAO_ID=${{ secrets.KAKAO_ID }} >> .env
+                  echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
+
+            - name: zip file
+              run: zip -r healthree.zip .github/workflows ./package.json ./package-lock.json ./src ./node_modules ./appspec.yml ./scripts process.json .env
+
+            - name: AWS configure credentials
+              uses: aws-actions/configure-aws-credentials@v1
+              with:
+                aws-access-key-id: ${{ secrets.AWS_DEPLOY_ACC }}
+                aws-secret-access-key: ${{ secrets.AWS_DEPLOY_SEC }}
+                aws-region: ap-northeast-2
+
+            - name: upload to S3
+              run: aws s3 cp --region ap-northeast-2 ./healthree.zip s3://healthree-deploy-service/action-test/
+
+            - name: deploy with AWS codeDeploy
+              run: aws deploy create-deployment
+                --application-name codeDeploy_app
+                --deployment-config-name CodeDeployDefault.AllAtOnce
+                --deployment-group-name deploy_group
+                --s3-location bucket=healthree-deploy-service,bundleType=zip,key=action-test/healthree.zip
