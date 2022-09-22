@@ -11,7 +11,7 @@ export const get_my_videos = async (req, res) => {
             Number(page_count),
             Number(page),
         );
-        return res.status(200).json({ status: 200, success: true, result: video_list });
+        return res.status(200).json({ success: true, result: video_list });
     } catch (error) {
         return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
@@ -60,9 +60,7 @@ export const video_share = async (req, res) => {
         const { goal_id } = req.params;
 
         await video_service.video_share(user_id, goal_id);
-        return res
-            .status(201)
-            .json({ status: 201, success: true, result: "마이 비디오 공유 성공" });
+        return res.status(201).json({ success: true, result: "마이 비디오 공유 성공" });
     } catch (error) {
         return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
