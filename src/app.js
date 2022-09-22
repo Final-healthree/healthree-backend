@@ -41,7 +41,7 @@ console.log("db 연결", sequelize.config.port);
 
 const whitelist = [
     "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com",
-    "http://52.78.109.138",
+    "http://wetube-phenomenonlee.shop",
 ];
 const corsOptions = {
     origin: function (origin, callback) {
@@ -58,6 +58,8 @@ app.use(cors(corsOptions));
 app.use("/api", router);
 
 app.use((req, res, next) => {
+    const cors = req.get("origin");
+    console.log(cors);
     const error = new Error(`메서드 ${req.method} 경로 ${req.url} 존재하지 않습니다.`);
     error.status = 404;
     next(error);
