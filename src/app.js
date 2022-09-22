@@ -39,7 +39,10 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-const whitelist = ["http://prac-ye.s3-website.ap-northeast-2.amazonaws.com"];
+const whitelist = [
+    "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com",
+    "http://wetube-phenomenonlee.shop",
+];
 const corsOptions = {
     origin: function (origin, callback) {
         if (whitelist.indexOf(origin) !== -1) {
