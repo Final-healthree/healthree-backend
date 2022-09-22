@@ -22,6 +22,12 @@ export const get_my_goals = async (user_id) => {
     });
 };
 
+export const goal_is_exist = async (user_id) => {
+    return await Goal.findOne({
+        where: { user_id, status: "progress" },
+    });
+};
+
 export const goal_register = async (user_id, day1, day2, day3, goal_name) => {
     const goal = await Goal.create({
         user_id,
