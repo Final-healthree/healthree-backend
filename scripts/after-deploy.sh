@@ -3,7 +3,7 @@ REPOSITORY=/home/ubuntu/healthree-backend
 
 cd $REPOSITORY
 
-npm ci
+npm i
 
 pm2 kill
 
