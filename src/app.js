@@ -45,7 +45,10 @@ const whitelist = [
 ];
 
 const corsOptions = {
-    origin: "http://wetube-phenomenonlee.shop",
+    origin: [
+        "http://wetube-phenomenonlee.shop",
+        "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com",
+    ],
     optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
