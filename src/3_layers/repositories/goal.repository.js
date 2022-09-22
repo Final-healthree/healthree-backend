@@ -4,14 +4,11 @@ import Video from "../../models/video.js";
 export const find_goal_day = async (user_id) => {
     const goal_day_data = await Goal.findOne({
         where: { user_id, status: "progress" },
+        attributes: ["goal_name", "day1", "day2", "day3"],
+        include: { model: Video, attributes: ["video1", "video2"] },
     });
 
-    return {
-        goal: goal_day_data.goal_name,
-        day1: goal_day_data.day1,
-        day2: goal_day_data.day2,
-        day3: goal_day_data.day3,
-    };
+    return goal_day_data;
 };
 
 export const get_my_goals = async (user_id) => {

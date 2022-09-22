@@ -4,7 +4,20 @@ import Goal from "../../models/goal.js";
 import Video from "../../models/video.js";
 
 export const find_goal_day = async (user_id) => {
-    return await goal_repositories.find_goal_day(user_id);
+    const goal_day_data = await goal_repositories.find_goal_day(user_id);
+
+    return {
+        goal: goal_day_data.goal_name,
+        day1: {
+            date: goal_day_data.day1,
+            uploaded: goal_day_data.Video.video1 === null ? false : true,
+        },
+        day2: {
+            date: goal_day_data.day2,
+            uploaded: goal_day_data.Video.video2 === null ? false : true,
+        },
+        day3: goal_day_data.day3,
+    };
 };
 
 export const get_my_goals = async (user_id, nickname, profile_image) => {
