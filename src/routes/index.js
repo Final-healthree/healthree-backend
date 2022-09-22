@@ -1,12 +1,16 @@
 import express from "express";
 const router = express.Router();
 
-import video_router from "./video.routes.js";
-import goal_router from "./goal.routes.js";
 import auth_router from "./auth.routes.js";
+import goal_router from "./goal.routes.js";
+import video_router from "./video.routes.js";
+import post_router from "./post.routes.js";
+import comment_router from "./comment.routes.js";
 
-router.use("/videos", video_router);
-router.use("/goals", goal_router);
 router.use("/auth", auth_router);
+router.use("/goals", goal_router);
+router.use("/videos", video_router);
+router.use("/posts", post_router);
+router.use("/comments", comment_router);
 
 export default router;
