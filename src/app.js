@@ -39,28 +39,14 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-app.use("/", (req, res) => {
-    const cors = req.headers;
-    const host = req.headers.host;
-    const userIP = req.socket.remoteAddress;
-    console.log(cors);
-    console.log(host, "///", userIP);
-    res.json("");
-});
-
 const whitelist = [
     "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com/",
-    "http://wetube-phenomenonlee.shop:80/",
+    "http://wetube-phenomenonlee.shop",
 ];
+
 const corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            // 만일 whitelist 배열에 origin인자가 있을 경우
-            callback(null, true); // cors 허용
-        } else {
-            callback(new Error("Not Allowed Origin!")); // cors 비허용
-        }
-    },
+    origin: "http://wetube-phenomenonlee.shop",
+    optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
