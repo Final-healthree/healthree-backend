@@ -39,11 +39,11 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-app.use("/", (req, res) => {
+/* app.use("/", (req, res) => {
     const cors = req.get("origin");
     console.log(cors);
     res.send("끝");
-});
+}); */
 
 /* const whitelist = [
     "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com",
