@@ -40,7 +40,10 @@ sequelize;
 console.log("db 연결", sequelize.config.port);
 
 const corsOptions = {
-    origin: ["http://prac-ye.s3-website.ap-northeast-2.amazonaws.com"],
+    origin: [
+        /*  "http://wetube-phenomenonlee.shop",
+        "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com", */
+    ],
     optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
