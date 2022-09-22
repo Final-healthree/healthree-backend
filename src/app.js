@@ -39,16 +39,8 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-const whitelist = [
-    "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com/",
-    "http://wetube-phenomenonlee.shop",
-];
-
 const corsOptions = {
-    origin: [
-        "http://wetube-phenomenonlee.shop",
-        "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com",
-    ],
+    origin: ["http://wetube-phenomenonlee.shop"],
     optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
