@@ -59,7 +59,7 @@ const corsOptions = {
         }
     },
 };
-app.use(cors(corsOptions));
+app.use(cors({ origin: true }));
 
 app.use("/api", router);
 
