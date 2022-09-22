@@ -42,9 +42,10 @@ console.log("db 연결", sequelize.config.port);
 app.use("/", (req, res) => {
     const cors = req.get("origin");
     console.log(cors);
+    res.send("끝");
 });
 
-const whitelist = [
+/* const whitelist = [
     "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com",
     "http://wetube-phenomenonlee.shop",
 ];
@@ -57,8 +58,8 @@ const corsOptions = {
             callback(new Error("Not Allowed Origin!")); // cors 비허용
         }
     },
-};
-app.use(cors(corsOptions));
+}; */
+app.use(cors({ origin: true, credential: true }));
 
 app.use("/api", router);
 
