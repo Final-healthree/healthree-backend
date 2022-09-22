@@ -41,8 +41,9 @@ console.log("db 연결", sequelize.config.port);
 
 app.use("/", (req, res) => {
     const cors = req.headers.origin;
+    const host = req.headers.host;
     const userIP = req.socket.remoteAddress;
-    console.log(cors, "///", userIP);
+    console.log(cors, "///", host, "///", userIP);
     res.json("");
 });
 
