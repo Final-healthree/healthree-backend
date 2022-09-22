@@ -34,6 +34,20 @@ export const get_my_goals = async (req, res) => {
     }
 };
 
+export const goal_is_exist = async (req, res) => {
+    try {
+        const { user_id } = res.locals;
+        const is_exist = await goal_services.goal_is_exist(user_id);
+
+        return res.status(200).json({
+            success: true,
+            result: is_exist,
+        });
+    } catch (error) {
+        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+    }
+};
+
 export const goal_register = async (req, res) => {
     try {
         const { user_id } = res.locals;

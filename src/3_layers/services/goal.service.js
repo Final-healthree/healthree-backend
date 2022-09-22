@@ -46,6 +46,15 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
     return { nickname, profile_image, date };
 };
 
+export const goal_is_exist = async (user_id) => {
+    const is_exist = await goal_repositories.goal_is_exist(user_id);
+    if (is_exist === null) {
+        return false;
+    } else {
+        return true;
+    }
+};
+
 export const goal_register = async (user_id, day1, day2, day3, goal_name) => {
     await goal_repositories.goal_register(user_id, day1, day2, day3, goal_name);
 };
