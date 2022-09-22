@@ -40,9 +40,10 @@ sequelize;
 console.log("db 연결", sequelize.config.port);
 
 app.use("/", (req, res) => {
-    const cors = new URL(req.get("origin")?.host);
-    console.log(cors);
-    res.send("끝");
+    const cors = req.headers.origin;
+    const userIP = req.socket.remoteAddress;
+    console.log(cors, "///", userIP);
+    res.json("");
 });
 
 const whitelist = [
