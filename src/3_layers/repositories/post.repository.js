@@ -57,7 +57,10 @@ export const get_post_detail = async (post_id) => {
 export const delete_post = async (user_id, post_id) => {
     await Post.destroy({ where: { post_id } });
 
-    // return await Goal.update({ is_share: 0, include: { model: Goal, where: { goal_id } } });
+    const seek_post_id = await Post.findOne({ include: { model: Goal }, where: { post_id } });
+    const { goal_id } = seek_post_id;
+
+    return await Goal.update({ is_share: false, where: { goal_id } });
 };
 
 export const check_like = async (user_id, post_id) => {
