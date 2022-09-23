@@ -28,7 +28,7 @@ export const get_posts = async (page_count, page) => {
                 model: Comment,
                 attributes: ["comment"],
             },
-            // { model: Like },
+            // { model: Like, as: "liker" },
         ],
         offset: page_count * (page - 1),
         limit: page_count,
@@ -54,23 +54,20 @@ export const get_post_detail = async (post_id) => {
     });
 };
 
-export const delete_post = async (user_id, post_id) => {
+export const delete_post = async (post_id, goal_id) => {
     await Post.destroy({ where: { post_id } });
 
-    const seek_post_id = await Post.findOne({ include: { model: Goal }, where: { post_id } });
-    const { goal_id } = seek_post_id;
-
-    return await Goal.update({ is_share: false, where: { goal_id } });
+    return await Goal.update({ is_share: false }, { where: { goal_id } });
 };
 
 export const check_like = async (user_id, post_id) => {
-    return await Like.findOne({ where: { UserUserId: user_id, PostPostId: post_id } });
+    return await Like.findOne({ where: { user_id, post_id } });
 };
 
 export const like_post = async (user_id, post_id) => {
-    return await Like.create({ UserUserId: user_id, PostPostId: post_id });
+    return await Like.create({ user_id, post_id });
 };
 
 export const dislike_post = async (user_id, post_id) => {
-    return await Like.destroy({ where: { UserUserId: user_id, PostPostId: post_id } });
+    return await Like.destroy({ where: { user_id, post_id } });
 };
