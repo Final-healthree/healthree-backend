@@ -35,6 +35,10 @@ export default class Comment extends Sequelize.Model {
             targetKey: "post_id",
             onDelete: "cascade",
         });
-        db.Comment.belongsTo(db.User, { foreignKey: "user_id", targetKey: "user_id" });
+        db.Comment.belongsTo(db.User, {
+            foreignKey: "user_id",
+            targetKey: "user_id",
+            onDelete: "cascade",
+        });
     }
 }
