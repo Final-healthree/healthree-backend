@@ -30,6 +30,11 @@ export default class Comment extends Sequelize.Model {
     }
     // Post와 Comment 외래키로 넘겨주기 때문에 hasMany설정
     static associate(db) {
-        db.Comment.belongsTo(db.Post, { foreignKey: "post_id", targetKey: "post_id" });
+        db.Comment.belongsTo(db.Post, {
+            foreignKey: "post_id",
+            targetKey: "post_id",
+            onDelete: "cascade",
+        });
+        db.Comment.belongsTo(db.User, { foreignKey: "user_id", targetKey: "user_id" });
     }
 }
