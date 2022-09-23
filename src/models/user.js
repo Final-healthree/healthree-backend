@@ -40,6 +40,10 @@ export default class User extends Sequelize.Model {
     static associate(db) {
         db.User.hasMany(db.Goal, { foreignKey: "user_id", sourceKey: "user_id" });
         db.User.belongsToMany(db.Post, { through: "Like", onDelete: "cascade" });
-        db.User.hasMany(db.Comment, { foreignKey: "user_id", sourceKey: "user_id" });
+        db.User.hasMany(db.Comment, {
+            foreignKey: "user_id",
+            sourceKey: "user_id",
+            onDelete: "cascade",
+        });
     }
 }
