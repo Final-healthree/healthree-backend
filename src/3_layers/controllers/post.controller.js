@@ -33,7 +33,9 @@ export const delete_post = async (req, res) => {
     try {
         const { user_id } = res.locals;
         const { post_id } = req.params;
-        await post_service.delete_post(user_id, post_id);
+        const goal_id = req.goal_id;
+
+        await post_service.delete_post(user_id, post_id, goal_id);
 
         res.status(200).json({ success: true, result: user_id });
     } catch (error) {

@@ -39,7 +39,12 @@ export default class User extends Sequelize.Model {
     // Post와 Comment 외래키로 넘겨주기 때문에 hasMany설정
     static associate(db) {
         db.User.hasMany(db.Goal, { foreignKey: "user_id", sourceKey: "user_id" });
-        db.User.belongsToMany(db.Post, { through: "Like", onDelete: "cascade" });
+        db.User.belongsToMany(db.Post, {
+            through: "Like",
+            as: "liker",
+            foreignKey: "post_id",
+            onDelete: "cascade",
+        });
         db.User.hasMany(db.Comment, {
             foreignKey: "user_id",
             sourceKey: "user_id",
