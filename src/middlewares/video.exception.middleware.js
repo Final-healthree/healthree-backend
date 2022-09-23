@@ -100,7 +100,14 @@ export const video_share = async (req, res, next) => {
             include: { model: Video, attributes: ["video1", "video2", "video3", "final_video"] },
             attributes: ["status"],
         });
-        if (is_success.status !== "success") {
+
+        if (is_success.status === "progress") {
+            return res
+                .status(400)
+                .json({ success: false, message: "진행 중인 작심삼일이라 공유할 수 없습니다." });
+        }
+
+        if (is_success.status === "fail") {
             return res
                 .status(400)
                 .json({ success: false, message: "실패한 작심삼일이라 공유할 수 없습니다." });
