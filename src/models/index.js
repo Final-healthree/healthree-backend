@@ -8,6 +8,7 @@ import Goal from "./goal.js";
 import Video from "./video.js";
 import Post from "./post.js";
 import Comment from "./comment.js";
+import Like from "./like.js";
 
 const db = {};
 
@@ -18,6 +19,7 @@ db.Goal = Goal;
 db.Video = Video;
 db.Post = Post;
 db.Comment = Comment;
+db.Like = Like;
 
 // init한 부분 설정
 User.init(sequelize);
@@ -25,6 +27,7 @@ Goal.init(sequelize);
 Video.init(sequelize);
 Post.init(sequelize);
 Comment.init(sequelize);
+Like.init(sequelize);
 
 // 외래키 관계부분
 User.associate(db);
@@ -32,5 +35,6 @@ Goal.associate(db);
 Video.associate(db);
 Post.associate(db);
 Comment.associate(db);
+Like.associate(db);
 
 export { db };
