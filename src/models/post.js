@@ -32,7 +32,6 @@ export default class Post extends Sequelize.Model {
             sourceKey: "post_id",
             onDelete: "cascade",
         });
-
         db.Post.belongsToMany(db.User, {
             through: "Like",
             as: "liker",
