@@ -27,6 +27,7 @@ export const is_available_delete = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "작성자가 아닙니다." });
         }
 
+        req.goal_id = is_writer?.goal_id;
         next();
     } catch (error) {
         console.log(error);

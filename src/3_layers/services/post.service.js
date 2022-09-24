@@ -32,14 +32,21 @@ export const get_post_detail = async (post_id) => {
     return { nickname, profile_image, post: post_detail };
 };
 
-export const delete_post = async (user_id, post_id) => {
-    return await post_repository.delete_post(user_id, post_id);
+export const delete_post = async (post_id, goal_id) => {
+    return await post_repository.delete_post(post_id, goal_id);
 };
 
 export const like = async (user_id, post_id) => {
-    const check_like = await post_repository.check_like(user_id, post_id);
-    if (!check_like) return await post_repository.like_post(user_id, post_id);
+    try {
+        const check_like = await post_repository.check_like(user_id, post_id);
+        if (!check_like) {
+            return await post_repository.like_post(user_id, post_id);
+        } else throw Error("이미 좋아요한 게시물입니다.");
+    } catch (error) {
+        console.log(error);
+    }
 };
+
 export const dislike = async (user_id, post_id) => {
     const check_like = await post_repository.check_like(user_id, post_id);
     if (check_like) return await post_repository.dislike_post(user_id, post_id);
