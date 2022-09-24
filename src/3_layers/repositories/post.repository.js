@@ -36,6 +36,12 @@ export const get_posts = async (page_count, page) => {
     });
 };
 
+export const get_like_cnt = async (page_count, page) => {
+    const like_cnt = await Like.findAll({ offset: page_count * (page - 1), limit: page_count });
+    console.log(like_cnt);
+    return like_cnt;
+};
+
 // like 추가
 export const get_post_detail = async (post_id) => {
     return await Post.findOne({

@@ -2,6 +2,7 @@ import * as post_repository from "../repositories/post.repository.js";
 
 export const get_posts = async (page_count, page) => {
     const posts = await post_repository.get_posts(page_count, page);
+    const like_cnt = await post_repository.get_like_cnt(page_count, page);
     const posts_list = posts.map((p, index) => {
         return {
             nickname: p.Goal.User.nickname,

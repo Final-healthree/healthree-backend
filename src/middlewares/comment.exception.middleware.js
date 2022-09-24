@@ -25,7 +25,7 @@ export const create_comment = async (req, res, next) => {
         if (exist_post === null) {
             return res.status(400).json({ success: false, message: "존재하지 않는 게시글입니다." });
         }
-        if (!comment || comment.length === 0) {
+        if (!comment) {
             return res.status(400).json({ success: false, message: "댓글을 적어주세요" });
         }
         if (comment.length > 70) {
@@ -54,7 +54,7 @@ export const update_comment = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "본인이 단 댓글이 아닙니다." });
         }
 
-        if (!comment || comment.length === 0) {
+        if (!comment) {
             return res.status(400).json({ success: false, message: "댓글을 적어주세요" });
         }
 
