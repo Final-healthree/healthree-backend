@@ -15,12 +15,12 @@ const s3 = new aws.S3({
     },
 });
 
-export const merge_videos = async (video_one, video_two, video_three, kakao_id) => {
+export const merge_videos = async (video_one, video_two, video_three, social_id) => {
     const edit_spec = {
         width: 480,
         height: 720,
         fps: 15,
-        outPath: `./src/combine/${kakao_id}.mp4`, //합쳐질 파일 위치,이름
+        outPath: `./src/combine/${social_id}.mp4`, //합쳐질 파일 위치,이름
         clips: [
             {
                 transition: { name: "fade" },
