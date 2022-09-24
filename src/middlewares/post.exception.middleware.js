@@ -1,15 +1,14 @@
 import Post from "../models/post.js";
 import User from "../models/user.js";
 import Goal from "../models/goal.js";
-import { db } from "../models/index.js";
-const Like = db.sequelize.models.Like;
+import Like from "../models/like.js";
 
 export const is_available_delete = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
         const { post_id } = req.params;
 
-        const is_exist = await Post.findOne({
+        const is_exist_post = await Post.findOne({
             where: { post_id },
         });
 
@@ -19,7 +18,7 @@ export const is_available_delete = async (req, res, next) => {
             include: { model: Goal, attributes: ["user_id"] },
         });
 
-        if (!is_exist) {
+        if (!is_exist_post) {
             return res.status(400).json({ success: false, message: "존재하지 않는 게시글입니다." });
         }
 
@@ -28,6 +27,21 @@ export const is_available_delete = async (req, res, next) => {
         }
 
         req.goal_id = is_writer?.goal_id;
+        next();
+    } catch (error) {
+        console.log(error);
+        throw error;
+    }
+};
+
+export const is_available_like = async (req, res, next) => {
+    try {
+        const { post_id } = req.params;
+        const is_exist_post = await Post.findOne({ where: { post_id } });
+
+        if (!is_exist_post)
+            return res.status(400).json({ success: false, message: "존재하지 않는 게시물입니다." });
+
         next();
     } catch (error) {
         console.log(error);
