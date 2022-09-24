@@ -38,7 +38,6 @@ export const get_posts = async (page_count, page) => {
 
 export const get_like_cnt = async (page_count, page) => {
     const like_cnt = await Like.findAll({ offset: page_count * (page - 1), limit: page_count });
-    console.log(like_cnt);
     return like_cnt;
 };
 
@@ -60,7 +59,7 @@ export const get_post_detail = async (post_id) => {
     });
 };
 
-export const delete_post = async (post_id, goal_id) => {
+export const delete_post = async (user_id, post_id, goal_id) => {
     await Post.destroy({ where: { post_id } });
 
     return await Goal.update({ is_share: false }, { where: { goal_id } });
