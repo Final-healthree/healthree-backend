@@ -33,7 +33,6 @@ export const goal_register = async (req, res, next) => {
             where: { user_id },
             order: [["createdAt", "DESC"]],
         }); */
-
         if (goal_register) {
             return res
                 .status(400)
