@@ -35,7 +35,7 @@ export const get_rank = async (req, res) => {
                 }
             }
             user_score.push({
-                user_id: users[i].user_id, // 나중에 지울 예정 => 못 지움
+                user_id: users[i].user_id, // 로그인한 유저의 rank를 알 수 있는 정보
                 nickname: users[i].nickname,
                 profile_image: users[i].profile_image,
                 score,
