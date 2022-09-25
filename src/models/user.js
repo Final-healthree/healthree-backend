@@ -23,6 +23,10 @@ export default class User extends Sequelize.Model {
                     type: Sequelize.STRING(100),
                     allowNull: true,
                 },
+                score: {
+                    type: Sequelize.INTEGER(),
+                    allowNull: true,
+                },
             },
             {
                 sequelize,
@@ -31,8 +35,8 @@ export default class User extends Sequelize.Model {
                 underscored: false,
                 modelName: "User",
                 tableName: "user",
-                charset: "utf8",
-                collate: "utf8_general_ci",
+                charset: "utf8mb4",
+                collate: "utf8mb4_general_ci",
             },
         );
     }
