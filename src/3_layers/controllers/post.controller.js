@@ -7,13 +7,12 @@ export const get_posts = async (req, res) => {
 
         const post_lists = await post_service.get_posts(Number(page_count), Number(page));
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             result: { post: post_lists },
         });
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -22,10 +21,9 @@ export const get_post_detail = async (req, res) => {
         const { post_id } = req.params;
         const post_detail = await post_service.get_post_detail(post_id);
 
-        res.status(200).json({ success: true, result: post_detail });
+        return res.status(200).json({ success: true, result: post_detail });
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -37,10 +35,9 @@ export const delete_post = async (req, res) => {
 
         await post_service.delete_post(user_id, post_id, goal_id);
 
-        res.status(200).json({ success: true, result: user_id });
+        return res.status(200).json({ success: true, result: user_id });
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -51,10 +48,9 @@ export const like = async (req, res) => {
 
         await post_service.like(user_id, post_id);
 
-        res.status(200).json({ success: true, result: "좋아요 성공" });
+        return res.status(200).json({ success: true, result: "좋아요 성공" });
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -65,9 +61,8 @@ export const dislike = async (req, res) => {
 
         await post_service.dislike(user_id, post_id);
 
-        res.status(200).json({ success: true, result: "좋아요 취소 성공" });
+        return res.status(200).json({ success: true, result: "좋아요 취소 성공" });
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
