@@ -1,6 +1,7 @@
 import Goal from "../../models/goal.js";
 import Post from "../../models/post.js";
 import Video from "../../models/video.js";
+import User from "../../models/user.js";
 import { Op } from "sequelize";
 
 export const get_my_videos = async (user_id, page_count, page) => {
@@ -46,6 +47,8 @@ export const video_register = async (user_id, day, video, final_video) => {
     }
 
     if (Number(day) === 3) {
+        const user_score = await User.findOne({ where: { user_id }, attributes: ["score"] });
+
         await Video.update(
             {
                 video3: video,
@@ -54,6 +57,7 @@ export const video_register = async (user_id, day, video, final_video) => {
             { where: { goal_id: goal.goal_id } },
         );
         await Goal.update({ status: "success" }, { where: { user_id, status: "progress" } });
+        await User.update({ score: user_score.score + 5 }, { where: { user_id } });
     }
 };
 

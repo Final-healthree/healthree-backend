@@ -26,6 +26,7 @@ export default class User extends Sequelize.Model {
                 score: {
                     type: Sequelize.INTEGER(),
                     allowNull: true,
+                    defaultValue: 0,
                 },
             },
             {

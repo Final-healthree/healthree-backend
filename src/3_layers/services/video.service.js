@@ -45,7 +45,7 @@ export const video_register = async (user_id, day, video) => {
 
         const uploaded_video = await video_modules.upload_video_s3(readed_videod);
 
-        // await video_modules.delete_video_file(`./src/combine/${user_info.social_id}.mp4`);
+        await video_modules.delete_video_file(`./src/combine/${user_info.social_id}.mp4`);
 
         await video_repositories.video_register(user_id, day, video, uploaded_video.Location);
     } else {
