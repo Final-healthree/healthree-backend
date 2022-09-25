@@ -47,6 +47,8 @@ jobs:
                   echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
                   echo KAKAO_ID=${{ secrets.KAKAO_ID }} >> .env
                   echo SESSION_SECRET=${{ secrets.SESSION_SECRET }} >> .env
+                  cd ./src
+                  mkdir combine
 
             - name: zip file
               run: zip -r healthree.zip .github/workflows ./package.json ./package-lock.json ./src ./node_modules ./appspec.yml ./scripts process.json .env
