@@ -15,12 +15,14 @@ const s3 = new aws.S3({
     },
 });
 
-export const merge_videos = async (video_one, video_two, video_three, kakao_id) => {
+export const merge_videos = async (video_one, video_two, video_three, social_id) => {
     const edit_spec = {
         width: 480,
         height: 720,
         fps: 15,
-        outPath: `./src/combine/${kakao_id}.mp4`, //합쳐질 파일 위치,이름
+        outPath: `./src/combine/${social_id}.mp4`, //합쳐질 파일 위치,이름
+        /*      audioFilePath: "./src/bgm/bgm.mp3",
+        loopAudio: true, */
         clips: [
             {
                 transition: { name: "fade" },
@@ -53,6 +55,12 @@ export const merge_videos = async (video_one, video_two, video_three, kakao_id) 
                 ],
             },
         ],
+        /* audioTracks: [
+            {
+                path: "./src/bgm/bgm.mp3",
+                mixVolume: 50,
+            },
+        ], */
     };
     await editly(edit_spec);
 };

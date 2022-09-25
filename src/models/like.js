@@ -24,6 +24,7 @@ export default class Like extends Sequelize.Model {
             },
         );
     }
+    // utf8mb4_unicode_ci
     static associate(db) {
         db.Like.belongsTo(db.Post, {
             foreignKey: "post_id",

@@ -27,6 +27,10 @@ export default class Video extends Sequelize.Model {
                     type: Sequelize.STRING(100),
                     allowNull: true,
                 },
+                thumbnail: {
+                    type: Sequelize.STRING(),
+                    allowNull: true,
+                },
             },
             {
                 sequelize,
