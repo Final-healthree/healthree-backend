@@ -2,6 +2,7 @@ import * as post_service from "../services/post.service.js";
 
 export const get_posts = async (req, res) => {
     try {
+        // const { user_id } = res.locals;
         const page_count = req.query.pagecount;
         const page = req.query.page;
 
@@ -18,8 +19,9 @@ export const get_posts = async (req, res) => {
 
 export const get_post_detail = async (req, res) => {
     try {
+        const { user_id } = res.locals;
         const { post_id } = req.params;
-        const post_detail = await post_service.get_post_detail(post_id);
+        const post_detail = await post_service.get_post_detail(user_id, post_id);
 
         return res.status(200).json({ success: true, result: post_detail });
     } catch (error) {

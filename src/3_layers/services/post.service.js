@@ -11,6 +11,7 @@ export const get_posts = async (page_count, page) => {
             day1: p.Goal.day1,
             day3: p.Goal.day3,
             final_video: p.Goal.Video.final_video,
+            thumbnail: p.Goal.Video.thumbnail,
             comment_cnt: p.Comments.length,
             like_cnt: p.Likes.length,
         };
@@ -18,9 +19,10 @@ export const get_posts = async (page_count, page) => {
     return posts_list;
 };
 
-export const get_post_detail = async (post_id) => {
-    const post = await post_repository.get_post_detail(post_id);
+export const get_post_detail = async (user_id, post_id) => {
+    const post = await post_repository.get_post_detail(user_id, post_id);
     return {
+        user_id: post.Goal.User.user_id,
         nickname: post.Goal.User.nickname,
         profile_image: post.Goal.User.profile_image,
         post: {
@@ -30,6 +32,7 @@ export const get_post_detail = async (post_id) => {
             day3: post.Goal.day3,
             createdAt: post.Goal.createdAt,
             final_video: post.Goal.Video.final_video,
+            thumbnail: post.Goal.Video.thumbnail,
             like_cnt: post.Likes.length,
         },
     };

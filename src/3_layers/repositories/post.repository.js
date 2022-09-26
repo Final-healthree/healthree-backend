@@ -17,7 +17,7 @@ export const get_posts = async (page_count, page) => {
                     },
                     {
                         model: Video,
-                        attributes: ["final_video"],
+                        attributes: ["final_video", "thumbnail"],
                     },
                 ],
                 attributes: ["goal_name", "day1", "day3"],
@@ -34,20 +34,20 @@ export const get_posts = async (page_count, page) => {
     });
 };
 
-export const get_post_detail = async (post_id) => {
+export const get_post_detail = async (user_id, post_id) => {
     return await Post.findOne({
         where: { post_id },
         attributes: ["post_id"],
         include: [
-            { model: Like },
             {
                 model: Goal,
                 include: [
-                    { model: User, attributes: ["nickname", "profile_image"] },
-                    { model: Video, attributes: ["final_video"] },
+                    { model: User, attributes: ["user_id", "nickname", "profile_image"] },
+                    { model: Video, attributes: ["final_video", "thumbnail"] },
                 ],
                 attributes: ["goal_name", "day1", "day3", "createdAt"],
             },
+            { model: Like },
         ],
     });
 };

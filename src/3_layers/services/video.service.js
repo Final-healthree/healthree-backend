@@ -13,6 +13,7 @@ export const get_my_videos = async (user_id, page_count, page) => {
             day1: v.day1,
             day3: v.day3,
             final_video: v.Video.final_video,
+            thumbnail: v.Video.thumbnail,
         };
     });
     return {

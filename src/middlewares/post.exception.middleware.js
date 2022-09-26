@@ -29,8 +29,9 @@ export const is_available_delete = async (req, res, next) => {
         req.goal_id = is_writer?.goal_id;
         next();
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res
+            .status(400)
+            .json({ success: false, message: `${error.name} , ${error.message}` });
     }
 };
 
@@ -44,7 +45,8 @@ export const is_available_like = async (req, res, next) => {
 
         next();
     } catch (error) {
-        console.log(error);
-        throw error;
+        return res
+            .status(400)
+            .json({ success: false, message: `${error.name} , ${error.message}` });
     }
 };
