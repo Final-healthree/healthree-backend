@@ -35,19 +35,32 @@ export const video_register = async (user_id, day, video) => {
             user_info.social_id,
         );
 
+        await video_modules.create_thumbnail(user_info.social_id);
+
         const created_s3_object = video_modules.create_video_s3_objects(
             goal_info.Video.video1.split("videos/")[1],
             goal_info.Video.video2.split("videos/")[1],
             video.split("videos/")[1],
         );
+
         video_modules.delete_video_s3(created_s3_object);
-        const readed_videod = await video_modules.read_video(user_info.social_id);
 
-        const uploaded_video = await video_modules.upload_video_s3(readed_videod);
+        const readed_videod = await video_modules.read_file(user_info.social_id);
 
-        await video_modules.delete_video_file(`./src/combine/${user_info.social_id}.mp4`);
+        const uploaded_video = await video_modules.upload_video_s3(
+            readed_videod.video,
+            readed_videod.thumbnail,
+        );
 
-        await video_repositories.video_register(user_id, day, video, uploaded_video.Location);
+        await video_modules.delete_video_thumbnail(user_info.social_id);
+
+        await video_repositories.video_register(
+            user_id,
+            day,
+            video,
+            uploaded_video.s3_upload_video.Location,
+            uploaded_video.s3_upload_thumbnail.Location,
+        );
     } else {
         await video_repositories.video_register(user_id, day, video);
     }

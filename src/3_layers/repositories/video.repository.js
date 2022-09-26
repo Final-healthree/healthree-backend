@@ -23,7 +23,7 @@ export const get_my_videos = async (user_id, page_count, page) => {
     });
 };
 
-export const video_register = async (user_id, day, video, final_video) => {
+export const video_register = async (user_id, day, video, final_video, thumbnail) => {
     const goal = await Goal.findOne({ where: { user_id, status: "progress" } });
 
     if (Number(day) === 1) {
@@ -53,6 +53,7 @@ export const video_register = async (user_id, day, video, final_video) => {
             {
                 video3: video,
                 final_video,
+                thumbnail,
             },
             { where: { goal_id: goal.goal_id } },
         );

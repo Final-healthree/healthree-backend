@@ -3,6 +3,8 @@ import dotenv from "dotenv";
 import fs from "fs";
 import editly from "editly";
 import path from "path";
+import fluent_ffmpeg from "fluent-ffmpeg";
+// let ffmpeg = fluent_ffmpeg();
 
 dotenv.config({ path: path.resolve(".env") });
 
@@ -63,6 +65,26 @@ export const merge_videos = async (video_one, video_two, video_three, social_id)
         ], */
     };
     await editly(edit_spec);
+};
+
+export const create_thumbnail = async (kakao_id) => {
+    return new Promise((resolve, reject) => {
+        fluent_ffmpeg(`./src/combine/${kakao_id}.mp4`)
+            .on("end", () => {
+                resolve();
+                console.log("create thumbnail");
+            })
+            .on("error", (error) => {
+                console.log(error);
+            })
+            .screenshots({
+                // timestamps: "50%",
+                count: 1,
+                filename: `${kakao_id}.jpg`,
+                folder: "./src/thumbnail",
+                size: "340x340",
+            });
+    });
 };
 
 export const create_video_s3_objects = (video_one, video_two, video_three) => {
@@ -127,27 +149,41 @@ export const delete_video_s3 = (object) => {
     return;
 };
 
-export const read_video = async (kakao_id) => {
-    const file = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
+export const read_file = async (kakao_id) => {
+    const video = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
+    const thumbnail = fs.createReadStream(`./src/thumbnail/${kakao_id}.jpg`, { flags: "r" });
 
-    return file;
+    return { video, thumbnail };
 };
 
-export const upload_video_s3 = async (file) => {
-    const params = {
+export const upload_video_s3 = async (video, thumbnail) => {
+    const video_object = {
         Bucket: "healthree/videos",
         Key: String(new Date().getTime() + Math.random()),
         ACL: "public-read", // 권한: 도메인에 객체경로 URL 을 입력하여 접근 가능하게 설정
-        Body: file,
+        Body: video,
         ContentType: "video/mp4",
     };
-    const s3_upload = await s3.upload(params).promise();
+    const thumbnail_object = {
+        Bucket: "healthree/images",
+        Key: String(new Date().getTime() + Math.random()),
+        ACL: "public-read",
+        Body: thumbnail,
+        ContentType: "image/jpg",
+    };
+    const s3_upload_video = await s3.upload(video_object).promise();
+    const s3_upload_thumbnail = await s3.upload(thumbnail_object).promise();
 
-    return s3_upload;
+    return { s3_upload_video, s3_upload_thumbnail };
 };
 
-export const delete_video_file = async (file_name) => {
-    fs.unlink(file_name, (error) => {
+export const delete_video_thumbnail = async (kakao_id) => {
+    fs.unlink(`./src/combine/${kakao_id}.mp4`, (error) => {
+        if (error) {
+            throw error;
+        }
+    });
+    fs.unlink(`./src/thumbnail/${kakao_id}.jpg`, (error) => {
         if (error) {
             throw error;
         }
