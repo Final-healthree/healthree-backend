@@ -8,7 +8,7 @@ import session from "express-session";
 import passport_config from "./passport/index.js";
 import path from "path";
 import { sequelize } from "./models/index.js";
-
+const port = 3000;
 dotenv.config({ path: path.resolve(".env") });
 
 const app = express();
@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.set("port", process.env.PORT || 3000);
+// app.set("port", process.env.PORT || 3000);
 
 passport_config();
 
@@ -69,4 +69,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(app.get("port"), () => console.log(3000));
+app.listen(port, () => {
+    console.log(`listening ${port}`);
+});
