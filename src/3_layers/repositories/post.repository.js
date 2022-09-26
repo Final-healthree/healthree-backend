@@ -5,7 +5,7 @@ import Post from "../../models/post.js";
 import Comment from "../../models/comment.js";
 import Like from "../../models/like.js";
 
-export const get_posts = async (page_count, page) => {
+export const get_posts = async (user_id, page_count, page) => {
     return await Post.findAll({
         include: [
             {
@@ -31,6 +31,7 @@ export const get_posts = async (page_count, page) => {
         offset: page_count * (page - 1),
         limit: page_count,
         attributes: ["post_id"],
+        order: [["post_id", "ASC"]],
     });
 };
 
