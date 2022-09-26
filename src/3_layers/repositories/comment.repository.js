@@ -2,7 +2,7 @@ import Comment from "../../models/comment.js";
 import User from "../../models/user.js";
 
 export const get_comments = async (post_id, page_count, page) => {
-    return Comment.findAll({
+    return Comment.findAndCountAll({
         where: { post_id },
         attributes: ["comment_id", "comment", "createdAt", "user_id"],
         include: { model: User, attributes: ["nickname", "profile_image"] },

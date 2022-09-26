@@ -3,16 +3,19 @@ import * as comment_repository from "../repositories/comment.repository.js";
 export const get_comments = async (post_id, page_count, page) => {
     const comments = await comment_repository.get_comments(post_id, page_count, page);
 
-    return comments.map((comment, idx) => {
-        return {
-            user_id: comment.user_id,
-            comment_id: comment.comment_id,
-            comment: comment.comment,
-            nickname: comment.User.nickname,
-            profile_image: comment.User.profile_image,
-            date: comment.createdAt,
-        };
-    });
+    return {
+        comment: comments.rows.map((comment, idx) => {
+            return {
+                user_id: comment.user_id,
+                comment_id: comment.comment_id,
+                comment: comment.comment,
+                nickname: comment.User.nickname,
+                profile_image: comment.User.profile_image,
+                date: comment.createdAt,
+            };
+        }),
+        comment_cnt: comments.count,
+    };
 };
 
 export const create_comment = async (post_id, comment, user_id) => {
