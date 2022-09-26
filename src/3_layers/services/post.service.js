@@ -11,7 +11,7 @@ export const get_posts = async (page_count, page) => {
             day1: p.Goal.day1,
             day3: p.Goal.day3,
             final_video: p.Goal.Video.final_video,
-            final_video: p.Goal.Video.thumbnail,
+            thumbnail: p.Goal.Video.thumbnail,
             comment_cnt: p.Comments.length,
             like_cnt: p.Likes.length,
         };
@@ -21,9 +21,6 @@ export const get_posts = async (page_count, page) => {
 
 export const get_post_detail = async (user_id, post_id) => {
     const post = await post_repository.get_post_detail(user_id, post_id);
-    console.log("조회자:", user_id);
-    console.log("작성자:", post.Goal.User.user_id);
-    return post;
     return {
         user_id: post.Goal.User.user_id,
         nickname: post.Goal.User.nickname,
@@ -35,6 +32,7 @@ export const get_post_detail = async (user_id, post_id) => {
             day3: post.Goal.day3,
             createdAt: post.Goal.createdAt,
             final_video: post.Goal.Video.final_video,
+            thumbnail: post.Goal.Video.thumbnail,
             like_cnt: post.Likes.length,
         },
     };
