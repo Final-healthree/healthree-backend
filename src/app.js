@@ -40,7 +40,7 @@ sequelize;
 console.log("db 연결", sequelize.config.port);
 
 const corsOptions = {
-    origin: ["http://localhost:3000", "https://www.healthree3.com"],
+    origin: ["https://www.healthree3.com"],
     credentials: true,
 };
 
