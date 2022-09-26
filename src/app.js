@@ -49,7 +49,7 @@ app.use(cors(corsOptions)); */
 
 app.use(
     cors({
-        origin: "*",
+        origin: true,
         credentials: true,
     }),
 );
