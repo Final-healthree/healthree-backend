@@ -5,8 +5,8 @@ import * as post_exception_handler from "../middlewares/post.exception.middlewar
 
 const router = express.Router();
 
-router.get("/", post_controller.get_posts);
-router.get("/:post_id", post_controller.get_post_detail);
+router.get("/", auth_middleware, post_controller.get_posts);
+router.get("/:post_id", auth_middleware, post_controller.get_post_detail);
 router.delete(
     "/:post_id",
     auth_middleware,
