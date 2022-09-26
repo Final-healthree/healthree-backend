@@ -40,19 +40,11 @@ sequelize;
 console.log("db 연결", sequelize.config.port);
 
 const corsOptions = {
-    origin: [
-        /*  "http://wetube-phenomenonlee.shop",
-        "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com", */
-    ],
-    optionsSuccessStatus: 200,
+    origin: ["http://localhost:3000", "https://www.healthree3.com"],
+    credentials: true,
 };
 
-app.use(
-    cors({
-        origin: "*",
-        credentials: true,
-    }),
-);
+app.use(cors(corsOptions));
 
 app.use("/api", router);
 
