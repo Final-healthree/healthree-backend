@@ -40,19 +40,19 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-const corsOptions = {
+/* const corsOptions = {
     origin: ["http://localhost:3000", "https://www.healthree3.com", "https://localhost:3000"],
     credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); */
 
-/* app.use(
+app.use(
     cors({
         origin: "*",
         credentials: true,
     }),
-); */
+);
 
 app.use("/api", router);
 
