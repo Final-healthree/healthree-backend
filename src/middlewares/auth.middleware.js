@@ -16,7 +16,6 @@ export const auth_middleware = async (req, res, next) => {
     try {
         const user_info = jwt.verify(auth_value, process.env.JWT_SECRET);
         const { user_id } = user_info.payload;
-        console.log(user_id);
 
         const is_exist_user = await User.findOne({ where: { user_id } });
         if (!is_exist_user)
