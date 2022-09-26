@@ -5,6 +5,7 @@ export const get_comments = async (post_id, page_count, page) => {
 
     return comments.map((comment, idx) => {
         return {
+            user_id: comment.user_id,
             comment_id: comment.comment_id,
             comment: comment.comment,
             nickname: comment.User.nickname,

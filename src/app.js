@@ -9,6 +9,7 @@ import passport_config from "./passport/index.js";
 import path from "path";
 import { sequelize } from "./models/index.js";
 const port = 3000;
+
 dotenv.config({ path: path.resolve(".env") });
 
 const app = express();
