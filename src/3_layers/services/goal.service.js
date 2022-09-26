@@ -79,7 +79,7 @@ export const goal_fail = async (user_id, day) => {
     });
 
     if (Number(day) === 1) {
-        await goal_repositories.goal_fail(user_id);
+        await goal_repositories.goal_fail(user_id, Number(day));
         return;
     }
 
@@ -88,7 +88,7 @@ export const goal_fail = async (user_id, day) => {
             goal_info.Video.video1.split("videos/")[1],
         );
         video_modules.delete_video_s3(created_s3_object);
-        await goal_repositories.goal_fail(user_id);
+        await goal_repositories.goal_fail(user_id, Number(day));
         return;
     }
 
@@ -98,7 +98,6 @@ export const goal_fail = async (user_id, day) => {
             goal_info.Video.video2.split("videos/")[1],
         );
         video_modules.delete_video_s3(created_s3_object);
-        await goal_repositories.goal_fail(user_id);
-        return;
+        await goal_repositories.goal_fail(user_id, Number(day));
     }
 };
