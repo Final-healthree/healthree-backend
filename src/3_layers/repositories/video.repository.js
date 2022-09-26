@@ -15,7 +15,7 @@ export const get_my_videos = async (user_id, page_count, page) => {
                 video3: { [Op.ne]: null },
                 final_video: { [Op.ne]: null },
             },
-            attributes: ["final_video"],
+            attributes: ["final_video", "thumbnail"],
         },
         offset: page_count * (page - 1),
         limit: page_count,
