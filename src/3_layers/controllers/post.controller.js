@@ -2,11 +2,11 @@ import * as post_service from "../services/post.service.js";
 
 export const get_posts = async (req, res) => {
     try {
-        // const { user_id } = res.locals;
+        const { user_id } = res.locals;
         const page_count = req.query.pagecount;
         const page = req.query.page;
 
-        const post_lists = await post_service.get_posts(Number(page_count), Number(page));
+        const post_lists = await post_service.get_posts(user_id, Number(page_count), Number(page));
 
         return res.status(200).json({
             success: true,

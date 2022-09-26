@@ -1,9 +1,18 @@
 import * as post_repository from "../repositories/post.repository.js";
 
-export const get_posts = async (page_count, page) => {
-    const posts = await post_repository.get_posts(page_count, page);
+export const get_posts = async (user_id, page_count, page) => {
+    const posts = await post_repository.get_posts(user_id, page_count, page);
     const posts_list = posts.map((p, index) => {
+        let is_like = false;
+        for (let i = 0; i < p.Likes.length; i++) {
+            if (user_id === p.Likes[i]?.user_id) {
+                is_like = true;
+                break;
+            }
+        }
         return {
+            post_id: p.post_id,
+            is_like,
             nickname: p.Goal.User.nickname,
             profile_image: p.Goal.User.profile_image,
             post_id: p.post_id,
@@ -16,15 +25,27 @@ export const get_posts = async (page_count, page) => {
             like_cnt: p.Likes.length,
         };
     });
+
     return posts_list;
 };
 
 export const get_post_detail = async (user_id, post_id) => {
     const post = await post_repository.get_post_detail(user_id, post_id);
+    const likes = post.Likes;
+
+    let is_like = false;
+    for (let i = 0; i < likes.length; i++) {
+        if (user_id === likes[i].user_id) {
+            is_like = true;
+            break;
+        }
+    }
+
     return {
         user_id: post.Goal.User.user_id,
         nickname: post.Goal.User.nickname,
         profile_image: post.Goal.User.profile_image,
+        is_like,
         post: {
             post_id: post.post_id,
             goal_name: post.Goal.goal_name,
