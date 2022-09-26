@@ -17,7 +17,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// app.set("port", process.env.PORT || 3000);
+app.set("port", process.env.PORT || 3000);
 
 passport_config();
 
@@ -39,19 +39,19 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-const corsOptions = {
+/* const corsOptions = {
     origin: ["http://localhost:3000", "https://www.healthree3.com"],
     credentials: true,
 };
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions)); */
 
-/* app.use(
+app.use(
     cors({
         origin: "*",
         credentials: true,
     }),
-); */
+);
 
 app.use("/api", router);
 
