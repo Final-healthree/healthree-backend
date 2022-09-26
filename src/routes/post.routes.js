@@ -6,10 +6,16 @@ import * as post_exception_handler from "../middlewares/post.exception.middlewar
 const router = express.Router();
 
 router.get("/", auth_middleware, post_controller.get_posts);
-router.get("/:post_id", auth_middleware, post_controller.get_post_detail);
+router.get(
+    "/:post_id",
+    auth_middleware,
+    post_exception_handler.is_accessible_post,
+    post_controller.get_post_detail,
+);
 router.delete(
     "/:post_id",
     auth_middleware,
+    post_exception_handler.is_accessible_post,
     post_exception_handler.is_available_delete,
     post_controller.delete_post,
 );

@@ -22,7 +22,8 @@ export const find_goal_day = async (user_id) => {
 
 export const get_my_goals = async (user_id, nickname, profile_image) => {
     const get_user_goal = await goal_repositories.get_my_goals(user_id);
-    const date = [];
+    const success = [];
+    const fail = [];
     for (let i = 0; i < get_user_goal.length; i++) {
         if (
             get_user_goal[i].status === "success" &&
@@ -31,7 +32,7 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
             get_user_goal[i].Video.video3 !== null &&
             get_user_goal[i].Video.final_video !== null
         ) {
-            date.push({
+            success.push({
                 goal_id: get_user_goal[i].goal_id,
                 date: [get_user_goal[i].day1, get_user_goal[i].day2, get_user_goal[i].day3],
             });
@@ -43,20 +44,20 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
                 get_user_goal[i].Video.video2 === null &&
                 get_user_goal[i].Video.video3 === null
             ) {
-                date.push({ goal_id: get_user_goal[i].goal_id, date: get_user_goal[i].day1 });
+                fail.push({ goal_id: get_user_goal[i].goal_id, date: get_user_goal[i].day1 });
             }
         if (
             get_user_goal[i].Video.video1 !== null &&
             get_user_goal[i].Video.video2 !== null &&
             get_user_goal[i].Video.video3 === null
         ) {
-            date.push({
+            fail.push({
                 goal_id: get_user_goal[i].goal_id,
                 date: [get_user_goal[i].day1, get_user_goal[i].day2],
             });
         }
     }
-    return { nickname, profile_image, date };
+    return { nickname, profile_image, date: { success, fail } };
 };
 
 export const goal_is_exist = async (user_id) => {
