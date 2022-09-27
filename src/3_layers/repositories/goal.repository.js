@@ -7,7 +7,7 @@ export const find_goal_day = async (user_id, goal_id) => {
         const goal_day_data = await Goal.findOne({
             where: { goal_id },
             attributes: ["goal_name", "day1", "day2", "day3"],
-            include: { model: Video, attributes: ["video1", "video2"] },
+            include: { model: Video, attributes: ["video1", "video2", "video3"] },
         });
         return goal_day_data;
     } else {
