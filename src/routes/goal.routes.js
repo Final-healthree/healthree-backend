@@ -22,7 +22,7 @@ router.post(
     goal_exception_handler.goal_register,
     goal_controller.goal_register,
 );
-router.patch(
+router.put(
     "/fail/:day",
     auth_middleware,
     goal_exception_handler.goal_fail,
