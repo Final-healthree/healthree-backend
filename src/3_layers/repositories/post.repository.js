@@ -38,7 +38,7 @@ export const get_posts = async (user_id, page_count, page) => {
 export const get_post_detail = async (user_id, post_id) => {
     return await Post.findOne({
         where: { post_id },
-        attributes: ["post_id"],
+        attributes: ["post_id", "createdAt"],
         include: [
             {
                 model: Goal,

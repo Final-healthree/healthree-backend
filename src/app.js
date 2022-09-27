@@ -8,6 +8,7 @@ import session from "express-session";
 import passport_config from "./passport/index.js";
 import path from "path";
 import { sequelize } from "./models/index.js";
+const port = 3000;
 
 dotenv.config({ path: path.resolve(".env") });
 
@@ -17,7 +18,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.set("port", process.env.PORT || 3000);
+// app.set("port", process.env.PORT || 3000);
 
 passport_config();
 
@@ -39,18 +40,19 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-const corsOptions = {
-    origin: [
-        /*  "http://wetube-phenomenonlee.shop",
-        "http://prac-ye.s3-website.ap-northeast-2.amazonaws.com", */
-    ],
-    optionsSuccessStatus: 200,
+/* const corsOptions = {
+    origin: ["http://localhost:3000", "https://www.healthree3.com"],
+    credentials: true,
 };
+
+app.use(cors(corsOptions)); */
 
 app.use(
     cors({
-        origin: "*",
+        origin: true,
         credentials: true,
+        methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"],
+        optionSuccessStatus: 200,
     }),
 );
 
@@ -70,4 +72,6 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(app.get("port"), () => console.log(3000));
+app.listen(port, () => {
+    console.log(`listening ${port}`);
+});
