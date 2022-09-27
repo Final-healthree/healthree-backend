@@ -52,6 +52,7 @@ app.use(
         origin: true,
         credentials: true,
         methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"],
+        optionSuccessStatus: 200,
     }),
 );
 
