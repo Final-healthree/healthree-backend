@@ -31,7 +31,7 @@ export const get_posts = async (user_id, page_count, page) => {
         offset: page_count * (page - 1),
         limit: page_count,
         attributes: ["post_id"],
-        order: [["post_id", "ASC"]],
+        order: [["post_id", "DESC"]],
     });
 };
 
