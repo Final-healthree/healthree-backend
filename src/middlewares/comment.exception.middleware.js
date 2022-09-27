@@ -28,10 +28,10 @@ export const create_comment = async (req, res, next) => {
         if (!comment) {
             return res.status(400).json({ success: false, message: "댓글을 적어주세요" });
         }
-        if (comment.length > 70) {
+        if (comment.length > 40) {
             return res
                 .status(400)
-                .json({ success: false, message: "댓글은 70자 이하만 작성할 수 있습니다." });
+                .json({ success: false, message: "댓글은 40자 이하만 작성할 수 있습니다." });
         }
         next();
     } catch (error) {
@@ -58,10 +58,10 @@ export const update_comment = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "댓글을 적어주세요" });
         }
 
-        if (comment.length > 70) {
+        if (comment.length > 40) {
             return res
                 .status(400)
-                .json({ success: false, message: "댓글은 70자 이하만 작성할 수 있습니다." });
+                .json({ success: false, message: "댓글은 40자 이하만 작성할 수 있습니다." });
         }
         next();
     } catch (error) {

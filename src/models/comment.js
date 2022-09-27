@@ -12,7 +12,7 @@ export default class Comment extends Sequelize.Model {
                     autoIncrement: true,
                 },
                 comment: {
-                    type: Sequelize.STRING(100),
+                    type: Sequelize.STRING(40),
                     allowNull: false,
                 },
             },
