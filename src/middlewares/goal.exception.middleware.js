@@ -63,14 +63,14 @@ export const goal_register = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "목표를 입력해주세요" });
         }
 
-        if (recent_registered) {
+        /*  if (recent_registered) {
             if (recent_registered.createdAt.split(" ")[0] === now) {
                 return res.status(400).json({
                     success: false,
                     message: "하루가 지난뒤에 등록 할수 있습니다.",
                 });
             }
-        }
+        } */
         next();
     } catch (error) {
         return res
