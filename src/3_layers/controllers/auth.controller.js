@@ -19,7 +19,7 @@ export const auth_controller = async (req, res) => {
             payload,
         },
         process.env.JWT_SECRET,
-        { expiresIn: "1d" },
+        { expiresIn: "2h" },
     );
 
     res.redirect(`https://healthree3.com/main?token=${token}`); // "/main(프론트 서버)" 프론트와 연결
