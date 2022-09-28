@@ -4,6 +4,20 @@ import moment from "moment";
 
 export const find_goal_day = async (req, res, next) => {
     try {
+        const { goal_id } = req.query;
+
+        if (goal_id) {
+            const goal = await Goal.findOne({ where: { goal_id } });
+            if (!goal) {
+                return res
+                    .status(400)
+                    .json({ success: false, message: "존재하지 않는 goal_id입니다." });
+            }
+
+            res.locals.goal_id = goal_id;
+            next();
+            return;
+        }
         const { user_id } = res.locals;
         const goal_progress = await Goal.findOne({ where: { user_id, status: "progress" } });
         if (!goal_progress) {

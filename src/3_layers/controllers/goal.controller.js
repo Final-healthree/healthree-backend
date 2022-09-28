@@ -2,9 +2,8 @@ import * as goal_services from "../services/goal.service.js";
 
 export const find_goal_day = async (req, res) => {
     try {
-        const { user_id } = res.locals;
-
-        const goal_day_data = await goal_services.find_goal_day(user_id);
+        const { user_id, goal_id } = res.locals;
+        const goal_day_data = await goal_services.find_goal_day(user_id, goal_id);
 
         res.status(200).json({
             success: true,
