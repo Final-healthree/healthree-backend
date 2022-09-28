@@ -8,6 +8,7 @@ export const get_comments = async (post_id, page_count, page) => {
         include: { model: User, attributes: ["nickname", "profile_image"] },
         limit: page_count,
         offset: page_count * (page - 1),
+        order: [["comment_id", "DESC"]],
     });
 };
 
