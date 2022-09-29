@@ -40,7 +40,6 @@ export const get_post_detail = async (user_id, post_id) => {
             break;
         }
     }
-    console.log(post.createdAt);
     return {
         user_id: post.Goal.User.user_id,
         nickname: post.Goal.User.nickname,

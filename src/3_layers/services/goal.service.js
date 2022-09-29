@@ -65,7 +65,7 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
                 get_user_goal[i].Video.video2 === null &&
                 get_user_goal[i].Video.video3 === null
             ) {
-                fail.push({ goal_id: get_user_goal[i].goal_id, date: get_user_goal[i].day1 });
+                fail.push({ goal_id: get_user_goal[i].goal_id, date: [get_user_goal[i].day1] });
             }
         if (
             get_user_goal[i].Video.video1 !== null &&
