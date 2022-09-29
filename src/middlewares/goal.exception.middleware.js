@@ -43,10 +43,10 @@ export const goal_register = async (req, res, next) => {
         const goal_register = await Goal.findOne({ where: { user_id, status: "progress" } });
 
         // 가장 최근 등록한 작심삼일 가지고 오기
-        /*  const recent_registered = await Goal.findOne({
+        const recent_registered = await Goal.findOne({
             where: { user_id },
             order: [["createdAt", "DESC"]],
-        }); */
+        });
         if (goal_register) {
             return res
                 .status(400)
@@ -63,14 +63,14 @@ export const goal_register = async (req, res, next) => {
             return res.status(400).json({ success: false, message: "목표를 입력해주세요" });
         }
 
-        /*   if (recent_registered) {
+        if (recent_registered) {
             if (recent_registered.createdAt.split(" ")[0] === now) {
                 return res.status(400).json({
                     success: false,
                     message: "하루가 지난뒤에 등록 할수 있습니다.",
                 });
             }
-        } */
+        }
         next();
     } catch (error) {
         return res

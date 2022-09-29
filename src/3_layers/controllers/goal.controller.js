@@ -23,7 +23,6 @@ export const get_my_goals = async (req, res) => {
     try {
         const { user_id, nickname, profile_image } = res.locals;
         const get_days = await goal_services.get_my_goals(user_id, nickname, profile_image);
-
         return res.status(200).json({
             success: true,
             result: get_days,

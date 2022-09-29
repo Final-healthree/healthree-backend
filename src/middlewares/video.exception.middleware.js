@@ -21,11 +21,11 @@ export const video_register = async (req, res, next) => {
             }
 
             if (Number(day) === 1) {
-                /* if (goal_info.day1.split(" ")[0] !== now) {
+                if (goal_info.day1.split(" ")[0] !== now) {
                     return res
                         .status(400)
                         .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
-                } */
+                }
                 if (goal_info.Video.video1) {
                     return res
                         .status(400)
@@ -33,11 +33,11 @@ export const video_register = async (req, res, next) => {
                 }
             }
             if (Number(day) === 2) {
-                /*    if (goal_info.day2.split(" ")[0] !== now) {
+                if (goal_info.day2.split(" ")[0] !== now) {
                     return res
                         .status(400)
                         .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
-                } */
+                }
                 if (!goal_info.Video.video1) {
                     return res
                         .status(400)
@@ -50,11 +50,11 @@ export const video_register = async (req, res, next) => {
                 }
             }
             if (Number(day) === 3) {
-                /* if (goal_info.day3.split(" ")[0] !== now) {
+                if (goal_info.day3.split(" ")[0] !== now) {
                     return res
                         .status(400)
                         .json({ success: false, message: "등록된 날짜와 현재 날짜가 다릅니다." });
-                } */
+                }
                 if (!goal_info.Video.video1 || !goal_info.Video.video2) {
                     return res
                         .status(400)
