@@ -69,7 +69,7 @@ export const goal_register = async (req, res, next) => {
                     success: false,
                     message: "하루가 지난뒤에 등록 할수 있습니다.",
                 });
-            }
+            }s
         } */
         next();
     } catch (error) {
