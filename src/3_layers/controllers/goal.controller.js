@@ -15,7 +15,7 @@ export const find_goal_day = async (req, res) => {
             },
         });
     } catch (error) {
-        res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -28,7 +28,7 @@ export const get_my_goals = async (req, res) => {
             result: get_days,
         });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -42,7 +42,7 @@ export const goal_is_exist = async (req, res) => {
             result: is_exist,
         });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -53,9 +53,9 @@ export const goal_register = async (req, res) => {
 
         await goal_services.goal_register(user_id, day1, day2, day3, goal_name);
 
-        res.status(200).json({ success: true, messgae: "작심삼일 등록 완료" });
+        res.status(201).json({ success: true, messgae: "작심삼일 등록 완료" });
     } catch (error) {
-        res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
@@ -66,10 +66,10 @@ export const goal_fail = async (req, res) => {
 
         await goal_services.goal_fail(user_id, day);
 
-        return res.status(200).json({ success: true, message: "실패요청 완료" });
+        return res.status(201).json({ success: true, message: "실패요청 완료" });
     } catch (error) {
         console.log(error);
-        return res.status(400).json({
+        return res.status(500).json({
             success: false,
             message: `${error.name}, ${error.message}`,
         });
