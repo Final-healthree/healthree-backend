@@ -52,11 +52,11 @@ export const goal_register = async (req, res, next) => {
                 // raw: true,
             },
         });
-        /* if (goal_register) {
+        if (goal_register) {
             return res
                 .status(400)
                 .json({ success: false, message: "이미 진행중인 작심삼일이 있습니다." });
-        } */
+        }
 
         if (!day1 || !day2 || !day3) {
             return res
