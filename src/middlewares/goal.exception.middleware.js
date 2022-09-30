@@ -39,13 +39,18 @@ export const goal_register = async (req, res, next) => {
         const { user_id } = res.locals;
         const { day1, day2, day3, goal_name } = req.body;
         const now = moment().format("YYYY-MM-DD");
-
         const goal_register = await Goal.findOne({ where: { user_id, status: "progress" } });
 
         // 가장 최근 등록한 작심삼일 가지고 오기
         const recent_registered = await Goal.findOne({
             where: { user_id },
             order: [["createdAt", "DESC"]],
+            // raw: true,
+            include: {
+                model: Video,
+                attributes: ["video1", "video2", "video3"],
+                // raw: true,
+            },
         });
         if (goal_register) {
             return res
@@ -64,13 +69,41 @@ export const goal_register = async (req, res, next) => {
         }
 
         /* if (recent_registered) {
-            if (recent_registered.createdAt.split(" ")[0] === now) {
+            if (
+                recent_registered.Video.video1 !== null &&
+                recent_registered.Video.video2 !== null &&
+                recent_registered.Video.video3 !== null &&
+                recent_registered.day3.split(" ")[0] === now
+            ) {
                 return res.status(400).json({
-                    success: false,
-                    message: "하루가 지난뒤에 등록 할수 있습니다.",
+                    message: "작심삼일을 오늘 성공해서 다음날 등록이 가능합니다.",
+                    day3: recent_registered.day3.split(" ")[0],
+                });
+            }
+            if (
+                recent_registered.Video.video1 !== null &&
+                recent_registered.Video.video2 !== null &&
+                recent_registered.Video.video3 === null &&
+                recent_registered.day2.split(" ")[0] === now
+            ) {
+                return res.status(400).json({
+                    message: "작심삼일을 오늘 실패해서 다음날 등록이 가능합니다.",
+                    day2: recent_registered.day2.split(" ")[0],
+                });
+            }
+            if (
+                recent_registered.Video.video1 !== null &&
+                recent_registered.Video.video2 === null &&
+                recent_registered.Video.video3 === null &&
+                recent_registered.day1.split(" ")[0] === now
+            ) {
+                return res.status(400).json({
+                    message: "작심삼일을 오늘 실패해서 다음날 등록이 가능합니다.",
+                    day1: recent_registered.day1.split(" ")[0],
                 });
             }
         } */
+
         next();
     } catch (error) {
         return res
