@@ -2,43 +2,26 @@ import * as goal_repositories from "../repositories/goal.repository.js";
 import * as video_modules from "../../modules/video.module.js";
 import Goal from "../../models/goal.js";
 import Video from "../../models/video.js";
+import moment from "moment";
 
-export const find_goal_day = async (user_id, goal_id) => {
-    const goal_day_data = await goal_repositories.find_goal_day(user_id, goal_id);
+export const find_goal_day = async (user_id) => {
+    const goal_day_data = await goal_repositories.find_goal_day(user_id);
 
-    if (goal_day_data.Video.video3 === undefined) {
-        return {
-            goal: goal_day_data.goal_name,
-            day1: {
-                date: goal_day_data.day1,
-                uploaded: goal_day_data.Video.video1 === null ? false : true,
-            },
-            day2: {
-                date: goal_day_data.day2,
-                uploaded: goal_day_data.Video.video2 === null ? false : true,
-            },
-            day3: {
-                date: goal_day_data.day3,
-                uploaded: false,
-            },
-        };
-    } else {
-        return {
-            goal: goal_day_data.goal_name,
-            day1: {
-                date: goal_day_data.day1,
-                uploaded: goal_day_data.Video.video1 === null ? false : true,
-            },
-            day2: {
-                date: goal_day_data.day2,
-                uploaded: goal_day_data.Video.video2 === null ? false : true,
-            },
-            day3: {
-                date: goal_day_data.day3,
-                uploaded: goal_day_data.Video.video3 === null ? false : true,
-            },
-        };
-    }
+    return {
+        goal: goal_day_data.goal_name,
+        day1: {
+            date: goal_day_data.day1,
+            uploaded: goal_day_data.Video.video1 === null ? false : true,
+        },
+        day2: {
+            date: goal_day_data.day2,
+            uploaded: goal_day_data.Video.video2 === null ? false : true,
+        },
+        day3: {
+            date: goal_day_data.day3,
+            uploaded: false,
+        },
+    };
 };
 
 export const get_my_goals = async (user_id, nickname, profile_image) => {
@@ -88,6 +71,16 @@ export const goal_is_exist = async (user_id) => {
     } else {
         return true;
     }
+};
+
+export const is_today_register = async (user_id) => {
+    const recent_goal_info = await goal_repositories.is_today_register(user_id);
+
+    moment.tz.setDefault("Asia/Seoul");
+    const now = moment().format("YYYY-MM-DD");
+    if (recent_goal_info.updatedAt.split(" ")[0] === now) return false;
+
+    return true;
 };
 
 export const goal_register = async (user_id, day1, day2, day3, goal_name) => {

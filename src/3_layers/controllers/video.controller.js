@@ -19,7 +19,7 @@ export const get_my_videos = async (req, res) => {
 
 export const video_register = async (req, res) => {
     try {
-        const { user_id, goal_id } = res.locals;
+        const { user_id } = res.locals;
         const { day } = req.params;
 
         if (req.file) {
@@ -30,7 +30,7 @@ export const video_register = async (req, res) => {
 
                 return res.status(201).json({
                     success: true,
-                    result: goal_id,
+                    message: "동영상 업로드 완료",
                 });
             }
 
