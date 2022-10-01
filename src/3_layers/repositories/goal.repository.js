@@ -2,22 +2,13 @@ import Goal from "../../models/goal.js";
 import Video from "../../models/video.js";
 import User from "../../models/user.js";
 
-export const find_goal_day = async (user_id, goal_id) => {
-    if (goal_id) {
-        const goal_day_data = await Goal.findOne({
-            where: { goal_id },
-            attributes: ["goal_name", "day1", "day2", "day3"],
-            include: { model: Video, attributes: ["video1", "video2", "video3"] },
-        });
-        return goal_day_data;
-    } else {
-        const goal_day_data = await Goal.findOne({
-            where: { user_id, status: "progress" },
-            attributes: ["goal_name", "day1", "day2", "day3"],
-            include: { model: Video, attributes: ["video1", "video2"] },
-        });
-        return goal_day_data;
-    }
+export const find_goal_day = async (user_id) => {
+    const goal_day_data = await Goal.findOne({
+        where: { user_id, status: "progress" },
+        attributes: ["goal_name", "day1", "day2", "day3"],
+        include: { model: Video, attributes: ["video1", "video2"] },
+    });
+    return goal_day_data;
 };
 
 export const get_my_goals = async (user_id) => {
@@ -31,6 +22,14 @@ export const get_my_goals = async (user_id) => {
 export const goal_is_exist = async (user_id) => {
     return await Goal.findOne({
         where: { user_id, status: "progress" },
+    });
+};
+
+export const is_today_register = async (user_id) => {
+    return await Goal.findOne({
+        where: { user_id },
+        order: [["createdAt", "DESC"]],
+        attributes: ["updatedAt"],
     });
 };
 

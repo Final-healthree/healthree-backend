@@ -65,7 +65,6 @@ export const video_register = async (req, res, next) => {
                         .status(409)
                         .json({ success: false, message: "이미 동영상이 등록되어 있습니다." });
                 }
-                res.locals.goal_id = goal_info.goal_id;
             }
             next();
         } else {

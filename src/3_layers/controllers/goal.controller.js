@@ -2,8 +2,8 @@ import * as goal_services from "../services/goal.service.js";
 
 export const find_goal_day = async (req, res) => {
     try {
-        const { user_id, goal_id } = res.locals;
-        const goal_day_data = await goal_services.find_goal_day(user_id, goal_id);
+        const { user_id } = res.locals;
+        const goal_day_data = await goal_services.find_goal_day(user_id);
 
         res.status(200).json({
             success: true,
@@ -40,6 +40,20 @@ export const goal_is_exist = async (req, res) => {
         return res.status(200).json({
             success: true,
             result: is_exist,
+        });
+    } catch (error) {
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
+    }
+};
+
+export const is_today_register = async (req, res) => {
+    try {
+        const { user_id } = res.locals;
+        const is_today_register = await goal_services.is_today_register(user_id);
+
+        return res.status(200).json({
+            success: true,
+            result: is_today_register,
         });
     } catch (error) {
         return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
