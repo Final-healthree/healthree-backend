@@ -1,6 +1,7 @@
 import Goal from "../../models/goal.js";
 import Video from "../../models/video.js";
 import User from "../../models/user.js";
+import { Op } from "sequelize";
 
 export const find_goal_day = async (user_id) => {
     const goal_day_data = await Goal.findOne({
@@ -11,12 +12,41 @@ export const find_goal_day = async (user_id) => {
     return goal_day_data;
 };
 
-export const get_my_goals = async (user_id) => {
-    return await Goal.findAll({
-        where: { user_id },
-        attributes: ["goal_id", "status", "day1", "day2", "day3"],
-        include: { model: Video, attributes: ["video1", "video2", "video3", "final_video"] },
+export const get_success_goal = async (user_id) => {
+    const success_data = await Goal.findAll({
+        where: { user_id, status: "success" },
+        attributes: ["goal_id", "day1", "day3"],
     });
+    return success_data;
+};
+
+export const get_fail_goal_2nd = async (user_id) => {
+    const fail_data = await Goal.findAll({
+        where: { user_id, status: "fail" },
+        attributes: ["goal_id", "day1"],
+        include: {
+            model: Video,
+            where: { [Op.and]: [{ video2: null }, { video3: null }] },
+            attributes: [],
+        },
+    });
+    return fail_data;
+};
+
+export const get_fail_goal_3rd = async (user_id) => {
+    const fail_data = await Goal.findAll({
+        where: { user_id, status: "fail" },
+        attributes: ["goal_id", "day1", "day2"],
+        include: {
+            model: Video,
+            where: {
+                video2: { [Op.ne]: null },
+                [Op.and]: [{ video3: null }, { final_video: null }],
+            },
+            attributes: [],
+        },
+    });
+    return fail_data;
 };
 
 export const goal_is_exist = async (user_id) => {
