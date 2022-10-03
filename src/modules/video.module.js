@@ -4,7 +4,6 @@ import fs from "fs";
 import editly from "editly";
 import path from "path";
 import fluent_ffmpeg from "fluent-ffmpeg";
-// let ffmpeg = fluent_ffmpeg();
 
 dotenv.config({ path: path.resolve(".env") });
 
@@ -29,8 +28,7 @@ export const merge_videos = async (video_one, video_two, video_three, social_id)
                 duration: 0.3,
             },
         },
-        /*      audioFilePath: "./src/bgm/bgm.mp3",
-        loopAudio: true, */
+
         clips: [
             {
                 layers: [
@@ -60,12 +58,6 @@ export const merge_videos = async (video_one, video_two, video_three, social_id)
                 ],
             },
         ],
-        /*  audioTracks: [
-            {
-                path: "./src/bgm/bgm.mp3",
-                mixVolume: 50,
-            },
-        ], */
     };
     await editly(edit_spec);
 };
@@ -81,7 +73,6 @@ export const create_thumbnail = async (kakao_id) => {
                 console.log(error);
             })
             .screenshots({
-                // timestamps: "50%",
                 count: 1,
                 filename: `${kakao_id}.jpg`,
                 folder: "./src/thumbnail",
