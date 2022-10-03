@@ -25,43 +25,15 @@ export const find_goal_day = async (user_id) => {
 };
 
 export const get_my_goals = async (user_id, nickname, profile_image) => {
-    const get_user_goal = await goal_repositories.get_my_goals(user_id);
-    const success = [];
-    const fail = [];
-    for (let i = 0; i < get_user_goal.length; i++) {
-        if (
-            get_user_goal[i].status === "success" &&
-            get_user_goal[i].Video.video1 !== null &&
-            get_user_goal[i].Video.video2 !== null &&
-            get_user_goal[i].Video.video3 !== null &&
-            get_user_goal[i].Video.final_video !== null
-        ) {
-            success.push({
-                goal_id: get_user_goal[i].goal_id,
-                date: [get_user_goal[i].day1, get_user_goal[i].day2, get_user_goal[i].day3],
-            });
-        }
+    const get_success_goal = await goal_repositories.get_success_goal(user_id);
+    const get_fail_goal_2nd = await goal_repositories.get_fail_goal_2nd(user_id);
+    const get_fail_goal_3rd = await goal_repositories.get_fail_goal_3rd(user_id);
 
-        if (get_user_goal[i].status === "fail")
-            if (
-                get_user_goal[i].Video.video1 !== null &&
-                get_user_goal[i].Video.video2 === null &&
-                get_user_goal[i].Video.video3 === null
-            ) {
-                fail.push({ goal_id: get_user_goal[i].goal_id, date: [get_user_goal[i].day1] });
-            }
-        if (
-            get_user_goal[i].Video.video1 !== null &&
-            get_user_goal[i].Video.video2 !== null &&
-            get_user_goal[i].Video.video3 === null
-        ) {
-            fail.push({
-                goal_id: get_user_goal[i].goal_id,
-                date: [get_user_goal[i].day1, get_user_goal[i].day2],
-            });
-        }
-    }
-    return { nickname, profile_image, date: { success, fail } };
+    return {
+        nickname,
+        profile_image,
+        date: { success: get_success_goal, fail: [get_fail_goal_2nd, get_fail_goal_3rd] },
+    };
 };
 
 export const goal_is_exist = async (user_id) => {
