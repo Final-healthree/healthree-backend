@@ -12,6 +12,7 @@ export const find_goal_day = async (user_id) => {
     return goal_day_data;
 };
 
+// 성공한 목표 DB 조회
 export const get_success_goal = async (user_id) => {
     const success_data = await Goal.findAll({
         where: { user_id, status: "success" },
@@ -20,6 +21,7 @@ export const get_success_goal = async (user_id) => {
     return success_data;
 };
 
+// 둘째날에 실패한 목표 DB 조회
 export const get_fail_goal_2nd = async (user_id) => {
     const fail_data = await Goal.findAll({
         where: { user_id, status: "fail" },
@@ -33,6 +35,7 @@ export const get_fail_goal_2nd = async (user_id) => {
     return fail_data;
 };
 
+// 셋째날에 실패한 목표 DB 조회
 export const get_fail_goal_3rd = async (user_id) => {
     const fail_data = await Goal.findAll({
         where: { user_id, status: "fail" },
