@@ -1,117 +1,55 @@
-# HEALTHREE
+# **HEALTHREE**
 
-> 주제 : 의지박약인 사람들에게 동기를 생기게 해주는 자기관리 어플입니다.
-
-# 1. 프로젝트 개요
-
-## 작업기간
-
-2022년 8월 26일~
+![image](https://user-images.githubusercontent.com/99732695/193487748-3202d2cf-7146-4729-9d93-f029f2e1be8e.png)
 
 <br>
 
-## 팀원
+## **기획의도**
 
-`Back-end ` 이상현, 최유영
-
-`Front-end` 최락현, 조영은, 유지완
-
-| Name                 | Github                                              | Position |
-| -------------------- | --------------------------------------------------- | -------- |
-| 이상현 (Leader)      | [@phenomenonlee ](https://github.com/phenomenonlee) | `BE`     |
-| 최락현 (Vice Leader) | [@chasura416 ](https://github.com/chasura416)       | `FE`     |
-| 유지완               | [@NickYOOO](https://github.com/NickYOOO)            | `FE`     |
-| 조은영               | [@yeun38](https://github.com/yeun38)                | `FE`     |
-| 최유영               | [@waveinyu](https://github.com/waveinyu)            | `BE`     |
+**작심삼일³**은 운동에 대한 막연한 부담감을 가지고 있는 사람들에게 3일 동안 가벼운 마음으로 운동을 시작할 수 있게 도와주는 운동 자기개발 서비스입니다.
 
 <br>
 
-# 2. Git-Flow 전략
+## **팀원 소개**
 
-## Branch List
+<img src="https://img.shields.io/badge/react-61DAFB?style=plastic&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/node.js-339933?style=plastic&logo=Node.js&logoColor=white">
 
-`main` <br>
+| Name                 | Position    | Github/Email                                       |
+| -------------------- | ----------- | -------------------------------------------------- |
+| 이상현 (Leader)      | `Back-End`  | [@phenomenonlee](https://github.com/phenomenonleE) |
+| 유지완               | `Front-End` | [@NickYOOO](https://github.com/NickYOOO)           |
+| 조은영               | `Front-End` | [@yeun38](https://github.com/yeun38)               |
+| 최락현 (Vice Leader) | `Front-End` | [@chasura416](https://github.com/chasura416)       |
+| 최유영               | `Back-End`  | [@waveinyu](https://github.com/waveinyu)           |
+| 신은비               | `Designer`  | [@수정](수정)                                      |
 
--   배포 브랜치
+-   팀 노션 페이지 ([바로가기](https://www.notion.so/864fe5f8be8f4736895b8c29197de182)) <br> <br>
 
-`develop` <br>
+## **서비스 아키텍처**
 
--   로컬 작업 시 `merge`하는 중간 브랜치
-
-`dev/sang` <br>
-
--   @phenomenonlee 로컬 작업 브랜치
-
-`dev/yu` <br>
-
--   @waveinyu 로컬 작업 브랜치
-
-<br>
-
-## Pull Request
-
--   경로, 파일명, 기능은 백틱으로 작성
-
-    -   `경로`
-    -   `파일명`
-    -   `기능` <br>PR : Create `auth_middleware` <br> PR : Modify details `user.controller.js` <br> PR : Resolve `Conflict`
+![image](https://user-images.githubusercontent.com/99732695/193539155-bca8327c-b73e-4b40-adce-b1c644b2ea5a.png)
 
 <br>
 
--   상태 변화는 영문 동사로 작성
-    -   Add, Create, Update, Modify
+## **ERD**
+
+![image](https://user-images.githubusercontent.com/99732695/193457382-b0c169b6-0d09-47c8-a051-09d9edaed654.png)
 
 <br>
 
--   Assignees, Label 체크 필수 <br>
--   `Conflict` 발생 시 팀원과 공유 후 해결 전까지 `pull`/`push` 금지
--   `"어?"` 금지
+## **Back-end 기술 스택**
+
+<img src="https://img.shields.io/badge/node.js-339933?style=plastic&logo=Node.js&logoColor=white"><img src="https://img.shields.io/badge/Express-000000?style=plastic&logo=Express&logoColor=white"> <br> <img src="https://img.shields.io/badge/JWT-000000?style=plastic&logo=JSON Web Tokens&logoColor=white"> <img src="https://img.shields.io/badge/Passport-34E27A?style=plastic&logo=Passport&logoColor=white"> <img src="https://img.shields.io/badge/FFmpeg-007808?style=plastic&logo=FFmpeg&logoColor=white"><br> <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=plastic&logo=Sequelize&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=plastic&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=plastic&logo=Amazon RDS&logoColor=white"><br> <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=plastic&logo=GitHub Actions&logoColor=white"> <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=plastic&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/AWS S3-1572B6?style=plastic&logo=Amazon S3&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=plastic&logo=NGINX&logoColor=white"><img src="https://img.shields.io/badge/PM2-2B037A?style=plastic&logo=PM2 RDS&logoColor=white"><br> <br>
+
+## **Back-end 팀원**
+
+| 이름 | <center>역할 분담</center> |
+| :-: | --- |
+| 이상현 | DB 설계, 비디오 업로드 및 병합, 비디오 썸네일 생성, s3 비디오 및 썸네일 업로드, 댓글 CRUD, 랭킹 페이지, CI/CD |
+| 최유영 | DB 설계, 소셜 로그인, 마이 페이지 CRUD, 게시글 CRUD, 좋아요 기능, Nginx를 이용한 SSL 서버 구축 |
 
 <br>
 
-## Commit
+## **Back-end 트러블 슈팅**
 
--   로컬 브랜치에서 `push`하기 전 `develop` 브랜치와 상태를 맞추기
-    -   git pull origin develop
-
-<br>
-
--   로컬 브랜치에서만 `push` 하기
--   기능 하나 완성 되면 커밋 무조건 하기
--   `commit message` 명시하기 (기능 구현 및 상태 업데이트 등)
-
-<br>
-
-## Push
-
--   `merge` 시 `Pull Request` 필수
--   로컬 브랜치에서 `console.log()`삭제 후 `merge`
-
-<br>
-
-## Bug
-
--   Issue 활용
--   Bug 발생 시 팀 노션 내 [트러블 슈팅](https://www.notion.so/b9ab1b43f44d42c0be5fc4c45cc0cd29?v=9a6a947295134c06a6589be6271f43ce)에도 작성
-
-<br>
-
-# 3. API 설계
-
-# 4. 폴더 구조
-
-# 5. 모듈 리스트
-
-[팀 노션 - API](https://www.notion.so/API-1442e5ddccc349328d83325a1e85cf2b)
-
-## Back-end 트러블 슈팅
-
-[Back-end 트러블 슈팅](https://www.notion.so/b9ab1b43f44d42c0be5fc4c45cc0cd29?v=9a6a947295134c06a6589be6271f43ce)
-
-## 팀 노션 페이지
-
-[팀 노션 페이지](https://www.notion.so/864fe5f8be8f4736895b8c29197de182)
-
-## Back-end 참고 자료
-
-[Back-end 참고 자료](https://www.notion.so/a1a19e21a06c413baaa6ee3779bf76b3)
+[Github Issue](https://github.com/Final-healthree/healthree-backend/issues) <br> [Back-end 트러블 슈팅](https://www.notion.so/b9ab1b43f44d42c0be5fc4c45cc0cd29?v=9a6a947295134c06a6589be6271f43ce)

@@ -16,6 +16,13 @@ router.get("/mine", auth_middleware, goal_controller.get_my_goals);
 
 router.get("/exist", auth_middleware, goal_controller.goal_is_exist);
 
+router.get(
+    "/is_today_register",
+    auth_middleware,
+    goal_exception_handler.is_today_register,
+    goal_controller.is_today_register,
+);
+
 router.post(
     "/register",
     auth_middleware,

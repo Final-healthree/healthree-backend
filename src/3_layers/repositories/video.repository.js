@@ -19,7 +19,7 @@ export const get_my_videos = async (user_id, page_count, page) => {
         },
         offset: page_count * (page - 1),
         limit: page_count,
-        attributes: ["goal_id", "goal_name", "day1", "day3"],
+        attributes: ["goal_id", "goal_name", "is_share", "day1", "day3"],
         order: [["goal_id", "DESC"]],
     });
 };
@@ -47,6 +47,7 @@ export const video_register = async (user_id, day, video, final_video, thumbnail
         return;
     }
 
+    // 셋쨰날까지 비디오 업로드시 목표 성공에 따른 점수 추가 및 유저의 목표 상태 변경
     if (Number(day) === 3) {
         const user_score = await User.findOne({ where: { user_id }, attributes: ["score"] });
 
@@ -63,8 +64,9 @@ export const video_register = async (user_id, day, video, final_video, thumbnail
     }
 };
 
+// 유저 비디오 공유 시 'is_share: true' 상태 업데이트 후 게시글 생성
 export const video_share = async (user_id, goal_id) => {
-    const test = await Goal.update(
+    await Goal.update(
         {
             is_share: true,
         },

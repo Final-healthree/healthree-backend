@@ -1,5 +1,6 @@
 import * as post_service from "../services/post.service.js";
 
+// 게시글 전체 조회
 export const get_posts = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -13,10 +14,11 @@ export const get_posts = async (req, res) => {
             result: { post: post_lists },
         });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+// 게시글 상세 조회
 export const get_post_detail = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -25,10 +27,11 @@ export const get_post_detail = async (req, res) => {
 
         return res.status(200).json({ success: true, result: post_detail });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+// 게시글 삭제
 export const delete_post = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -37,12 +40,13 @@ export const delete_post = async (req, res) => {
 
         await post_service.delete_post(user_id, post_id, goal_id);
 
-        return res.status(200).json({ success: true, result: user_id });
+        return res.status(204).json({ success: true, result: user_id });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+// 게시글 좋아요
 export const like = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -50,12 +54,13 @@ export const like = async (req, res) => {
 
         await post_service.like(user_id, post_id);
 
-        return res.status(200).json({ success: true, result: "좋아요 성공" });
+        return res.status(201).json({ success: true, result: "좋아요 성공" });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+// 게시글 좋아요 취소
 export const dislike = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -63,8 +68,8 @@ export const dislike = async (req, res) => {
 
         await post_service.dislike(user_id, post_id);
 
-        return res.status(200).json({ success: true, result: "좋아요 취소 성공" });
+        return res.status(204).json({ success: true, result: "좋아요 취소 성공" });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };

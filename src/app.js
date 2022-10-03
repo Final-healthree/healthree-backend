@@ -40,21 +40,22 @@ app.use(passport.session());
 sequelize;
 console.log("db 연결", sequelize.config.port);
 
-/* const corsOptions = {
+const corsOptions = {
     origin: ["http://localhost:3000", "https://www.healthree3.com"],
     credentials: true,
+    methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"],
 };
 
-app.use(cors(corsOptions)); */
+app.use(cors(corsOptions));
 
-app.use(
+/* app.use(
     cors({
         origin: true,
         credentials: true,
         methods: ["GET", "PUT", "POST", "PATCH", "DELETE", "HEAD"],
         optionSuccessStatus: 200,
     }),
-);
+); */
 
 app.use("/api", router);
 

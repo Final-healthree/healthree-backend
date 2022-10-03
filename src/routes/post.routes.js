@@ -22,9 +22,14 @@ router.delete(
 router.post(
     "/like/:post_id",
     auth_middleware,
-    post_exception_handler.is_available_like,
+    post_exception_handler.is_accessible_post,
     post_controller.like,
 );
-router.delete("/like/:post_id", auth_middleware, post_controller.dislike);
+router.delete(
+    "/like/:post_id",
+    auth_middleware,
+    post_exception_handler.is_accessible_post,
+    post_controller.dislike,
+);
 
 export default router;

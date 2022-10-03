@@ -1,5 +1,6 @@
 import * as comment_service from "../services/comment.service.js";
 
+// 댓글 조회
 export const get_comments = async (req, res) => {
     try {
         const { post_id } = req.params;
@@ -14,10 +15,11 @@ export const get_comments = async (req, res) => {
 
         return res.status(200).json({ success: true, result: comments });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+//댓글 생성
 export const create_comment = async (req, res) => {
     try {
         const { post_id } = req.params;
@@ -26,12 +28,13 @@ export const create_comment = async (req, res) => {
 
         await comment_service.create_comment(post_id, comment, user_id);
 
-        return res.status(200).json({ success: true, result: "댓글생성 성공" });
+        return res.status(201).json({ success: true, result: "댓글생성 성공" });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+// 댓글 수정
 export const update_comment = async (req, res) => {
     try {
         const { comment_id } = req.params;
@@ -39,12 +42,13 @@ export const update_comment = async (req, res) => {
 
         await comment_service.update_comment(comment_id, comment);
 
-        return res.status(200).json({ success: true, result: "댓글수정 성공" });
+        return res.status(201).json({ success: true, result: "댓글수정 성공" });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
 
+// 댓글 삭제
 export const delete_comment = async (req, res) => {
     try {
         const { comment_id } = req.params;
@@ -52,6 +56,6 @@ export const delete_comment = async (req, res) => {
 
         return res.status(200).json({ success: true, result: "댓글삭제 성공" });
     } catch (error) {
-        return res.status(400).json({ success: false, message: `${error.name}, ${error.message}` });
+        return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
