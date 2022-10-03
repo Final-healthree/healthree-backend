@@ -40,41 +40,19 @@
 ## **백엔드 기술 스택**
 
 <img src="https://img.shields.io/badge/node.js-339933?style=plastic&logo=Node.js&logoColor=white">
-<img src="https://img.shields.io/badge/Express
--000000?style=plastic&logo=Express
-&logoColor=white"><br>
-<img src="https://img.shields.io/badge/Sequelize
--52B0E7?style=plastic&logo=Sequelize
-&logoColor=white">
-<img src="https://img.shields.io/badge/MySQL
--4479A1?style=plastic&logo=MySQL
-&logoColor=white">
+<img src="https://img.shields.io/badge/Express-000000?style=plastic&logo=Express&logoColor=white"><br>
+<img src="https://img.shields.io/badge/Sequelize-52B0E7?style=plastic&logo=Sequelize&logoColor=white">
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=plastic&logo=MySQL&logoColor=white">
 <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=plastic&logo=Amazon RDS&logoColor=white"><br>
-<img src="https://img.shields.io/badge/GitHub Actions
--2088FF?style=plastic&logo=GitHub Actions
-&logoColor=white">
-<img src="https://img.shields.io/badge/Amazon EC2
--FF9900?style=plastic&logo=Amazon EC2
-&logoColor=white">
-<img src="https://img.shields.io/badge/Amazon S3
--1572B6?style=plastic&logo=Amazon S3
-&logoColor=white">
+<img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=plastic&logo=GitHub Actions&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=plastic&logo=Amazon EC2&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon S3-1572B6?style=plastic&logo=Amazon S3&logoColor=white">
 <img src="https://img.shields.io/badge/PM2-2B037A?style=plastic&logo=PM2 RDS&logoColor=white"><br>
-<img src="https://img.shields.io/badge/JWT
--000000?style=plastic&logo=JSON Web Tokens
-&logoColor=white">
-<img src="https://img.shields.io/badge/Passport
--34E27A?style=plastic&logo=Passport
-&logoColor=white">
-<img src="https://img.shields.io/badge/FFmpeg
--007808?style=plastic&logo=FFmpeg
-&logoColor=white">
-<img src="https://img.shields.io/badge/NGINX
--009639?style=plastic&logo=NGINX
-&logoColor=white">
-<img src="https://img.shields.io/badge/.ENV
--ECD53F?style=plastic&logo=.ENV
-&logoColor=white">
+<img src="https://img.shields.io/badge/JWT-000000?style=plastic&logo=JSON Web Tokens&logoColor=white">
+<img src="https://img.shields.io/badge/Passport-34E27A?style=plastic&logo=Passport&logoColor=white">
+<img src="https://img.shields.io/badge/FFmpeg-007808?style=plastic&logo=FFmpeg&logoColor=white">
+<img src="https://img.shields.io/badge/NGINX-009639?style=plastic&logo=NGINX&logoColor=white">
+<img src="https://img.shields.io/badge/.ENV-ECD53F?style=plastic&logo=.ENV&logoColor=white">
 
 <br>
 
