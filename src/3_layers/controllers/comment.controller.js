@@ -54,7 +54,7 @@ export const delete_comment = async (req, res) => {
         const { comment_id } = req.params;
         await comment_service.delete_comment(comment_id);
 
-        return res.status(204).json({ success: true, result: "댓글삭제 성공" });
+        return res.status(200).json({ success: true, result: "댓글삭제 성공" });
     } catch (error) {
         return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
