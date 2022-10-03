@@ -19,7 +19,7 @@ export const get_my_videos = async (user_id, page_count, page) => {
         },
         offset: page_count * (page - 1),
         limit: page_count,
-        attributes: ["goal_id", "goal_name", "day1", "day3"],
+        attributes: ["goal_id", "goal_name", "is_share", "day1", "day3"],
         order: [["goal_id", "DESC"]],
     });
 };
