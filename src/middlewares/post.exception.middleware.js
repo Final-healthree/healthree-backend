@@ -3,7 +3,7 @@ import User from "../models/user.js";
 import Goal from "../models/goal.js";
 import Like from "../models/like.js";
 
-// 접근 가능한 포스트인지 확인
+// 공통 :: 접근 가능한 포스트인지 확인
 export const is_accessible_post = async (req, res, next) => {
     try {
         const { post_id } = req.params;
@@ -21,7 +21,7 @@ export const is_accessible_post = async (req, res, next) => {
     }
 };
 
-// 해당 유저가 삭제 가능한 포스트인지 작성자 확인
+// 게시글 삭제 :: 해당 유저가 삭제할 수 있는 포스트인지 작성자 확인
 export const is_available_delete = async (req, res, next) => {
     try {
         const { user_id } = res.locals;

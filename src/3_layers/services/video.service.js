@@ -10,6 +10,7 @@ export const get_my_videos = async (user_id, page_count, page) => {
         return {
             goal_id: v.goal_id,
             goal_name: v.goal_name,
+            is_share: v.is_share,
             day1: v.day1,
             day3: v.day3,
             final_video: v.Video.final_video,

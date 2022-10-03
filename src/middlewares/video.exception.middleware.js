@@ -78,6 +78,7 @@ export const video_register = async (req, res, next) => {
     }
 };
 
+// 비디오 공유
 export const video_share = async (req, res, next) => {
     const { user_id } = res.locals;
     const { goal_id } = req.params;
@@ -139,4 +140,3 @@ export const video_share = async (req, res, next) => {
             .json({ success: false, message: `${error.name} , ${error.message}` });
     }
 };
-//

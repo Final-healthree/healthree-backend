@@ -20,6 +20,7 @@ export const find_goal_day = async (req, res) => {
     }
 };
 
+// 유저의 목표 달성 여부 전체 조회
 export const get_my_goals = async (req, res) => {
     try {
         const { user_id, nickname, profile_image } = res.locals;
@@ -29,6 +30,7 @@ export const get_my_goals = async (req, res) => {
             result: get_days,
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };

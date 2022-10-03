@@ -1,5 +1,6 @@
 import * as post_service from "../services/post.service.js";
 
+// 게시글 전체 조회
 export const get_posts = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -17,6 +18,7 @@ export const get_posts = async (req, res) => {
     }
 };
 
+// 게시글 상세 조회
 export const get_post_detail = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -29,6 +31,7 @@ export const get_post_detail = async (req, res) => {
     }
 };
 
+// 게시글 삭제
 export const delete_post = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -43,6 +46,7 @@ export const delete_post = async (req, res) => {
     }
 };
 
+// 게시글 좋아요
 export const like = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -56,6 +60,7 @@ export const like = async (req, res) => {
     }
 };
 
+// 게시글 좋아요 취소
 export const dislike = async (req, res) => {
     try {
         const { user_id } = res.locals;
