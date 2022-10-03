@@ -25,36 +25,11 @@ export const find_goal_day = async (user_id) => {
 };
 
 export const get_my_goals = async (user_id, nickname, profile_image) => {
-    const get_success_goal = await goal_repositories.get_success_goal(user_id);
+    const success = await goal_repositories.get_success_goal(user_id);
     const get_fail_goal_2nd = await goal_repositories.get_fail_goal_2nd(user_id);
     const get_fail_goal_3rd = await goal_repositories.get_fail_goal_3rd(user_id);
-    const fail_list = [...get_fail_goal_2nd, ...get_fail_goal_3rd];
-    /* const success = get_success_goal.map((s) => {
-        return {
-            goal_id: s.goal_id,
-            date: [s.day1, s.day2, s.day3],
-        };
-    });
+    const fail = [...get_fail_goal_2nd, ...get_fail_goal_3rd];
 
-    console.log(fail_list[0].day2);
-    const fail = fail_list.map((f) => {
-        if (!f.day2) {
-            return {
-                goal_id: f.goal_id,
-                date: [f.day1],
-            };
-        }
-        return {
-            goal_id: f.goal_id,
-            date: [f.day1, f.day2],
-        };
-    }); */
-
-    return {
-        nickname,
-        profile_image,
-        date: { success: get_success_goal, fail: fail_list },
-    };
     return {
         nickname,
         profile_image,
