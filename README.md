@@ -1,6 +1,6 @@
 # **HEALTHREE**
 
-![image](https://user-images.githubusercontent.com/99732695/193487748-3202d2cf-7146-4729-9d93-f029f2e1be8e.png)
+![image](https://user-images.githubusercontent.com/99732695/193577824-c2bed2e8-ea2f-4131-b897-cdcc10fe0dfa.png)
 
 <br>
 
