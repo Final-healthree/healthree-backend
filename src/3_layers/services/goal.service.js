@@ -29,7 +29,6 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
     const get_fail_goal_2nd = await goal_repositories.get_fail_goal_2nd(user_id);
     const get_fail_goal_3rd = await goal_repositories.get_fail_goal_3rd(user_id);
     const fail_list = [...get_fail_goal_2nd, ...get_fail_goal_3rd];
-
     /* const success = get_success_goal.map((s) => {
         return {
             goal_id: s.goal_id,
