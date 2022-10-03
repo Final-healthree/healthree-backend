@@ -1,5 +1,6 @@
 import * as video_service from "../services/video.service.js";
 
+// 유저 비디오 전체 조회
 export const get_my_videos = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -58,6 +59,7 @@ export const video_register = async (req, res) => {
     }
 };
 
+// 유저 비디오 공유
 export const video_share = async (req, res) => {
     try {
         const { user_id } = res.locals;
