@@ -2,6 +2,7 @@ import Goal from "../models/goal.js";
 import Video from "../models/video.js";
 import moment from "moment";
 
+// 비디오 업로드
 export const video_register = async (req, res, next) => {
     try {
         const { user_id } = res.locals;

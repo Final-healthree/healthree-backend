@@ -1,6 +1,7 @@
 import Comment from "../../models/comment.js";
 import User from "../../models/user.js";
 
+// 댓글 조회
 export const get_comments = async (post_id, page_count, page) => {
     return Comment.findAndCountAll({
         where: { post_id },
@@ -12,6 +13,7 @@ export const get_comments = async (post_id, page_count, page) => {
     });
 };
 
+// 댓글 생성
 export const create_comment = async (post_id, comment, user_id) => {
     await Comment.create({
         comment,
@@ -20,10 +22,12 @@ export const create_comment = async (post_id, comment, user_id) => {
     });
 };
 
+// 댓글 수정
 export const update_comment = async (comment_id, comment) => {
     await Comment.update({ comment }, { where: { comment_id } });
 };
 
+// 댓글 삭제
 export const delete_comment = async (comment_id) => {
     await Comment.destroy({ where: { comment_id } });
 };

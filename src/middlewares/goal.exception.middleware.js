@@ -2,6 +2,7 @@ import Goal from "../models/goal.js";
 import Video from "../models/video.js";
 import moment from "moment";
 
+// 현재 등록되어 있는 목표 조회
 export const find_goal_day = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
@@ -19,6 +20,7 @@ export const find_goal_day = async (req, res, next) => {
     }
 };
 
+// 유저가 오늘 목표를 등록할 수 있는지 체크
 export const is_today_register = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
@@ -35,6 +37,7 @@ export const is_today_register = async (req, res, next) => {
     }
 };
 
+// 유저의 목표 등록
 export const goal_register = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
@@ -78,6 +81,7 @@ export const goal_register = async (req, res, next) => {
     }
 };
 
+// 유저가 목표 달성을 실패했을 때
 export const goal_fail = async (req, res, next) => {
     try {
         const { user_id } = res.locals;

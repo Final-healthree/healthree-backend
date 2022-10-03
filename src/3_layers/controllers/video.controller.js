@@ -17,14 +17,17 @@ export const get_my_videos = async (req, res) => {
     }
 };
 
+// 비디오 업로드
 export const video_register = async (req, res) => {
     try {
         const { user_id } = res.locals;
         const { day } = req.params;
 
+        // 비디오 파일 유무 체크
         if (req.file) {
             const video = req.file.location;
 
+            // 셋째날 비디오 업로드
             if (Number(day) === 3) {
                 await video_service.video_register(user_id, day, video);
 
@@ -34,6 +37,7 @@ export const video_register = async (req, res) => {
                 });
             }
 
+            // 첫째 둘째날 비디오 업로드
             await video_service.video_register(user_id, day, video);
 
             return res.status(201).json({
