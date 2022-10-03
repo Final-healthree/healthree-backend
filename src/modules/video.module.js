@@ -4,7 +4,6 @@ import fs from "fs";
 import editly from "editly";
 import path from "path";
 import fluent_ffmpeg from "fluent-ffmpeg";
-// let ffmpeg = fluent_ffmpeg();
 
 dotenv.config({ path: path.resolve(".env") });
 
@@ -29,8 +28,7 @@ export const merge_videos = async (video_one, video_two, video_three, social_id)
                 duration: 0.3,
             },
         },
-        /*      audioFilePath: "./src/bgm/bgm.mp3",
-        loopAudio: true, */
+
         clips: [
             {
                 layers: [
@@ -70,6 +68,7 @@ export const merge_videos = async (video_one, video_two, video_three, social_id)
     await editly(edit_spec);
 };
 
+// 비디오 썸네일 생성
 export const create_thumbnail = async (kakao_id) => {
     return new Promise((resolve, reject) => {
         fluent_ffmpeg(`./src/combine/${kakao_id}.mp4`)
@@ -81,7 +80,6 @@ export const create_thumbnail = async (kakao_id) => {
                 console.log(error);
             })
             .screenshots({
-                // timestamps: "50%",
                 count: 1,
                 filename: `${kakao_id}.jpg`,
                 folder: "./src/thumbnail",
@@ -90,7 +88,9 @@ export const create_thumbnail = async (kakao_id) => {
     });
 };
 
+// s3 삭제를 위한 s3 object 생성
 export const create_video_s3_objects = (video_one, video_two, video_three) => {
+    // 삭제할 비디오가 하나 일때
     if (video_one !== undefined && video_two === undefined && video_three === undefined) {
         const objects = {
             Bucket: "healthree",
@@ -105,6 +105,7 @@ export const create_video_s3_objects = (video_one, video_two, video_three) => {
         return objects;
     }
 
+    // 삭제할 비디오가 둘 일때
     if (video_one !== undefined && video_two !== undefined && video_three === undefined) {
         const objects = {
             Bucket: "healthree",
@@ -122,6 +123,7 @@ export const create_video_s3_objects = (video_one, video_two, video_three) => {
         return objects;
     }
 
+    // 삭제할 비디오가 셋 일때
     if (video_one !== undefined && video_two !== undefined && video_three !== undefined) {
         const objects = {
             Bucket: "healthree",
@@ -143,6 +145,7 @@ export const create_video_s3_objects = (video_one, video_two, video_three) => {
     }
 };
 
+// s3 object 삭제
 export const delete_video_s3 = (object) => {
     s3.deleteObjects(object, (error, data) => {
         if (error) {
@@ -152,6 +155,7 @@ export const delete_video_s3 = (object) => {
     return;
 };
 
+// 로컬에 있는 비디오 및 썸네일 이미지 읽기
 export const read_file = async (kakao_id) => {
     const video = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
     const thumbnail = fs.createReadStream(`./src/thumbnail/${kakao_id}.jpg`, { flags: "r" });
@@ -159,6 +163,7 @@ export const read_file = async (kakao_id) => {
     return { video, thumbnail };
 };
 
+// 비디오 및 썸네일 이미지 s3 업로드
 export const upload_video_s3 = async (video, thumbnail) => {
     const video_object = {
         Bucket: "healthree/videos",
@@ -180,6 +185,7 @@ export const upload_video_s3 = async (video, thumbnail) => {
     return { s3_upload_video, s3_upload_thumbnail };
 };
 
+// 로컬에 있는 비디오 및 썸네일 이미지 삭제
 export const delete_video_thumbnail = async (kakao_id) => {
     fs.unlink(`./src/combine/${kakao_id}.mp4`, (error) => {
         if (error) {

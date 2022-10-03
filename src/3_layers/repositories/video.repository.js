@@ -47,6 +47,7 @@ export const video_register = async (user_id, day, video, final_video, thumbnail
         return;
     }
 
+    // 셋쨰날까지 비디오 업로드시 목표 성공에 따른 점수 추가 및 유저의 목표 상태 변경
     if (Number(day) === 3) {
         const user_score = await User.findOne({ where: { user_id }, attributes: ["score"] });
 

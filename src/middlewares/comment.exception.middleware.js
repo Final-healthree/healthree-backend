@@ -1,6 +1,7 @@
 import Post from "../models/post.js";
 import Comment from "../models/comment.js";
 
+// 댓글 조회
 export const get_comments = async (req, res, next) => {
     try {
         const { post_id } = req.params;
@@ -15,6 +16,7 @@ export const get_comments = async (req, res, next) => {
     }
 };
 
+//댓글 생성
 export const create_comment = async (req, res, next) => {
     try {
         const { post_id } = req.params;
@@ -39,6 +41,7 @@ export const create_comment = async (req, res, next) => {
     }
 };
 
+// 댓글 수정
 export const update_comment = async (req, res, next) => {
     try {
         const { comment_id } = req.params;
@@ -69,6 +72,7 @@ export const update_comment = async (req, res, next) => {
     }
 };
 
+// 댓글 삭제
 export const delete_comment = async (req, res, next) => {
     try {
         const { comment_id } = req.params;

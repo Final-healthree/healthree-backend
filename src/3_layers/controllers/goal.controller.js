@@ -1,5 +1,6 @@
 import * as goal_services from "../services/goal.service.js";
 
+// 현재 등록되어 있는 목표 조회
 export const find_goal_day = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -32,6 +33,7 @@ export const get_my_goals = async (req, res) => {
     }
 };
 
+// 유저의 목표 존재 유무 확인
 export const goal_is_exist = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -46,6 +48,7 @@ export const goal_is_exist = async (req, res) => {
     }
 };
 
+// 유저가 오늘 목표를 등록할 수 있는지 체크
 export const is_today_register = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -60,6 +63,7 @@ export const is_today_register = async (req, res) => {
     }
 };
 
+// 유저의 목표 등록
 export const goal_register = async (req, res) => {
     try {
         const { user_id } = res.locals;
@@ -73,6 +77,7 @@ export const goal_register = async (req, res) => {
     }
 };
 
+// 유저가 목표 달성을 실패했을 때
 export const goal_fail = async (req, res) => {
     try {
         const { user_id } = res.locals;
