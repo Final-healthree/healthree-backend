@@ -30,6 +30,7 @@ export const get_my_goals = async (req, res) => {
             result: get_days,
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };

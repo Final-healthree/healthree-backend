@@ -16,7 +16,7 @@ export const find_goal_day = async (user_id) => {
 export const get_success_goal = async (user_id) => {
     const success_data = await Goal.findAll({
         where: { user_id, status: "success" },
-        attributes: ["goal_id", "day1", "day3"],
+        attributes: ["goal_id", "day1", "day2", "day3"],
     });
     return success_data;
 };
