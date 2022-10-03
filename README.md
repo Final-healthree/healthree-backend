@@ -37,14 +37,14 @@
 
 <br>
 
-## **백엔드 기술 스택**
+## **Back-end 기술 스택**
 
 <img src="https://img.shields.io/badge/node.js-339933?style=plastic&logo=Node.js&logoColor=white"><img src="https://img.shields.io/badge/Express-000000?style=plastic&logo=Express&logoColor=white"> <br> <img src="https://img.shields.io/badge/JWT-000000?style=plastic&logo=JSON Web Tokens&logoColor=white"> <img src="https://img.shields.io/badge/Passport-34E27A?style=plastic&logo=Passport&logoColor=white"> <img src="https://img.shields.io/badge/FFmpeg-007808?style=plastic&logo=FFmpeg&logoColor=white"><br> <img src="https://img.shields.io/badge/Sequelize-52B0E7?style=plastic&logo=Sequelize&logoColor=white"> <img src="https://img.shields.io/badge/MySQL-4479A1?style=plastic&logo=MySQL&logoColor=white"> <img src="https://img.shields.io/badge/AWS RDS-527FFF?style=plastic&logo=Amazon RDS&logoColor=white"><br> <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=plastic&logo=GitHub Actions&logoColor=white"> <img src="https://img.shields.io/badge/AWS EC2-FF9900?style=plastic&logo=Amazon EC2&logoColor=white"> <img src="https://img.shields.io/badge/AWS S3-1572B6?style=plastic&logo=Amazon S3&logoColor=white"> <img src="https://img.shields.io/badge/NGINX-009639?style=plastic&logo=NGINX&logoColor=white"><img src="https://img.shields.io/badge/PM2-2B037A?style=plastic&logo=PM2 RDS&logoColor=white"><br> <br>
 
-## **백엔드 팀원**
+## **Back-end 팀원**
 
 | 이름 | <center>역할 분담</center> |
-| :----: | --- |
+| :-: | --- |
 | 이상현 | DB 설계, 비디오 업로드 및 병합, 비디오 썸네일 생성, s3 비디오 및 썸네일 업로드, 댓글 CRUD, 랭킹 페이지, CI/CD |
 | 최유영 | DB 설계, 소셜 로그인, 마이 페이지 CRUD, 게시글 CRUD, 좋아요 기능, Nginx를 이용한 SSL 서버 구축 |
 
