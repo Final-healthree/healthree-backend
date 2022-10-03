@@ -77,6 +77,7 @@ export const goal_register = async (user_id, day1, day2, day3, goal_name) => {
 export const goal_fail = async (user_id, day) => {
     const user_score = await User.findOne({ where: { user_id }, attributes: ["score"] });
 
+    // 점수 추가
     if (Number(day) === 2) {
         await User.update(
             {
@@ -85,6 +86,8 @@ export const goal_fail = async (user_id, day) => {
             { where: { user_id } },
         );
     }
+
+    // 점수 추가
     if (Number(day) === 3) {
         await User.update(
             {
@@ -94,6 +97,7 @@ export const goal_fail = async (user_id, day) => {
         );
     }
 
+    // 유저의 현재 등록된 목표 상태 progress에서 fail로 변경
     await Goal.update(
         {
             status: "fail",

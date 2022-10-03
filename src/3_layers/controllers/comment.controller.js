@@ -1,5 +1,6 @@
 import * as comment_service from "../services/comment.service.js";
 
+// 댓글 조회
 export const get_comments = async (req, res) => {
     try {
         const { post_id } = req.params;
@@ -18,6 +19,7 @@ export const get_comments = async (req, res) => {
     }
 };
 
+//댓글 생성
 export const create_comment = async (req, res) => {
     try {
         const { post_id } = req.params;
@@ -32,6 +34,7 @@ export const create_comment = async (req, res) => {
     }
 };
 
+// 댓글 수정
 export const update_comment = async (req, res) => {
     try {
         const { comment_id } = req.params;
@@ -45,6 +48,7 @@ export const update_comment = async (req, res) => {
     }
 };
 
+// 댓글 삭제
 export const delete_comment = async (req, res) => {
     try {
         const { comment_id } = req.params;
