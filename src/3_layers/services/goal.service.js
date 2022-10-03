@@ -28,11 +28,12 @@ export const get_my_goals = async (user_id, nickname, profile_image) => {
     const get_success_goal = await goal_repositories.get_success_goal(user_id);
     const get_fail_goal_2nd = await goal_repositories.get_fail_goal_2nd(user_id);
     const get_fail_goal_3rd = await goal_repositories.get_fail_goal_3rd(user_id);
+    const fail = [...get_fail_goal_2nd, ...get_fail_goal_3rd];
 
     return {
         nickname,
         profile_image,
-        date: { success: get_success_goal, fail: [get_fail_goal_2nd, get_fail_goal_3rd] },
+        date: { success: get_success_goal, fail },
     };
 };
 
