@@ -30,7 +30,6 @@ export const get_my_goals = async (req, res) => {
             result: get_days,
         });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({ success: false, message: `${error.name}, ${error.message}` });
     }
 };
@@ -89,7 +88,6 @@ export const goal_fail = async (req, res) => {
 
         return res.status(201).json({ success: true, message: "실패요청 완료" });
     } catch (error) {
-        console.log(error);
         return res.status(500).json({
             success: false,
             message: `${error.name}, ${error.message}`,
