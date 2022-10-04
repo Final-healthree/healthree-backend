@@ -73,6 +73,11 @@ export const goal_register = async (req, res, next) => {
             return res.status(411).json({ success: false, message: "목표를 입력해주세요" });
         }
 
+        if (goal_name.length > 10) {
+            return res
+                .status(413)
+                .json({ success: false, message: "10자 이하만 작성할 수 있습니다." });
+        }
         next();
     } catch (error) {
         return res
