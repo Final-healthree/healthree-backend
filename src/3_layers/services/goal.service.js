@@ -19,7 +19,7 @@ export const find_goal_day = async (user_id) => {
         },
         day3: {
             date: goal_day_data.day3,
-            // uploaded: false,
+            uploaded: false,
         },
     };
 };
