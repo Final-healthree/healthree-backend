@@ -27,7 +27,7 @@
 
 ## **서비스 아키텍처**
 
-![image](https://user-images.githubusercontent.com/99732695/193539155-bca8327c-b73e-4b40-adce-b1c644b2ea5a.png)
+![image](https://user-images.githubusercontent.com/99732695/194294124-e035a53b-2f58-4d0d-aa73-e661cf1ee48b.png)
 
 <br>
 
