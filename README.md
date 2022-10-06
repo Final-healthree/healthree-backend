@@ -1,6 +1,6 @@
 # **HEALTHREE**
 
-![원본(1920x1080)](https://user-images.githubusercontent.com/99732695/194294543-6e9af825-b5bc-4883-81ff-99fbca545682.png)
+![원본(1920x1080)](https://user-images.githubusercontent.com/99732695/194321278-6896f851-1109-4b9c-93bf-9ccaa34eb199.png)
 
 <br>
 

@@ -15,7 +15,7 @@ const kakao = () => {
         new kakao_strategy(
             {
                 clientID: process.env.KAKAO_ID,
-                callbackURL: "https://wave-in-yu.shop/api/auth/kakao/callback",
+                callbackURL: "https://wetube-phenomenonlee.shop/api/auth/kakao/callback",
                 // 경로 문제 '/'를 붙여줘야 localhost:3000/~진행 가능
                 // Nginx로 https 설정 시 callbackURL에 "https://my_domain/api~" 명시하여야 리다이렉트 가능
             },
