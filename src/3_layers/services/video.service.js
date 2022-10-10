@@ -23,6 +23,33 @@ export const get_my_videos = async (user_id, page_count, page) => {
 };
 
 export const video_register = async (user_id, day, video) => {
+    const goal_info = await Goal.findOne({
+        where: { user_id, status: "progress" },
+        include: [{ model: User, attributes: ["social_id"] }],
+    });
+
+    if (Number(day) === 1 || Number(day) === 2) {
+        await video_modules.video_trans(video, goal_info.User.social_id);
+
+        const readed_videod = await video_modules.read_video(goal_info.User.social_id); //비디오 s3에 올리기 위한 파일 읽기
+
+        //  비디오 s3 업로드
+        const uploaded_video = await video_modules.upload_video(readed_videod.video);
+
+        const created_s3_object = video_modules.create_video_s3_objects(video.split("videos/")[1]);
+
+        video_modules.delete_video_s3(created_s3_object);
+
+        await video_modules.delete_video(goal_info.User.social_id); // s3에 올린후 로컬에 저장되어 있는 비디오 파일 삭제
+
+        await video_repositories.video_register(
+            user_id,
+            day,
+            uploaded_video.s3_upload_video.Location,
+        );
+        return;
+    }
+
     if (Number(day) === 3) {
         // 저장되어있는 유저의 비디오 경로 정보
         const goal_info = await Goal.findOne({
@@ -32,22 +59,28 @@ export const video_register = async (user_id, day, video) => {
                 { model: User, attributes: ["social_id"] },
             ],
         });
+        await video_modules.video_trans(video, goal_info.User.social_id);
+
+        const readed_videod_three = await video_modules.read_video(goal_info.User.social_id);
+
+        const uploaded_video_three = await video_modules.upload_video(readed_videod_three.video);
+
+        await video_modules.delete_video(goal_info.User.social_id);
 
         // 비디오 병합 함수 실행
         await video_modules.merge_videos(
             goal_info.Video.video1,
             goal_info.Video.video2,
-            video,
+            uploaded_video_three.s3_upload_video.Location,
             goal_info.User.social_id,
         );
-
         await video_modules.create_thumbnail(goal_info.User.social_id); // 비디오 썸네일 생성 함수 실행
 
         // 삭제할 비디오 s3 object 생성
         const created_s3_object = video_modules.create_video_s3_objects(
             goal_info.Video.video1.split("videos/")[1],
             goal_info.Video.video2.split("videos/")[1],
-            video.split("videos/")[1],
+            uploaded_video_three.s3_upload_video.Location.split("videos/")[1],
         );
 
         video_modules.delete_video_s3(created_s3_object); // 비디오 파일 s3 삭제
@@ -62,6 +95,12 @@ export const video_register = async (user_id, day, video) => {
 
         await video_modules.delete_video_thumbnail(goal_info.User.social_id); // s3에 올린후 로컬에 저장되어 있는 비디오 파일 및 썸네일 이미지 삭제
 
+        const created_s3_object__three = video_modules.create_video_s3_objects(
+            video.split("videos/")[1],
+        );
+
+        video_modules.delete_video_s3(created_s3_object__three);
+
         // 저장소 계층 호출
         await video_repositories.video_register(
             user_id,
@@ -70,8 +109,6 @@ export const video_register = async (user_id, day, video) => {
             uploaded_video.s3_upload_video.Location,
             uploaded_video.s3_upload_thumbnail.Location,
         );
-    } else {
-        await video_repositories.video_register(user_id, day, video);
     }
 };
 
