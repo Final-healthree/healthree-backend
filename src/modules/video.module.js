@@ -100,7 +100,7 @@ export const merge_videos = (video_one, video_two, video_three, social_id) => {
 export const video_trans = async (video, kakao_id) => {
     return new Promise((resolve, reject) => {
         fluent_ffmpeg(video)
-            .videoCodec("libx264")
+            .videoCodec("libx265")
             .fps(15)
             .size("480x720")
             .videoFilters("fade=in:0:03")
