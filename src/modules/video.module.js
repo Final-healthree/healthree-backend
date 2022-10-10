@@ -16,56 +16,103 @@ const s3 = new aws.S3({
     },
 });
 
-export const merge_videos = async (video_one, video_two, video_three, social_id) => {
-    const edit_spec = {
-        width: 480,
-        height: 720,
-        fps: 15,
-        outPath: `./src/combine/${social_id}.mp4`, //합쳐질 파일 위치,이름
-        defaults: {
-            transition: {
-                name: "fade",
-                duration: 0.3,
-            },
-        },
+// export const merge_videos = async (video_one, video_two, video_three, social_id) => {
+//     const edit_spec = {
+//         width: 480,
+//         height: 720,
+//         fps: 15,
+//         outPath: `./src/combine/${social_id}.mp4`, //합쳐질 파일 위치,이름
+//         defaults: {
+//             transition: {
+//                 name: "fade",
+//                 duration: 0.3,
+//             },
+//         },
 
-        clips: [
-            {
-                layers: [
-                    {
-                        type: "video",
-                        path: video_one,
-                        resizeMode: "stretch",
-                    },
-                ],
-            },
-            {
-                layers: [
-                    {
-                        type: "video",
-                        path: video_two,
-                        resizeMode: "stretch",
-                    },
-                ],
-            },
-            {
-                layers: [
-                    {
-                        type: "video",
-                        path: video_three,
-                        resizeMode: "stretch",
-                    },
-                ],
-            },
-        ],
-        /*  audioTracks: [
-            {
-                path: "./src/bgm/bgm.mp3",
-                mixVolume: 50,
-            },
-        ], */
-    };
-    await editly(edit_spec);
+//         clips: [
+//             {
+//                 layers: [
+//                     {
+//                         type: "video",
+//                         path: video_one,
+//                         resizeMode: "stretch",
+//                     },
+//                 ],
+//             },
+//             {
+//                 layers: [
+//                     {
+//                         type: "video",
+//                         path: video_two,
+//                         resizeMode: "stretch",
+//                     },
+//                 ],
+//             },
+//             {
+//                 layers: [
+//                     {
+//                         type: "video",
+//                         path: video_three,
+//                         resizeMode: "stretch",
+//                     },
+//                 ],
+//             },
+//         ],
+//         /*  audioTracks: [
+//             {
+//                 path: "./src/bgm/bgm.mp3",
+//                 mixVolume: 50,
+//             },
+//         ], */
+//     };
+//     await editly(edit_spec);
+// };
+
+export const merge_videos = (video_one, video_two, video_three, social_id) => {
+    const concatMP4FileTmpPath = "./tmp";
+    const concatMP4FilePath = `./src/combine/${social_id}.mp4`; //합쳐질 파일 위치,이름
+
+    const targetFiles = [
+        //합칠 파일 목록
+        video_one,
+        video_two,
+        video_three,
+    ];
+    let mergedVideo = fluent_ffmpeg();
+
+    targetFiles.forEach((element) => {
+        //목록 추가하기
+        mergedVideo = mergedVideo.addInput(element);
+    });
+    return new Promise((resolve, reject) => {
+        mergedVideo
+            .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath) //파일 1개로 만들기
+            .on("error", function (err) {
+                console.log("Error ::::  " + err);
+            })
+            .on("end", function () {
+                resolve();
+                console.log("Finished!");
+            });
+    });
+};
+
+export const video_trans = async (video, kakao_id) => {
+    return new Promise((resolve, reject) => {
+        fluent_ffmpeg(video)
+            .videoCodec("libx264")
+            .fps(15)
+            .size("480x720")
+            .videoFilters("fade=in:0:03")
+            .on("error", (err) => {
+                console.log(err);
+            })
+            .on("end", () => {
+                resolve();
+                console.log("video_trans");
+            })
+            .save(`./src/combine/${kakao_id}.mp4`);
+    });
 };
 
 // 비디오 썸네일 생성
@@ -163,6 +210,12 @@ export const read_file = async (kakao_id) => {
     return { video, thumbnail };
 };
 
+export const read_video = async (kakao_id) => {
+    const video = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
+
+    return { video };
+};
+
 // 비디오 및 썸네일 이미지 s3 업로드
 export const upload_video_s3 = async (video, thumbnail) => {
     const video_object = {
@@ -185,6 +238,19 @@ export const upload_video_s3 = async (video, thumbnail) => {
     return { s3_upload_video, s3_upload_thumbnail };
 };
 
+export const upload_video = async (video, thumbnail) => {
+    const video_object = {
+        Bucket: "healthree/videos",
+        Key: String(new Date().getTime() + Math.random()),
+        ACL: "public-read", // 권한: 도메인에 객체경로 URL 을 입력하여 접근 가능하게 설정
+        Body: video,
+        ContentType: "video/mp4",
+    };
+    const s3_upload_video = await s3.upload(video_object).promise();
+
+    return { s3_upload_video };
+};
+
 // 로컬에 있는 비디오 및 썸네일 이미지 삭제
 export const delete_video_thumbnail = async (kakao_id) => {
     fs.unlink(`./src/combine/${kakao_id}.mp4`, (error) => {
@@ -193,6 +259,14 @@ export const delete_video_thumbnail = async (kakao_id) => {
         }
     });
     fs.unlink(`./src/thumbnail/${kakao_id}.jpg`, (error) => {
+        if (error) {
+            throw error;
+        }
+    });
+};
+
+export const delete_video = async (kakao_id) => {
+    fs.unlink(`./src/combine/${kakao_id}.mp4`, (error) => {
         if (error) {
             throw error;
         }
