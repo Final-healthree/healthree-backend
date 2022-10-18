@@ -1,7 +1,6 @@
 import aws from "aws-sdk";
 import dotenv from "dotenv";
 import fs from "fs";
-import editly from "editly";
 import path from "path";
 import fluent_ffmpeg from "fluent-ffmpeg";
 
@@ -15,58 +14,6 @@ const s3 = new aws.S3({
         region: "ap-northeast-2",
     },
 });
-
-// export const merge_videos = async (video_one, video_two, video_three, social_id) => {
-//     const edit_spec = {
-//         width: 480,
-//         height: 720,
-//         fps: 15,
-//         outPath: `./src/combine/${social_id}.mp4`, //합쳐질 파일 위치,이름
-//         defaults: {
-//             transition: {
-//                 name: "fade",
-//                 duration: 0.3,
-//             },
-//         },
-
-//         clips: [
-//             {
-//                 layers: [
-//                     {
-//                         type: "video",
-//                         path: video_one,
-//                         resizeMode: "stretch",
-//                     },
-//                 ],
-//             },
-//             {
-//                 layers: [
-//                     {
-//                         type: "video",
-//                         path: video_two,
-//                         resizeMode: "stretch",
-//                     },
-//                 ],
-//             },
-//             {
-//                 layers: [
-//                     {
-//                         type: "video",
-//                         path: video_three,
-//                         resizeMode: "stretch",
-//                     },
-//                 ],
-//             },
-//         ],
-//         /*  audioTracks: [
-//             {
-//                 path: "./src/bgm/bgm.mp3",
-//                 mixVolume: 50,
-//             },
-//         ], */
-//     };
-//     await editly(edit_spec);
-// };
 
 export const merge_videos = (video_one, video_two, video_three, social_id) => {
     const concatMP4FileTmpPath = "./tmp";
@@ -88,6 +35,7 @@ export const merge_videos = (video_one, video_two, video_three, social_id) => {
         mergedVideo
             .mergeToFile(concatMP4FilePath, concatMP4FileTmpPath) //파일 1개로 만들기
             .on("error", function (err) {
+                reject();
                 console.log("Error ::::  " + err);
             })
             .on("end", function () {
@@ -100,11 +48,12 @@ export const merge_videos = (video_one, video_two, video_three, social_id) => {
 export const video_trans = async (video, kakao_id) => {
     return new Promise((resolve, reject) => {
         fluent_ffmpeg(video)
-            .videoCodec("libx264")
+            .videoCodec("libx265")
             .fps(15)
             .size("480x720")
             .videoFilters("fade=in:0:03")
             .on("error", (err) => {
+                reject();
                 console.log(err);
             })
             .on("end", () => {
@@ -124,6 +73,7 @@ export const create_thumbnail = async (kakao_id) => {
                 console.log("create thumbnail");
             })
             .on("error", (error) => {
+                reject();
                 console.log(error);
             })
             .screenshots({
