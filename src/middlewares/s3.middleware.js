@@ -19,7 +19,7 @@ const s3_videoUploader = multerS3({
 
 export const video_upload = multer({
     limits: {
-        fileSize: 1024 * 1024 * 10, // 10MB
+        fileSize: 1024 * 1024 * 3, // 3MB
     },
     storage: s3_videoUploader,
 });
