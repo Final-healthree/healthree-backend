@@ -42,26 +42,14 @@ export const goal_register = async (req, res, next) => {
     try {
         const { user_id } = res.locals;
         const { day1, day2, day3, goal_name } = req.body;
-        /* moment.tz.setDefault("Asia/Seoul");
-        const now = moment().format("YYYY-MM-DD"); */
 
         const goal_register = await Goal.findOne({ where: { user_id, status: "progress" } });
-
-        /* const recent_goal_info = await Goal.findOne({
-            where: { user_id },
-            order: [["createdAt", "DESC"]],
-            attributes: ["updatedAt"],
-        }); */
 
         if (goal_register) {
             return res
                 .status(409)
                 .json({ success: false, message: "이미 진행중인 작심삼일이 있습니다." });
         }
-
-        /* if (recent_goal_info.updatedAt.split(" ")[0] === now) {
-            return res.status(409).json({ success: false, message: "다음날 등록할 수 있습니다." });
-        } */
 
         if (!day1 || !day2 || !day3) {
             return res

@@ -59,10 +59,15 @@ export const goal_is_exist = async (user_id) => {
 };
 
 export const is_today_register = async (user_id) => {
+    // return await Goal.findOne({
+    //     where: { user_id },
+    //     order: [["createdAt", "DESC"]],
+    //     attributes: ["updatedAt"],
+    // });
     return await Goal.findOne({
         where: { user_id },
         order: [["createdAt", "DESC"]],
-        attributes: ["updatedAt"],
+        include: { model: Video, attributes: ["video1", "video2", "video3"] },
     });
 };
 
