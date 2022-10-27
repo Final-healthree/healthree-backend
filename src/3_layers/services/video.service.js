@@ -59,12 +59,17 @@ export const video_register = async (user_id, day, video) => {
                 { model: User, attributes: ["social_id"] },
             ],
         });
+
+        // 셋째날 올라온 비디오 인코딩
         await video_modules.video_trans(video, goal_info.User.social_id);
 
+        // 인코딩 된 셋째날 비디오를 읽음
         const readed_videod_three = await video_modules.read_video(goal_info.User.social_id);
 
+        // 인코딩 된 셋째날 비디오를 s3 업로드
         const uploaded_video_three = await video_modules.upload_video(readed_videod_three.video);
 
+        // s3에 업로드가 되면 로컬에 있는 셋째날 비디오 삭제
         await video_modules.delete_video(goal_info.User.social_id);
 
         // 비디오 병합 함수 실행
@@ -74,7 +79,9 @@ export const video_register = async (user_id, day, video) => {
             uploaded_video_three.s3_upload_video.Location,
             goal_info.User.social_id,
         );
-        await video_modules.create_thumbnail(goal_info.User.social_id); // 비디오 썸네일 생성 함수 실행
+
+        // 병합된 비디오 썸네일 생성
+        await video_modules.create_thumbnail(goal_info.User.social_id);
 
         // 삭제할 비디오 s3 object 생성
         const created_s3_object = video_modules.create_video_s3_objects(
@@ -83,22 +90,27 @@ export const video_register = async (user_id, day, video) => {
             uploaded_video_three.s3_upload_video.Location.split("videos/")[1],
         );
 
-        video_modules.delete_video_s3(created_s3_object); // 비디오 파일 s3 삭제
+        // 비디오 파일 s3에서 삭제
+        video_modules.delete_video_s3(created_s3_object);
 
-        const readed_videod = await video_modules.read_file(goal_info.User.social_id); // 병합된 비디오 s3에 올리기 위한 파일 읽기
+        // 병합된 비디오 s3에 올리기 위한 파일 읽기
+        const readed_files = await video_modules.read_video_thumbnail(goal_info.User.social_id);
 
         // 병합된 비디오 및 썸네일 s3 업로드
-        const uploaded_video = await video_modules.upload_video_s3(
-            readed_videod.video,
-            readed_videod.thumbnail,
+        const uploaded_file = await video_modules.upload_video_s3(
+            readed_files.video,
+            readed_files.thumbnail,
         );
 
-        await video_modules.delete_video_thumbnail(goal_info.User.social_id); // s3에 올린후 로컬에 저장되어 있는 비디오 파일 및 썸네일 이미지 삭제
+        // s3에 올린후 로컬에 저장되어 있는 비디오 파일 및 썸네일 이미지 삭제
+        await video_modules.delete_video_thumbnail(goal_info.User.social_id);
 
+        // 맨 처음 업로드한 셋째날 비디오 s3 객체 만들기
         const created_s3_object__three = video_modules.create_video_s3_objects(
             video.split("videos/")[1],
         );
 
+        // 맨 처음 생성된 s3 비디오 삭제
         video_modules.delete_video_s3(created_s3_object__three);
 
         // 저장소 계층 호출
@@ -106,8 +118,8 @@ export const video_register = async (user_id, day, video) => {
             user_id,
             day,
             video,
-            uploaded_video.s3_upload_video.Location,
-            uploaded_video.s3_upload_thumbnail.Location,
+            uploaded_file.s3_upload_video.Location,
+            uploaded_file.s3_upload_thumbnail.Location,
         );
     }
 };

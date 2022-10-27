@@ -45,6 +45,7 @@ export const merge_videos = (video_one, video_two, video_three, social_id) => {
     });
 };
 
+// 개별 비디오 인코딩
 export const video_trans = async (video, kakao_id) => {
     return new Promise((resolve, reject) => {
         fluent_ffmpeg(video)
@@ -153,13 +154,14 @@ export const delete_video_s3 = (object) => {
 };
 
 // 로컬에 있는 비디오 및 썸네일 이미지 읽기
-export const read_file = async (kakao_id) => {
+export const read_video_thumbnail = async (kakao_id) => {
     const video = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
     const thumbnail = fs.createReadStream(`./src/thumbnail/${kakao_id}.jpg`, { flags: "r" });
 
     return { video, thumbnail };
 };
 
+// 비디오만 읽기
 export const read_video = async (kakao_id) => {
     const video = fs.createReadStream(`./src/combine/${kakao_id}.mp4`, { flags: "r" });
 
@@ -188,7 +190,8 @@ export const upload_video_s3 = async (video, thumbnail) => {
     return { s3_upload_video, s3_upload_thumbnail };
 };
 
-export const upload_video = async (video, thumbnail) => {
+// 비디오 하나만 업로드
+export const upload_video = async (video) => {
     const video_object = {
         Bucket: "healthree/videos",
         Key: String(new Date().getTime() + Math.random()),
@@ -215,6 +218,7 @@ export const delete_video_thumbnail = async (kakao_id) => {
     });
 };
 
+// 비디오 하나만 삭제
 export const delete_video = async (kakao_id) => {
     fs.unlink(`./src/combine/${kakao_id}.mp4`, (error) => {
         if (error) {
