@@ -51,8 +51,41 @@ export const is_today_register = async (user_id) => {
 
     moment.tz.setDefault("Asia/Seoul");
     const now = moment().format("YYYY-MM-DD");
-    if (recent_goal_info.updatedAt.split(" ")[0] === now) return false; // 가장 최근에 등록된 목표의 updatedAt을 가지고 와서 날짜 비교
 
+    if (recent_goal_info) {
+        if (
+            recent_goal_info.Video.video1 !== null &&
+            recent_goal_info.Video.video2 !== null &&
+            recent_goal_info.Video.video3 !== null &&
+            recent_goal_info.day3.split(" ")[0] === now
+        ) {
+            return false;
+        }
+        if (
+            recent_goal_info.Video.video1 !== null &&
+            recent_goal_info.Video.video2 !== null &&
+            recent_goal_info.Video.video3 === null &&
+            recent_goal_info.day2.split(" ")[0] === now
+        ) {
+            return false;
+        }
+        if (
+            recent_goal_info.Video.video1 !== null &&
+            recent_goal_info.Video.video2 === null &&
+            recent_goal_info.Video.video3 === null &&
+            recent_goal_info.day1.split(" ")[0] === now
+        ) {
+            return false;
+        }
+        if (
+            recent_goal_info.Video.video1 === null &&
+            recent_goal_info.Video.video2 === null &&
+            recent_goal_info.Video.video3 === null &&
+            recent_goal_info.createdAt.split(" ")[0] === now
+        ) {
+            return false;
+        }
+    }
     return true;
 };
 
