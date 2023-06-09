@@ -6,3 +6,14 @@ package-lock.json
 
 ## .env
 .env
+
+##coverage
+coverage/
+
+##combine
+src/combine/!.gitkeep
+
+## test
+test/
+
+##
